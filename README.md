@@ -6,9 +6,9 @@ apka zupdatowana aby miec wpis jak loczyć si z baza:
 
 Po dodaniu aplikacji do netbeansa dodaj Persistance Unit
 
-1. persistance.xml
+I. persistance.xml
 
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+<<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="venZamowieniaMapiPU2" transaction-type="JTA">
@@ -21,7 +21,8 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
 -- w pliku jest odwolanie do oracle_local, które tworzymy w glassfish w View Domain Admin Console
 
-2. pozniej dodaj jakis model i  SessionBean For Entity Classes
+
+II. pozniej dodaj jakis model i  SessionBean For Entity Classes
 plik facade 
 !! Wazne - tak dodaj tworzenie EntityManager bo inaczej wywala nullPointer
 
