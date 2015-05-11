@@ -1,0 +1,21 @@
+<div hflex="1" vflex="1" sclass="banner">
+    <hbox hflex="1" vflex="1" align="center">
+        <a href="http://www.vendiservis.pl/">
+		<image src="../zul/imgs/vendi_logo2.png" width="90px" />
+	</a>
+        <div width="400px">
+            <label value="STAN ŻYWIONYCH NA DZIEŃ: " sclass="banner-head" style="font-weight: bold;font-size:20px" />
+            <datebox id="db" />
+        </div>
+        <div width="400px">
+            <checkbox id="" label="Wszystkoe grupy żywionych" onCheck="" />
+            <checkbox id="" label="Wybranej grupy żywionych" onCheck="" />
+            <combobox>
+                    <comboitem label=""/>
+            </combobox>
+        </div>
+        <hbox hflex="1" vflex="1" pack="end" align="end">
+            Test - można dodać nazwę usera
+        </hbox>
+    </hbox>
+</div>

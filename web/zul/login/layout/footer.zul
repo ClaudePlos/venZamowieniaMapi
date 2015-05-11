@@ -1,0 +1,6 @@
+<div hflex="1" vflex="1" sclass="footer">
+	<vbox hflex="1" vflex="1" align="center">
+		Zamówienia v01 06052015 - ZK ${desktop.webApp.version}
+		<a href="http://www.vendiservis.pl/">http://www.vendiservis.pl/</a>
+	</vbox>
+</div>

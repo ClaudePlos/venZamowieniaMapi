@@ -1,0 +1,27 @@
+<vbox vflex="1" hflex="1" align="center"
+        pack="center" spacing="20px" >
+
+    <borderlayout>
+			<west title="West" size="25%" flex="true" maxsize="250" splittable="true" collapsible="true">
+				
+			</west>
+			<center border="none" flex="true">
+				
+			</center>
+			<east size="50%" border="none" flex="true">
+				
+			</east>
+		</borderlayout>
+                
+                <grid>
+		<columns>
+			<column label="t1"/>
+			<column label="t2"/>
+		</columns>
+		<rows>
+			<row>	
+			</row>
+		</rows>
+	</grid>
+    
+</vbox>

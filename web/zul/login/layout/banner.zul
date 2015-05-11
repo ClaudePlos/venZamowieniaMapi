@@ -1,0 +1,14 @@
+<div hflex="1" vflex="1" sclass="banner">
+	<hbox hflex="1" vflex="1" align="center">
+		<a href="http://www.vendiservis.pl/">
+			<image src="../imgs/vendi_logo2.png" width="90px" />
+		</a>
+		
+		
+		<hbox apply="pl.authentication.LogoutController" 
+			hflex="1" vflex="1" pack="end" align="end" >
+			<label value="${sessionScope.userCredential.name}" if="${not sessionScope.userCredential.anonymous}"/>
+			<label id="logout" value="Logout" if="${not sessionScope.userCredential.anonymous}" sclass="logout"/>
+		</hbox>
+	</hbox>
+</div>
