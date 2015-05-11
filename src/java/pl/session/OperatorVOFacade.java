@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import pl.models.OperatorVO;
+import pl.models.User;
 
 /**
  *
@@ -41,6 +42,14 @@ public class OperatorVOFacade {
       List<Object> usersOb = em.createQuery("SELECT u FROM OperatorVO u").getResultList();
      //  List<Object> usersOb = em.createNativeQuery("SELECT id_operator, kod, haslo FROM operatorzy").getResultList(); 
        return users;
+       
+    }
+    
+    
+    public synchronized OperatorVO findUser(String account)
+    { 
+        OperatorVO usersOb = (OperatorVO) em.createQuery("SELECT u FROM OperatorVO u where u.login = " + account).getSingleResult();
+        return usersOb;
     }
     
 }

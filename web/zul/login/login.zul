@@ -7,7 +7,7 @@
 		<vlayout>
 			<window id="loginWin"
 				apply="pl.authentication.LoginController"
-				title="Login with you name" border="normal" hflex="min">
+				title="Okno logowania" border="normal" hflex="min">
 				<vbox hflex="min" align="center">
 					<grid hflex="min">
 						<columns>
@@ -16,11 +16,11 @@
 						</columns>
 						<rows>
 							<row>
-								Account :
+								Login :
 								<textbox id="account" width="200px" />
 							</row>
 							<row>
-								Password :
+								Hasło :
 								<textbox id="password" type="password"
 									width="200px" />
 							</row>
@@ -31,7 +31,7 @@
 					
 				</vbox>
 			</window>
-			(use account='zkoss' and password='1234' to login)
+			(Tymczasowo Login='q' and password='q')
 		</vlayout>
 	</hbox>
 </zk>
