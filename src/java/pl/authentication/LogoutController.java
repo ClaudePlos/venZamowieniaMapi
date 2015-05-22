@@ -25,6 +25,6 @@ public class LogoutController extends SelectorComposer<Component> {
 	@Listen("onClick=#logout")
 	public void doLogout(){
 		authService.logout();		
-		Executions.sendRedirect("/chapter8/");
+		Executions.sendRedirect("/");
 	}
 }

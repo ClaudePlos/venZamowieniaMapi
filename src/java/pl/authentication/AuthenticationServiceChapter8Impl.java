@@ -10,15 +10,13 @@ package pl.authentication;
  * @author k.skowronski
  */
 import javax.ejb.EJB;
-import pl.authentication.AuthenticationServiceChapter5Impl;
 import pl.other.UserInfoServiceChapter5Impl;
-import pl.models.User;
 import pl.services.UserCredential;
 import pl.services.UserInfoService;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 import pl.models.OperatorVO;
-import pl.session.OperatorVOFacade;
+import pl.session.ServiceFacade;
 
 public class AuthenticationServiceChapter8Impl extends AuthenticationServiceChapter5Impl{
 	private static final long serialVersionUID = 1L;
@@ -27,18 +25,29 @@ public class AuthenticationServiceChapter8Impl extends AuthenticationServiceChap
         
         
         @EJB 
-        OperatorVOFacade operatorVOFacade = new OperatorVOFacade();
+        ServiceFacade serviceFacade = new ServiceFacade();
+        
+        OperatorVO user;
+        
+        
 	
 	@Override
 	public boolean login(String nm, String pd) {
-		OperatorVO user = operatorVOFacade.findUser(nm);
+            try {
+                 user = serviceFacade.findUser(nm);
+                 serviceFacade.user = user;
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+		
 		//a simple plan text password verification
 		if(user==null || !user.getHaslo().equals(pd)){
 			return false;
 		}
 		
 		Session sess = Sessions.getCurrent();
-		UserCredential cre = new UserCredential(user.getLogin(),user.getLogin());
+		UserCredential cre = new UserCredential(user.getKod(),user.getKod());
 		//just in case for this demo.
 		if(cre.isAnonymous()){
 			return false;

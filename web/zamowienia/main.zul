@@ -1,4 +1,4 @@
-<vbox vflex="1" hflex="1" align="center"
+<!--  <vbox vflex="1" hflex="1" align="center"
         pack="center" spacing="20px" >
 
     <borderlayout>
@@ -13,15 +13,85 @@
 			</east>
 		</borderlayout>
                 
-                <grid>
-		<columns>
-			<column label="t1"/>
-			<column label="t2"/>
-		</columns>
-		<rows>
-			<row>	
-			</row>
-		</rows>
-	</grid>
+               <window apply="pl.views.zam.MainController">
+                <button label="Test" id="test"/>         
+                <vlayout id="result"/>   
+               </window>
+               
+             
+               <grid model="${pl.models.StanZywionychNaDzienDTO}">
+                    <columns>
+                        <column label="DietaKod" sort="auto"/>
+                        <column label="DietaNazwa" sort="auto"/>
+                        <column label="SPil"/>
+                    </columns>
+                    <template name="model">
+                        <row>
+                            <label value="${each.DietaKod}"/>
+                            <label value="${each.DietaNazwa}"/>
+                            <label value="${each.SPil}"/>
+                        </row>
+                    </template>
+                </grid> -->
+      <zk>         
+       <window apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')">
+        <hlayout id="ctlhlayout">
+            <label value='Na dzien: '/>
+            <datebox id="naDzien" />
+            <button label="Wybranej grupy żywionych" id="gzWybrane"/>         
+                <combobox id="cmbGZ" model="@load(vm.grupaZywionychModel)"/>
+            <button id="pobDane" width="115px" label="PobierzDane"
+                onClick="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.value)" />
+            <button label="Zapisz" id="zapisz" 
+                    onClick="@command('zapiszStanZyw')" />     
+        </hlayout>
+        <separator />
+        Inbox mails : <!-- <label value="@load(vm.stanyZywionychNaDzien.size)" /> -->
+        <separator />
+        <grid id = "gridStanZywionych" height="350px" model="@load(vm.stanyZywionychNaDzien)"
+            emptyMessage="Nothing in Inbox." onAfterRender="@command('uzupelnijSumeStanowNaDzie')">
+            <columns menupopup="auto">
+                <column label="dietaKod" sort="auto"/>
+                <column label="dietaNazwa" sort="auto"/>
+                <column label="Sniadanie"/>
+                <column label="Obiad"/>
+                <column label="Kolacja"/>
+                <column label="SniadanieKor"/>
+                <column label="ObiadKor"/>
+                <column label="KolacjaKor"/>
+            </columns>
+            <template name="model"> <!-- var="StanZywionychNaDzienDTO" -->
+                <row>
+                    <label value="@load(each.dietaKod)" />
+                    <label value="@load(each.dietaNazwa)" />
+                    <spinner value="@bind(each.sPil)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                    <spinner value="@bind(each.oPil)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                    <spinner value="@bind(each.kPil)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                    <spinner value="@bind(each.sK1il)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                    <spinner value="@bind(each.oK1il)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                    <spinner value="@bind(each.kK1il)" inplace="true" onChange="@command('uzupelnijSumeStanowNaDzie')"/>
+                </row>
+            </template>
+        </grid>
+      
+        <grid height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)">
+            <template name="model"> <!-- var="StanZywionychNaDzienDTO" -->
+                <row>
+                    <label value="" />
+                    <label value="Razem: " />
+                    <label value="@bind(each.sPilSum)" />
+                    <label value="@bind(each.oPilSum)" />
+                    <label value="@bind(each.kPilSum)" />
+                    <label value="@bind(each.sK1ilSum)" />
+                    <label value="@bind(each.oK1ilSum)" />
+                    <label value="@bind(each.kK1ilSum)" />
+                </row>
+            </template>
+        </grid>
+        
+    </window>
+  </zk>              
+                
     
-</vbox>
+<!-- </vbox> -->

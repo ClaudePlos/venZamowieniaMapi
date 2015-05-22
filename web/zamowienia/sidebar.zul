@@ -10,15 +10,7 @@
         </row>
         <row>
             <label id=""/>
-            <button label="Zapisz" onClick=""></button>
-        </row>
-        <row>
-            <label id=""/>
             <button label="Drukuj" onClick=""></button>
-        </row>
-        <row>
-            <image src="/imgs/demo.png"/>
-            <a href="http://www.zkoss.org/zkdemo">ZK Demo</a>
         </row>
     </rows>
 </grid>

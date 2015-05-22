@@ -6,6 +6,7 @@
 package pl.authentication;
 
 
+import javax.ejb.EJB;
 import pl.services.AuthenticationService;
 import pl.services.UserCredential;
 import org.zkoss.zk.ui.Component;
@@ -15,6 +16,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
+
 
 
 /**
@@ -34,7 +36,8 @@ public class LoginController extends SelectorComposer<Component> {
 	
 	//services
 	AuthenticationService authService = new AuthenticationServiceChapter8Impl();
-
+        
+       
 	
 	@Listen("onClick=#login; onOK=#loginWin")
 	public void doLogin(){
@@ -42,9 +45,12 @@ public class LoginController extends SelectorComposer<Component> {
 		String pd = password.getValue();
 		
 		if(!authService.login(nm,pd)){
-			message.setValue("account or password are not correct.");
+			message.setValue("Login lu hasło są niepoprawne.");
 			return;
 		}
+                
+          
+                
 		UserCredential cre= authService.getUserCredential();
 		message.setValue("Welcome, "+cre.getName());
 		message.setSclass("");
