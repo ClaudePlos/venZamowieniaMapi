@@ -31,7 +31,6 @@
 					
 				</vbox>
 			</window>
-			(Tymczasowo Login='q' and password='q')
 		</vlayout>
 	</hbox>
 </zk>

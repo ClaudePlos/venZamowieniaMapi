@@ -14,11 +14,18 @@ import java.math.BigDecimal;
 public class StanZywionychNaDzienSumaDTO {
     
     private BigDecimal sPilSum;
+    private BigDecimal dsPilSum;
     private BigDecimal oPilSum;
+    private BigDecimal poPilSum;
     private BigDecimal kPilSum;
+    private BigDecimal pnPilSum;
+    
     private BigDecimal sK1ilSum;
+    private BigDecimal dsK1ilSum;
     private BigDecimal oK1ilSum;
+    private BigDecimal poK1ilSum;
     private BigDecimal kK1ilSum;
+    private BigDecimal pnK1ilSum;
 
     public BigDecimal getsPilSum() {
         return sPilSum;
@@ -67,6 +74,56 @@ public class StanZywionychNaDzienSumaDTO {
     public void setkK1ilSum(BigDecimal kK1ilSum) {
         this.kK1ilSum = kK1ilSum;
     }
+
+    public BigDecimal getDsPilSum() {
+        return dsPilSum;
+    }
+
+    public void setDsPilSum(BigDecimal dsPilSum) {
+        this.dsPilSum = dsPilSum;
+    }
+
+    public BigDecimal getPoPilSum() {
+        return poPilSum;
+    }
+
+    public void setPoPilSum(BigDecimal poPilSum) {
+        this.poPilSum = poPilSum;
+    }
+
+    public BigDecimal getPnPilSum() {
+        return pnPilSum;
+    }
+
+    public void setPnPilSum(BigDecimal pnPilSum) {
+        this.pnPilSum = pnPilSum;
+    }
+
+    public BigDecimal getDsK1ilSum() {
+        return dsK1ilSum;
+    }
+
+    public void setDsK1ilSum(BigDecimal dsK1ilSum) {
+        this.dsK1ilSum = dsK1ilSum;
+    }
+
+    public BigDecimal getPoK1ilSum() {
+        return poK1ilSum;
+    }
+
+    public void setPoK1ilSum(BigDecimal poK1ilSum) {
+        this.poK1ilSum = poK1ilSum;
+    }
+
+    public BigDecimal getPnK1ilSum() {
+        return pnK1ilSum;
+    }
+
+    public void setPnK1ilSum(BigDecimal pnK1ilSum) {
+        this.pnK1ilSum = pnK1ilSum;
+    }
+    
+    
     
     
     

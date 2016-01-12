@@ -7,8 +7,6 @@ package pl.models;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 /**
  *
  * @author k.skowronski
@@ -19,30 +17,56 @@ public class StanZywionychNaDzienDTO {
     private Timestamp dObr;
     private BigDecimal idGrupaZywionych;
     private BigDecimal idDieta;
-    private String dietaKod;
     private String dietaNazwa;
-    private String grupaZywionych;
-    private BigDecimal sPil;
-    private BigDecimal oPil;
-    private BigDecimal kPil;
-    private BigDecimal sK1il;
-    private BigDecimal oK1il;
-    private BigDecimal kK1il;
+    //private String grupaZywionych;
     
+    private BigDecimal sniadaniePlanIl;
+    private BigDecimal drugieSniadaniePlanIl;
+    private BigDecimal obiadPlanIl;
+    private BigDecimal podwieczorekPlanIl;
+    private BigDecimal kolacjaPlanIl;
+    private BigDecimal posilekNocnyPlanIl;
+    
+    private BigDecimal sniadanieKorIl;
+    private BigDecimal drugieSniadanieKorIl;
+    private BigDecimal obiadKorIl;
+    private BigDecimal podwieczorekKorIl;
+    private BigDecimal kolacjaKorIl;
+    private BigDecimal posilekNocnyKorIl;
+    
+    private BigDecimal lp;
 
-    public StanZywionychNaDzienDTO(Timestamp dObr, BigDecimal idGrupaZywionych, BigDecimal idDieta, String dietaKod, String dietaNazwa, String grupaZywionych, BigDecimal sPil, BigDecimal oPil, BigDecimal kPil, BigDecimal sK1il, BigDecimal oK1il, BigDecimal kK1il) {
+    public StanZywionychNaDzienDTO(Timestamp dObr, BigDecimal idGrupaZywionych, BigDecimal idDieta, String dietaNazwa
+     , BigDecimal sniadaniePlanIl
+     , BigDecimal drugieSniadaniePlanIl
+     , BigDecimal obiadPlanIl
+     , BigDecimal podwieczorekPlanIl
+     , BigDecimal kolacjaPlanIl
+     , BigDecimal posilekNocnyPlanIl
+     , BigDecimal sniadanieKorIl
+     , BigDecimal drugieSniadanieKorIl
+     , BigDecimal obiadKorIl
+     , BigDecimal podwieczorekKorIl
+     , BigDecimal kolacjaKorIl
+     , BigDecimal posilekNocnyKorIl
+     , BigDecimal lp) {
         this.dObr = dObr;
         this.idGrupaZywionych = idGrupaZywionych;
         this.idDieta = idDieta;
-        this.dietaKod = dietaKod;
         this.dietaNazwa = dietaNazwa;
-        this.grupaZywionych = grupaZywionych;
-        this.sPil = sPil;
-        this.oPil = oPil;
-        this.kPil = kPil;
-        this.sK1il = sK1il;
-        this.oK1il = oK1il;
-        this.kK1il = kK1il;
+        this.sniadaniePlanIl = sniadaniePlanIl;
+        this.drugieSniadaniePlanIl = drugieSniadaniePlanIl;
+        this.obiadPlanIl = obiadPlanIl;
+        this.podwieczorekPlanIl = podwieczorekPlanIl;
+        this.kolacjaPlanIl = kolacjaPlanIl;
+        this.posilekNocnyPlanIl = posilekNocnyPlanIl;
+        this.sniadanieKorIl = sniadanieKorIl;
+        this.drugieSniadanieKorIl = drugieSniadanieKorIl;
+        this.obiadKorIl = obiadKorIl;
+        this.podwieczorekKorIl = podwieczorekKorIl;
+        this.kolacjaKorIl = kolacjaKorIl;
+        this.posilekNocnyKorIl = posilekNocnyKorIl;
+        this.lp = lp;
     }
 
     public Timestamp getdObr() {
@@ -69,14 +93,6 @@ public class StanZywionychNaDzienDTO {
         this.idDieta = idDieta;
     }
 
-    public String getDietaKod() {
-        return dietaKod;
-    }
-
-    public void setDietaKod(String dietaKod) {
-        this.dietaKod = dietaKod;
-    }
-
     public String getDietaNazwa() {
         return dietaNazwa;
     }
@@ -85,62 +101,111 @@ public class StanZywionychNaDzienDTO {
         this.dietaNazwa = dietaNazwa;
     }
 
-    public String getGrupaZywionych() {
-        return grupaZywionych;
+    public BigDecimal getSniadaniePlanIl() {
+        return sniadaniePlanIl;
     }
 
-    public void setGrupaZywionych(String grupaZywionych) {
-        this.grupaZywionych = grupaZywionych;
+    public void setSniadaniePlanIl(BigDecimal sniadaniePlanIl) {
+        this.sniadaniePlanIl = sniadaniePlanIl;
     }
 
-    public BigDecimal getsPil() {
-        return sPil;
+    public BigDecimal getDrugieSniadaniePlanIl() {
+        return drugieSniadaniePlanIl;
     }
 
-    public void setsPil(BigDecimal sPil) {
-        this.sPil = sPil;
+    public void setDrugieSniadaniePlanIl(BigDecimal drugieSniadaniePlanIl) {
+        this.drugieSniadaniePlanIl = drugieSniadaniePlanIl;
     }
 
-    public BigDecimal getoPil() {
-        return oPil;
+    public BigDecimal getObiadPlanIl() {
+        return obiadPlanIl;
     }
 
-    public void setoPil(BigDecimal oPil) {
-        this.oPil = oPil;
+    public void setObiadPlanIl(BigDecimal obiadPlanIl) {
+        this.obiadPlanIl = obiadPlanIl;
     }
 
-    public BigDecimal getkPil() {
-        return kPil;
+    public BigDecimal getPodwieczorekPlanIl() {
+        return podwieczorekPlanIl;
     }
 
-    public void setkPil(BigDecimal kPil) {
-        this.kPil = kPil;
+    public void setPodwieczorekPlanIl(BigDecimal podwieczorekPlanIl) {
+        this.podwieczorekPlanIl = podwieczorekPlanIl;
     }
 
-    public BigDecimal getsK1il() {
-        return sK1il;
+    public BigDecimal getKolacjaPlanIl() {
+        return kolacjaPlanIl;
     }
 
-    public void setsK1il(BigDecimal sK1il) {
-        this.sK1il = sK1il;
+    public void setKolacjaPlanIl(BigDecimal kolacjaPlanIl) {
+        this.kolacjaPlanIl = kolacjaPlanIl;
     }
 
-    public BigDecimal getoK1il() {
-        return oK1il;
+    public BigDecimal getPosilekNocnyPlanIl() {
+        return posilekNocnyPlanIl;
     }
 
-    public void setoK1il(BigDecimal oK1il) {
-        this.oK1il = oK1il;
+    public void setPosilekNocnyPlanIl(BigDecimal posilekNocnyPlanIl) {
+        this.posilekNocnyPlanIl = posilekNocnyPlanIl;
     }
 
-    public BigDecimal getkK1il() {
-        return kK1il;
+    public BigDecimal getSniadanieKorIl() {
+        return sniadanieKorIl;
     }
 
-    public void setkK1il(BigDecimal kK1il) {
-        this.kK1il = kK1il;
+    public void setSniadanieKorIl(BigDecimal sniadanieKorIl) {
+        this.sniadanieKorIl = sniadanieKorIl;
     }
 
+    public BigDecimal getDrugieSniadanieKorIl() {
+        return drugieSniadanieKorIl;
+    }
+
+    public void setDrugieSniadanieKorIl(BigDecimal drugieSniadanieKorIl) {
+        this.drugieSniadanieKorIl = drugieSniadanieKorIl;
+    }
+
+    public BigDecimal getObiadKorIl() {
+        return obiadKorIl;
+    }
+
+    public void setObiadKorIl(BigDecimal obiadKorIl) {
+        this.obiadKorIl = obiadKorIl;
+    }
+
+    public BigDecimal getPodwieczorekKorIl() {
+        return podwieczorekKorIl;
+    }
+
+    public void setPodwieczorekKorIl(BigDecimal podwieczorekKorIl) {
+        this.podwieczorekKorIl = podwieczorekKorIl;
+    }
+
+    public BigDecimal getKolacjaKorIl() {
+        return kolacjaKorIl;
+    }
+
+    public void setKolacjaKorIl(BigDecimal kolacjaKorIl) {
+        this.kolacjaKorIl = kolacjaKorIl;
+    }
+
+    public BigDecimal getPosilekNocnyKorIl() {
+        return posilekNocnyKorIl;
+    }
+
+    public void setPosilekNocnyKorIl(BigDecimal posilekNocnyKorIl) {
+        this.posilekNocnyKorIl = posilekNocnyKorIl;
+    }
+
+    public BigDecimal getLp() {
+        return lp;
+    }
+
+    public void setLp(BigDecimal lp) {
+        this.lp = lp;
+    }
+
+    
 
   
     

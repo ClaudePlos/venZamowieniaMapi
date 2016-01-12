@@ -10,8 +10,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Init;
 import org.apache.poi.poifs.property.Child;
+import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.DependsOn;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -50,7 +53,7 @@ public class MenuController extends SelectorComposer<Component> {
     
     List<GrupaZywionychVO> grupyZywionych;
     
-    ListModel<String> grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych() );
+    /*ListModel<String> grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych(null) );*/
     
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
@@ -76,16 +79,17 @@ public class MenuController extends SelectorComposer<Component> {
     
     public MenuController()
     {
-        serviceFacade.listaGrupyZywionych();
+      //  serviceFacade.listaGrupyZywionych();
         
-       /* Label l = new Label();
+      /*  Label l = new Label(); TO NIE DZIAŁA 
         l.setValue( "Witaj" + serviceFacade.user.getKod() );
-        win.appendChild(l);*/
+        result.appendChild(l);*/ 
     }
+    
 
-    public ListModel<String> getGrupaZywionychModel() {
+   /* public ListModel<String> getGrupaZywionychModel() {
         return grupaZywionychModel;
-    }
+    }*/
 
     public String getWybranaGrupaZywionych() {
         return wybranaGrupaZywionych;
@@ -98,12 +102,14 @@ public class MenuController extends SelectorComposer<Component> {
     
     
     public List<GrupaZywionychVO> getGrupyZywionych() {
-        serviceFacade.listaGrupyZywionych();
+        serviceFacade.listaGrupyZywionych(null);
         
         grupyZywionych = serviceFacade.grupyZywionych;
         return grupyZywionych;
     }
     
+    
+   
     
     
     @DependsOn({"wybranaGrupaZywionych"})
@@ -111,6 +117,7 @@ public class MenuController extends SelectorComposer<Component> {
        Messagebox.show(wybranaGrupaZywionych);
     }
     
+
     
     
     @Listen("onClick = button#pobierzStan")
@@ -132,11 +139,11 @@ public class MenuController extends SelectorComposer<Component> {
             Executions.sendRedirect("/");
     }
     
-    
-   
+
+/*
     @Listen("onClick=#gzWybrane")
     public void gzWybrane(Event event) { //register a listener to a component called retrieve
-          grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych() );
+          grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych(null) );
           
             if ( cmbGZ != null )
             {
@@ -148,7 +155,7 @@ public class MenuController extends SelectorComposer<Component> {
                 cmbGZ.setModel(grupaZywionychModel);
             }
     
-    }
+    }*/
     
     @Listen("onClick=#gzWszystkie")
     public void gzWszystkie(Event event) {

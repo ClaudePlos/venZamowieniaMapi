@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>oracle_local</jta-data-source>
     <class>pl.models.OperatorVO</class>
+    <class>pl.models.GrupaZywionychVO</class>
+    <class>pl.models.KierunekKosztowVO</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

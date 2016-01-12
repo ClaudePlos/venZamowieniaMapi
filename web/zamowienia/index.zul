@@ -1,10 +1,10 @@
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <zk>
     <borderlayout hflex="1" vflex="1">
-        <north height="100px" border="none" >
+        <north height="85px" border="none" >
             <include src="banner.zul"/>
         </north>
-        <west width="260px" border="none" collapsible="true" splittable="true" minsize="300">
+        <west width="100px" border="none" collapsible="true" splittable="true" minsize="300">
             <include src="sidebar.zul"/>
         </west>
         <center id="mainContent" autoscroll="true">

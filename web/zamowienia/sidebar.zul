@@ -1,15 +1,12 @@
 <grid hflex="1" vflex="1" sclass="sidebar" apply="pl.views.zam.MenuController">
     <columns>
-        <column width="36px"/>
         <column/>
     </columns>
     <rows>
         <row>
-            <label id=""/>
             <button id="logout" label="Wyloguj" onClick=""></button>
         </row>
         <row>
-            <label id=""/>
             <button label="Drukuj" onClick=""></button>
         </row>
     </rows>
