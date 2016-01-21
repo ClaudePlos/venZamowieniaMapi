@@ -1,0 +1,432 @@
+      <zk>     
+       <style> .red { color: red; font-size: 20px; } </style>   
+       <window apply="org.zkoss.bind.BindComposer" id="meals" renderdefer="100"
+        viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')">
+        <hlayout id="ctlhlayout1" >
+            
+            <vlayout width="10px"></vlayout>
+        
+           <vlayout>       
+            <label value='Na dzien: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
+            <datebox  id="naDzien" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"/>
+           </vlayout> 
+           
+           <vlayout width="55px"></vlayout>
+            
+           <vlayout>    
+            <label value="Kierunek kosztow" id="kkWybrane"/>         
+                <combobox id="cmbKK" model="@load(vm.kierunkiKosztow)" 
+                          selectedItem="@bind(vm.selectedKierunekKosztow)"
+                          onSelect="@command('wybranoKierKosztow')">
+                    <template name="model" var="p1">
+                         <comboitem label="@load(p1.kierunekKosztowKod)"
+                               value="@load(p1.idKierunekKosztow)" />
+                     </template>
+                </combobox>
+           
+           <hlayout> 
+              <vlayout>          
+               <label value="Grupy żywionych" id="gzWybrane"/>         
+                <combobox id="cmbGZ" model="@load(vm.grupyZywionych)"
+                          onSelect="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)">
+                    <template name="model" var="p1">
+                        <comboitem label="@load(p1.grupaZywionych)"
+                            value="@load(p1.idGrupaZywionych)" />
+                    </template>
+                </combobox>
+              </vlayout>  
+              
+              <vlayout width="35px"></vlayout>
+                
+                <!--
+                <button id="pobDane" width="115px" label="PobierzDane"
+                    onClick="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)" >
+                </button>
+                -->
+                
+                <button label="Zapisz" id="zapisz"  sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')"
+                    onClick="@command('zapiszStanZyw')" /> 
+                
+                <checkbox label="Aktywuj Korektę" 
+                      onCheck="@command('doCheckedKor', checked=self.checked)"/>   
+                
+           </hlayout>       
+           </vlayout>     
+         
+                
+            
+            
+            
+            
+     
+        </hlayout>
+        
+        <separator />
+         <label id="lab01" value="Stany żywionych: " /> 
+         <label id="lab02" value="@bind(vm.statusZamowienia)" sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')" /> 
+        <separator />
+        
+        <!--<frozen style="background: #DFDED8" columns="2"/> przesuwanie od drugiej kolumny--> 
+        
+        <div width="1283px">
+        <!-- podsumowanie -->
+        <div width="1260px">
+        <grid height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)" >
+            <template name="model" > <!-- var="StanZywionychNaDzienDTO" -->
+                <row renderdefer="200">
+                    <cell width="123px"><label value="Razem: / " /><label value=" Korekta + Plan: " style="color:red"/></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.sPilSum)" /></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.dsPilSum)"/></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.oPilSum)"/></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.poPilSum)"/></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.kPilSum)"/></cell>
+                    <cell width="55px" align="center"><label value="@bind(each.pnPilSum)"/></cell>
+                    
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.sK1ilSum)" style="color:red"/></cell>
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.dsK1ilSum)" style="color:red"/></cell>
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.oK1ilSum)" style="color:red"/></cell>
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.poK1ilSum)" style="color:red"/></cell>
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.kK1ilSum)" style="color:red"/></cell>
+                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.pnK1ilSum)" style="color:red"/></cell>
+                </row>
+            </template>
+        </grid>
+        </div>
+        
+        <!-- grid stan zywionych autopaging="true" mold="paging"--><!--
+        <grid id = "gridStanZywionych"  model="@load(vm.stanyZywionychNaDzien)"  
+              emptyMessage="Wybierz dzień, Kierunek Kosztów, Grupe żywionych i pobierz dane" 
+               height="550px" mold="paging" pageSize="6"
+              onAfterRender="@command('uzupelnijSumeStanowNaDzien')">   
+            
+            <auxhead>
+                <auxheader label="LP" rowspan="2" align="center" width="30px"/>
+                <auxheader label="Nazwa Diety" rowspan="2" align="center" width="150px"/>
+                <auxheader label="Planowanie" colspan="6" align="center"/>
+                <auxheader label="Korekta +/- różnica między planem a stanem faktycznym" colspan="6" align="center" style="color: red;"/>
+            </auxhead>
+            <auxhead>
+
+                <auxheader label="Ś" align="center" />
+                <auxheader label="II Ś" align="center" />
+                <auxheader label="O"    align="center"  />
+                <auxheader label="P" align="center"  />
+                <auxheader label="K"  align="center" />
+                <auxheader label="PN" align="center" />
+                
+                <auxheader label="Śniad." align="center" style="color: red;"/>
+                <auxheader label="II śniad." align="center" style="color: red;"/>
+                <auxheader label="Obiad"  align="center" style="color: red;"/>
+                <auxheader label="Podw." align="center"  style="color: red;"/>
+                <auxheader label="Kolacja" align="center"  style="color: red;"/>
+                <auxheader label="P.Nocy" align="center"  style="color: red;"/>    
+        
+                
+            </auxhead>
+            
+            
+            <columns visible="false">
+                <column width="30px"/>
+                <column width="150px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+                <column width="90px"/>
+            </columns>
+            
+            <template name="model"> 
+                <row>
+                    
+                    <cell>
+                    <label value="@load(each.lp)" width="30px"/>
+                    </cell>
+                    
+                    <cell>
+                    <label value="@load(each.dietaNazwa)" width="150px"/>
+                    </cell>
+                    
+                    <cell>
+                    <spinner value="@bind(each.sniadaniePlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell>
+                    <spinner value="@bind(each.drugieSniadaniePlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell>
+                    <spinner value="@bind(each.obiadPlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell>
+                    <spinner value="@bind(each.podwieczorekPlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell>
+                    <spinner value="@bind(each.kolacjaPlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell>
+                    <spinner value="@bind(each.posilekNocnyPlanIl)" inplace="true" 
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                
+                    
+                    
+                    
+                    <cell style="background-color: #BBC2DB; color: red;" align="right">
+                        <spinner value="@bind(each.sniadanieKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell style="background-color: #BBC2DB; color: red;">
+                        <spinner value="@bind(each.drugieSniadanieKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell style="background-color: #BBC2DB; color: red;">
+                        <spinner value="@bind(each.obiadKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell style="background-color: #BBC2DB; color: red;">
+                        <spinner value="@bind(each.podwieczorekKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell style="background-color: #BBC2DB; color: red;">
+                        <spinner value="@bind(each.kolacjaKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                    <cell style="background-color: #BBC2DB; color: red;">
+                        <spinner value="@bind(each.posilekNocnyKorIl)" inplace="true" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
+                    </cell>
+                </row>
+            </template>
+        </grid> 
+       -->
+      
+       
+      
+        
+ 
+ 
+       <!-- mold="paging" pagingPosition="top" pageSize="3"  -->
+     
+           
+           
+            
+           
+     
+           <listbox  width="1283px"  mold="paging"  pageSize="150" height="600px"
+		model="@bind(vm.stanyZywionychNaDzien)"
+           onAfterRender="@command('uzupelnijSumeStanowNaDzien')">
+            
+               
+            <auxhead>
+                <auxheader label="LP" rowspan="2" align="center" width="30px"/>
+                <auxheader label="Nazwa Diety" rowspan="2" align="center" width="150px"/>
+                <auxheader label="Planowanie" colspan="6" align="center"/>
+                <auxheader label="Korekta +/- różnica między planem a stanem faktycznym" colspan="6" align="center" style="color: red;"/>
+            </auxhead>
+            <auxhead>
+
+                <auxheader label="Ś" align="center" />
+                <auxheader label="II Ś" align="center" />
+                <auxheader label="O"    align="center"  />
+                <auxheader label="P" align="center"  />
+                <auxheader label="K"  align="center" />
+                <auxheader label="PN" align="center" />
+                
+                <auxheader label="Śniad." align="center" style="color: red;"/>
+                <auxheader label="II śniad." align="center" style="color: red;"/>
+                <auxheader label="Obiad"  align="center" style="color: red;"/>
+                <auxheader label="Podw." align="center"  style="color: red;"/>
+                <auxheader label="Kolacja" align="center"  style="color: red;"/>
+                <auxheader label="P.Nocy" align="center"  style="color: red;"/>    
+        
+                
+            </auxhead>      
+               
+            <listhead visible="false">
+                <listheader  width="32px"/>
+                <listheader  width="150px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+            </listhead> 
+            
+                
+               
+               
+           <template name="model" var="sz">    
+		<listitem>
+                    
+                    <listcell label="@load(sz.lp)" />
+                    <listcell label="@load(sz.dietaNazwa)" />
+                    
+                    <!--   -->
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                              onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)"
+                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                
+                    
+                    
+                    
+                    <listcell  style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.obiadKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell  style="background-color: #BBC2DD; color: red;">
+                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                </listitem>
+                
+           </template>      
+	</listbox>
+                  
+
+       </div>
+ 
+ 
+       <!-- 
+         <grid id = "gridStanZywionych2" height="550px" 
+               model="@load(vm.stanyZywionychNaDzien)"  
+               autopaging="true" mold="paging"
+               emptyMessage="Nothing in Inbox." 
+               onAfterRender="@command('uzupelnijSumeStanowNaDzie')" 
+               rowRenderer="pl.views.zam.GridZamowieniaRow"
+               sclass="narrow">
+            <columns menupopup="auto">
+                <column label="DietaNazwa" sort="auto"  width="150px"/>
+                <column label="Sniadanie" width="90px"/>
+                <column label="DrugSniadanie" width="90px"/>
+                <column label="Obiad" width="90px"/>
+                <column label="Podwieczorek" width="90px"/>
+                <column label="Kolacja" width="90px"/>
+                <column label="PosilekNocny" width="90px"/>
+                
+                <column label="SniadanieKor"/>
+                <column label="DrugieSniKor"/>
+                <column label="ObiadKor"/>
+                <column label="PodwieczoKor"/>
+                <column label="KolacjaKor"/>
+                <column label="PosilekNocKor"/>
+            </columns>
+      
+        </grid>
+      -->
+       
+        
+        
+        
+        <zscript><![CDATA[
+            
+            import java.io.IOException;
+          
+            void onClickRowGrid(Intbox ds) { 
+            
+                if ( lab02.getValue() != "STATUS PLANOWANIE")
+                {
+                    Messagebox.show( "Odznacz Aktywuj korektę! przed wprowadzaniem danych na planie", "Warning", Messagebox.OK, Messagebox.EXCLAMATION );
+                }
+                     
+                if ( ds.getValue() == null )
+                {
+                    Messagebox.show( "Nie można wprowadzać zamówień dla pustych pól !!!", "Error", Messagebox.OK, Messagebox.ERROR );
+                }
+            }
+            
+            void onClickRowGridKor(Intbox ds) { 
+            
+                if ( lab02.getValue() == "STATUS PLANOWANIE")
+                {
+                    Messagebox.show( "Aktywuj korektę! przed wprowadzaniem danych na korekcie", "Warning", Messagebox.OK, Messagebox.EXCLAMATION );
+                }
+            
+                     
+                if ( ds.getValue() == null )
+                {
+                    Messagebox.show( "Nie można wprowadzać zamówień dla pustych pól !!!", "Error", Messagebox.OK, Messagebox.ERROR );
+                }
+            }
+            
+            void changeStyle(Spinner listitem) {
+				if(listitem.getValue() == null) {
+					listitem.setStyle("background-color: green;");
+				}
+            }
+            
+        ]]></zscript>
+        
+    </window>
+    
+     
+    
+  </zk>              
+                
+    
+<!-- </vbox> -->

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<zk>
+<config-name>zkex</config-name><!-- used to resolve dependency -->
+<depends>zul</depends>
+
+<desktop-config>
+<!-- 
+Default theme provider
+Users may replace the default with their own custom theme provider in WEB-INF/zk.xml.
+-->
+<theme-provider-class>org.zkoss.zkex.theme.StandardThemeProvider</theme-provider-class>
+</desktop-config>
+
+<system-config>
+<ui-factory-class>org.zkoss.zk.ui.http.SerializableUiFactory</ui-factory-class>
+</system-config>
+
+<preference>
+    <name>JpaUtil.PersistenceUnitName</name>
+    <value>venZamowieniaMapiPU2</value> <!-- The persistence unit name which is defined in persistence.xml -->
+</preference>
+
+
+</zk>

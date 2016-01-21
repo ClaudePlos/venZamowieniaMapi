@@ -1,0 +1,87 @@
+
+<?import pl.views.zam.MenuController ?>
+
+<window id="win" apply="pl.views.zam.MenuController">
+    
+    <style>  
+.z-loading {  
+	font-weight: bold;  
+	padding:2px; 
+        border:2;
+	position:fixed;
+	left:50%;
+	top:50%; 
+        width: 160px;
+	
+}  
+.z-loading-indicator {  
+	font-weight: bold;
+        border:1px solid #83B5F7;
+        font-size: 20px;
+	border:0; 
+	position:fixed;
+	left:50%;
+	top:50%;
+}  
+.z-loading-icon{
+	position:fixed;
+	left:50%;
+	top:50%;	
+}
+</style> 
+    
+    <hbox hflex="1" vflex="1" align="center">
+        <a href="http://www.vendiservis.pl/"><image src="../zul/imgs/vendi_logo2.png" width="90px" /></a>
+        
+        <div>
+            
+            
+            
+            <label value="STAN ŻYWIONYCH NA DZIEŃ " sclass="banner-head" style="font-weight: bold;font-size:20px" />
+            <label id="l1" value=""></label><separator bar="true" />
+            <label id="l2" value=""></label>
+            <!-- <vlayout id="result"/>  -->
+             <zscript>
+                   <![CDATA[ 
+                        import pl.session.ServiceFacade;
+                         
+                        ServiceFacade serviceFacade = ServiceFacade.getInstance();
+                        l1.value = "Zalogowany: " + serviceFacade.user.getKod() ;
+                                    
+                    ]]>
+            </zscript>
+          <!--  <datebox id="naDzien" />
+                l2.value = "Kierunek Kosztów: " + serviceFacade.user.getKierunekKosztow().getKierunekKosztowNazwa(); 
+                <button label="Wszystkie grupy żywionych" id="gzWszystkie"/>
+                <button label="Wybranej grupy żywionych" id="gzWybrane"/>         
+                <combobox id="cmbGZ"/> -->  
+                   
+   
+        
+
+        </div>
+        
+        
+        <!--
+        <grid apply="org.zkoss.bind.BindComposer"
+                viewModel="@id('vm') @init('pl.views.zam.MenuController')" model="@bind(vm.grupyZywionych)">
+                <columns>
+                    <column label="Name" sort="auto" />
+                    <column label="Title" sort="auto" />
+                    <column label="Age" sort="auto" />
+                </columns>
+                <template name="model" var="grupa">
+                    <row>
+                        <textbox value="@bind(grupa.grupaZywionych)" />
+                        <textbox value="@bind(grupa.grupaZywionych)" />
+                        <textbox value="@bind(grupa.grupaZywionych)" />
+                    </row>
+                </template>
+            </grid>
+        -->
+        
+        <hbox hflex="1" vflex="1" pack="end" align="end">
+          <!--  Witaj <label value="win.serviceFacade.user.kod"/> -->
+        </hbox>
+    </hbox>
+</window>
