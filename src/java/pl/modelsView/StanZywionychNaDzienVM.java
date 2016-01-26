@@ -6,11 +6,13 @@
 package pl.modelsView;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.ValidationContext;
 import org.zkoss.bind.Validator;
 import org.zkoss.bind.annotation.BindingParam;
@@ -18,10 +20,15 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.bind.validator.AbstractValidator;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Messagebox.ClickEvent;
 import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
 import pl.models.StanZywionychNaDzienDTO;
@@ -50,6 +57,10 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
+    private Date dC;
+    
+    private String gzC;
+    
     private List<KierunekKosztowVO> kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
     
     private KierunekKosztowVO selectedKierunekKosztow = new KierunekKosztowVO();
@@ -62,7 +73,12 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
     public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien = serviceFacade.stanyZywionychNaDzien;
     
+    public List<StanZywionychNaDzienDTO> stanyZywionychDoKopiowania;
+    
     public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma = serviceFacade.stanyZywionychNaDzienSuma;
+    
+     
+    
  
 
     public List<StanZywionychNaDzienDTO> getStanyZywionychNaDzien() {
@@ -183,7 +199,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     
     @Command
-    @NotifyChange("stanyZywionychNaDzien")
+    //@NotifyChange("stanyZywionychNaDzien")
     public void zapiszStanZyw() {
       //  Messagebox.show("StanZywionychNaDzienVM-pobInne"+naDzien+grupaZywionych);
         String ret = serviceFacade.zapiszStanZywionychWDniu2( stanyZywionychNaDzien, selectedKierunekKosztow, czyKorekta );
@@ -300,6 +316,58 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     
     @Command
+    @NotifyChange("stanyZywionychNaDzienSuma")
+    public void uzupelnijPozycjePoZmianieSniadania( @BindingParam("row") StanZywionychNaDzienDTO stanZyw )
+    {
+       System.out.println( stanZyw.getSniadaniePlanIl() );
+        
+       
+            int INDEX = stanyZywionychNaDzien.indexOf(stanZyw);
+            stanyZywionychNaDzien.get(INDEX).setObiadPlanIl(stanZyw.getSniadaniePlanIl());
+            stanyZywionychNaDzien.get(INDEX).setKolacjaPlanIl(stanZyw.getSniadaniePlanIl());
+            
+            BindUtils.postNotifyChange(null, null, stanZyw, "obiadPlanIl");
+            BindUtils.postNotifyChange(null, null, stanZyw, "kolacjaPlanIl");
+            
+           /* if ( stanyZywionychNaDzien.get(INDEX).getDrugieSniadaniePlanIl() != null )
+            {
+                stanyZywionychNaDzien.get(INDEX).setDrugieSniadaniePlanIl(stanZyw.getSniadaniePlanIl());
+                BindUtils.postNotifyChange(null, null, stanZyw, "drugieSniadaniePlanIl");
+            }
+            
+            if ( stanyZywionychNaDzien.get(INDEX).getPodwieczorekPlanIl()!= null )
+            {
+                stanyZywionychNaDzien.get(INDEX).setPodwieczorekPlanIl(stanZyw.getSniadaniePlanIl());
+                BindUtils.postNotifyChange(null, null, stanZyw, "podwieczorekPlanIl");
+            }
+            
+            
+            if ( stanyZywionychNaDzien.get(INDEX).getPosilekNocnyPlanIl()!= null )
+            {
+                stanyZywionychNaDzien.get(INDEX).setPosilekNocnyPlanIl(stanZyw.getSniadaniePlanIl());
+                BindUtils.postNotifyChange(null, null, stanZyw, "posilekNocnyPlanIl");
+            }
+            */
+            
+       
+        
+       /* 
+        
+         if  ( stanyZywionychNaDzien.contains(stanZyw) )
+        {
+            System.out.println("Account found");
+        } else {
+            System.out.println("Account not found");
+        }
+       
+       
+       */
+        
+        uzupelnijSumeStanowNaDzien();
+    }
+    
+    
+    @Command
     @NotifyChange("statusZamowienia")
     public void doCheckedKor(@BindingParam("checked") boolean korZaznaczenie) {
         if (korZaznaczenie){
@@ -315,6 +383,66 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
        System.out.print("czyKorekta: " + czyKorekta);
     }
     
+    
+    @Command
+    @NotifyChange("stanyZywionychNaDzienSuma")
+    public void copyStanZywDlaDnia(@BindingParam("naDzien") Date naDzien,@BindingParam("naDzienCopy") Date naDzienCopy, @BindingParam("grupaZywionych") String grupaZywionych)
+    {
+        dC = naDzienCopy;
+        gzC = grupaZywionych;
+        
+        
+        
+        EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
+            
+            public void onEvent(ClickEvent event) throws Exception {
+                if(Messagebox.Button.YES.equals(event.getButton())) {
+                    
+                    copyStanZywDlaDnia2();
+                }
+            }
+        };
+        
+        Messagebox.show("Czy na pewno chcesz skopiować stany?", "Cancel Order", new Messagebox.Button[]{
+                Messagebox.Button.YES, Messagebox.Button.NO }, Messagebox.QUESTION, clickListener);
+
+        
+    }
+    
+    
+    
+    private void copyStanZywDlaDnia2()
+    {
+        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC);
+        
+            for ( StanZywionychNaDzienDTO szCopy : stanyZywionychDoKopiowania )
+            {
+
+                for ( StanZywionychNaDzienDTO sz : stanyZywionychNaDzien )
+                {
+                    if ( sz.getIdGrupaZywionych().equals(szCopy.getIdGrupaZywionych())
+                            && sz.getIdDieta().equals(szCopy.getIdDieta()) )
+                    {
+                       sz.setSniadaniePlanIl(szCopy.getSniadaniePlanIl());
+                       sz.setObiadPlanIl(szCopy.getObiadPlanIl()); 
+                       sz.setKolacjaPlanIl(szCopy.getKolacjaPlanIl());
+
+                       BindUtils.postNotifyChange(null, null, sz, "sniadaniePlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "obiadPlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "kolacjaPlanIl");
+                    }
+                }
+
+               /* int INDEX = stanyZywionychNaDzien.indexOf(szCopy);
+                stanyZywionychNaDzien.get(INDEX).setObiadPlanIl(szCopy.getSniadaniePlanIl());
+                stanyZywionychNaDzien.get(INDEX).setKolacjaPlanIl(szCopy.getSniadaniePlanIl());*/
+
+
+            }
+
+            uzupelnijSumeStanowNaDzien();
+            BindUtils.postNotifyChange(null, null, stanyZywionychNaDzienSuma, "*");
+    }
     
     
     

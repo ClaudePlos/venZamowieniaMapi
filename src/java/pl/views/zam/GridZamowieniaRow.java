@@ -5,43 +5,75 @@
  */
 package pl.views.zam;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.util.GenericForwardComposer;
-import org.zkoss.zul.Grid;
-import org.zkoss.zul.ListModelList;
 
-
-
+import java.math.BigDecimal;
+import javax.ejb.EJB;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Row;
+import org.zkoss.zul.RowRenderer;
+import org.zkoss.zul.Spinner;
+import org.zkoss.zul.Textbox;
+import pl.models.StanZywionychNaDzienDTO;
+import pl.modelsView.StanZywionychNaDzienVM;
 
 /**
  *
  * @author k.skowronski
  */
-public class GridZamowieniaRow extends GenericForwardComposer{
-
-  private Grid inboxGrid;
-  public void doAfterCompose(Component comp) throws Exception {
-    super.doAfterCompose(comp);
+public class GridZamowieniaRow implements RowRenderer<StanZywionychNaDzienDTO> {
     
-    //inboxGrid.setModel(new ListModelList(getData()));
-
-  }
-  
-  
-
-  /* simply return a small model here , you could read data from database for your own implementation.*/
-  private List<String[]> getData(){
-    ArrayList<String[]> list= new ArrayList<String[]>();
     
-    list.add(new String[]{"Test Mail1","TonyQ", "10k"});
-    list.add(new String[]{"Test Mail12","Ryan", "100k"});
-    list.add(new String[]{"Test Mail13","Simon", "15k"});
-    list.add(new String[]{"Test Mail14","Jimmy", "5k"});    
-    return list;
-  }
-  
-  
-  
+    
+    @Override
+    public void render( Row row,  StanZywionychNaDzienDTO data, int index) throws Exception {
+
+        
+        
+        row.appendChild(new Label(data.getDietaNazwa()));
+        
+        if ( data.getSniadaniePlanIl() != null )
+        {
+            Spinner spin1 = new Spinner();
+            spin1.setInplace(true);
+            
+         // if ( spin1.re )
+            
+            spin1.setValue(data.getSniadaniePlanIl().intValue() );
+            spin1.addEventListener(Events.ON_CHANGE, new EventListener<Event>() {
+                public void onEvent(Event event) throws Exception {
+                 //  data.setSniadaniePlanIl(new BigDecimal( row.getValue().toString()));
+                }
+            });
+                 
+            row.appendChild( spin1 );  
+        }  
+        else
+          row.appendChild(new Label()); 
+        
+        if ( data.getDrugieSniadaniePlanIl() != null )
+        {
+            Spinner spin1 = new Spinner();
+            spin1.setInplace(true);
+            spin1.setValue( data.getDrugieSniadaniePlanIl().intValue() );
+            spin1.addEventListener(Events.ON_CHANGE, new EventListener<Event>() {
+                public void onEvent(Event event) throws Exception {
+                 
+                }
+            });
+                 
+            row.appendChild( spin1 ); 
+        }
+        else
+          row.appendChild(new Label());
+	
+        
+    }
+    
+    
+    
 }

@@ -622,6 +622,85 @@ public class ServiceFacade {
     }
     
     
+    
+    
+    public List<StanZywionychNaDzienDTO> pobierzStanZywionychWdniuDlaKierunkuKosztow( String naDzien, int kierunekKosztow)
+    {        
+        List<Object[]> stanyOb = null;
+        List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
+        
+        try {
+             // TODO - zobacz jak Piotrek robi duże zapytania 
+             Query query =  em.createNativeQuery("select d_obr, id_dieta, dieta_nazwa\n" +
+"                  , SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il,\n" +
+"                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp  from \n" +
+"					(\n" +
+"                    select sz.d_obr, d.id_dieta, \n" +
+"                    dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc, d.lp lp \n" +
+"                    from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk\n" +
+"                    where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
+"                    and sz.id_dieta = d.id_dieta\n" +
+"                    and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
+"                    and p.id_posilek = szp.id_posilek\n" +
+"                    and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
+                    "and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
+"					and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
+"                    and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
+"                    and dgz.ID_DIETA = d.ID_DIETA \n" +
+"                    and dk.ID_DIETA = d.ID_DIETA \n" +
+"                    and dk.AKTYWNE = 1 \n" +
+"                    and dgz.AKTYWNE = 1 \n" +
+"                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
+"					group by sz.d_obr, d.id_dieta, dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych, d.lp\n" +
+"					)\n" +
+"                    PIVOT( \n" +
+"                            SUM(ilosc) il \n" +
+"                    	   FOR posilek \n" +
+"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
+"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
+"                    	   ) order by lp" );
+
+        
+             stanyOb =  query.getResultList();
+             
+             int i = 1;
+             
+             for ( Object[] s : stanyOb)
+             {
+               StanZywionychNaDzienDTO stan 
+                       = new StanZywionychNaDzienDTO( (Timestamp) s[0]
+                               , null
+                               , (BigDecimal) s[1]
+                               , (String) s[2]
+                               , (BigDecimal) s[3]
+                               , (BigDecimal) s[4]
+                               , (BigDecimal) s[5]
+                               , (BigDecimal) s[6]
+                               , (BigDecimal) s[7]
+                               , (BigDecimal) s[8]
+                               , (BigDecimal) s[9]
+                               , (BigDecimal) s[10]
+                               , (BigDecimal) s[11]
+                               , (BigDecimal) s[12]
+                               , (BigDecimal) s[13]
+                               , (BigDecimal) s[14]
+                               , new BigDecimal( String.valueOf(i) ) );
+               
+               stanZywionych.add(stan);
+               
+               i++;
+             }
+                                                                                  
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        
+        return stanZywionych;
+    
+    }
+    
+    
 
 }
     

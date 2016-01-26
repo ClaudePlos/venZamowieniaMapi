@@ -4,8 +4,8 @@
         viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')">
         <hlayout id="ctlhlayout1" >
             
-            <vlayout width="10px"></vlayout>
-        
+         <vlayout width="10px"></vlayout>
+          
            <vlayout>       
             <label value='Na dzien: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
             <datebox  id="naDzien" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"/>
@@ -27,7 +27,8 @@
            <hlayout> 
               <vlayout>          
                <label value="Grupy żywionych" id="gzWybrane"/>         
-                <combobox id="cmbGZ" model="@load(vm.grupyZywionych)">
+                <combobox id="cmbGZ" model="@load(vm.grupyZywionych)"
+                          onSelect="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)">
                     <template name="model" var="p1">
                         <comboitem label="@load(p1.grupaZywionych)"
                             value="@load(p1.idGrupaZywionych)" />
@@ -36,10 +37,12 @@
               </vlayout>  
               
               <vlayout width="35px"></vlayout>
-           
+                
+                <!--
                 <button id="pobDane" width="115px" label="PobierzDane"
                     onClick="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)" >
                 </button>
+                -->
                 
                 <button label="Zapisz" id="zapisz"  sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')"
                     onClick="@command('zapiszStanZyw')" /> 
@@ -47,13 +50,47 @@
                 <checkbox label="Aktywuj Korektę" 
                       onCheck="@command('doCheckedKor', checked=self.checked)"/>   
                 
-           </hlayout>       
-           </vlayout>     
+           </hlayout>   
+              
+           </vlayout>
+           
+           <vlayout width='25px'> 
+           </vlayout>
+           
+           <div style=" border: solid blue 3px" height="80px">
+            </div>
+            
+            
+           <vlayout width='25px'> 
+           </vlayout>
+           
+           <vlayout> 
+            
+            <hlayout>    
+             <div style="background:#B8D335; border: solid green 3px">     
+                <label value='Kopiuj stan z dnia: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
+                <datebox  id="dateCopyFromDay" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"/>
+                <button id="buttCopyState" width="115px" label="Kopiuj Stan"
+                    onClick="@command('copyStanZywDlaDnia',naDzien=naDzien.value,naDzienCopy=dateCopyFromDay.value,grupaZywionych=cmbGZ.selectedItem.label)" >
+                </button>
+             </div> 
+            </hlayout>
+            <hlayout>
+                <window apply="org.zkoss.bind.BindComposer" id="w02" renderdefer="100"
+                    viewModel="@id('vm2') @init('pl.modelsView.StanZywionychNaDzienPodsumowanieVM')"
+                     style="background:#f96bd2; border: solid pink 3px">
+                    <button id="orderBtn" label="Podsumowanie KK" autodisable="self" 
+                       onClick="@command('stanZywionychGlobal',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.value)"/>
+                </window>
+            </hlayout>  
          
-                
+           </vlayout>         
+         
+            <vlayout> 
+               
             
             
-            
+            </vlayout> 
             
      
         </hlayout>
@@ -220,7 +257,7 @@
            
      
            <listbox  width="1283px"  mold="paging"  pageSize="150" height="600px"
-		model="@load(vm.stanyZywionychNaDzien)"
+		model="@bind(vm.stanyZywionychNaDzien)"
            onAfterRender="@command('uzupelnijSumeStanowNaDzien')">
             
                
@@ -275,10 +312,11 @@
                     <listcell label="@load(sz.lp)" />
                     <listcell label="@load(sz.dietaNazwa)" />
                     
+                    <!--   -->
                     
                     <listcell>
                     <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                              onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
@@ -288,7 +326,7 @@
                     
                     <listcell>
                     <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
@@ -298,7 +336,7 @@
                     
                     <listcell>
                     <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                             onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
@@ -376,24 +414,7 @@
         </grid>
       -->
        
-     
-       <div> 
-           
-           <listbox id="inboxGrid" width="600px"  height="250px" 
-                model="@load(vm.stanyZywionychNaDzien)"
-                itemRenderer="pl.views.zam.MyRowRenderer"
-                emptyMessage="Nothing in Inbox."> 
-                <listhead visible="true">
-                <listheader  label="Subject"/>
-                <listheader  width="50px" label="Received"/>
-                <listheader  width="80px" label="Size"/>
-                </listhead>
-            </listbox>
-           
-       </div> 
-           
-              
-                    
+        
         
         
         <zscript><![CDATA[

@@ -1,0 +1,136 @@
+
+<window apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vmP') @init('pl.modelsView.StanZywionychNaDzienPodsumowanieVM')"
+        id="w01P"  title="Podsumowanie KK"  width="900px" height="500px"
+        position="center,center" closable="true" border="normal"
+        action="show: slideDown;hide: slideUp">    
+    
+    
+    <!--   apply="pl.modelsView.StanZywionychNaDzienPodsumowanieVM"   -->
+     
+    <!--
+    <listbox  width="1283px"  mold="paging"  pageSize="150" height="600px"
+		model="@bind(vmP.stanyZywionychNaDzien2)">
+            
+               
+            <auxhead>
+                <auxheader label="LP" rowspan="2" align="center" width="30px"/>
+                <auxheader label="Nazwa Diety" rowspan="2" align="center" width="150px"/>
+                <auxheader label="Planowanie" colspan="6" align="center"/>
+                <auxheader label="Korekta +/- różnica między planem a stanem faktycznym" colspan="6" align="center" style="color: red;"/>
+            </auxhead>
+            <auxhead>
+
+                <auxheader label="Ś" align="center" />
+                <auxheader label="II Ś" align="center" />
+                <auxheader label="O"    align="center"  />
+                <auxheader label="P" align="center"  />
+                <auxheader label="K"  align="center" />
+                <auxheader label="PN" align="center" />
+                
+                <auxheader label="Śniad." align="center" style="color: red;"/>
+                <auxheader label="II śniad." align="center" style="color: red;"/>
+                <auxheader label="Obiad"  align="center" style="color: red;"/>
+                <auxheader label="Podw." align="center"  style="color: red;"/>
+                <auxheader label="Kolacja" align="center"  style="color: red;"/>
+                <auxheader label="P.Nocy" align="center"  style="color: red;"/>    
+        
+                
+            </auxhead>      
+               
+            <listhead visible="false">
+                <listheader  width="32px"/>
+                <listheader  width="150px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+                <listheader  width="90px"/>
+            </listhead> 
+            
+                
+               
+               
+           <template name="model" var="sz">    
+		<listitem>
+                    
+                    <listcell label="@load(sz.lp)" />
+                    <listcell label="@load(sz.dietaNazwa)" />
+                    
+                     
+                    <listcell>
+                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                              onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)"
+                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                
+                    
+                    
+                    
+                    <listcell  style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" 
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.obiadKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell style="background-color: #BBC2DB; color: red;">
+                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell  style="background-color: #BBC2DD; color: red;">
+                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                   
+                    
+                </listitem>
+                
+           </template>      
+	</listbox> -->
+</window>
