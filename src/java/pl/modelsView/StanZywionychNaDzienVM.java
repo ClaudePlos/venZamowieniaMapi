@@ -173,14 +173,24 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @NotifyChange("stanyZywionychNaDzien")
     public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych) {
       //  Messagebox.show("StanZywionychNaDzienVM-pobInne"+naDzien+grupaZywionych);
+        
         System.out.print(" Pobieram stany dla: " + grupaZywionych + " na dzien: " + naDzien);
+        
+        if ( grupaZywionych == null )
+        {
+            Messagebox.show("Brak wybranej Grupy Żywionych.");
+            return;
+        }
+        
+        
         stanyZywionychNaDzien.clear();
         
         stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych);
         
         if ( stanyZywionychNaDzien.size() == 0 )
         {
-            serviceFacade.uzupelnijZeramiStanWdniu(formatter.format( naDzien ));
+            Messagebox.show("Brak wygenrowanych stanów na dzień: " + formatter.format( naDzien ) + "w Mapim.");
+            //serviceFacade.uzupelnijZeramiStanWdniu(formatter.format( naDzien ));
             stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych);
         }
         

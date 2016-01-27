@@ -8,7 +8,8 @@
           
            <vlayout>       
             <label value='Na dzien: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
-            <datebox  id="naDzien" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"/>
+            <datebox  id="naDzien" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"
+            onChange="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)"/>
            </vlayout> 
            
            <vlayout width="55px"></vlayout>
@@ -258,7 +259,8 @@
      
            <listbox  width="1283px"  mold="paging"  pageSize="150" height="600px"
 		model="@bind(vm.stanyZywionychNaDzien)"
-           onAfterRender="@command('uzupelnijSumeStanowNaDzien')">
+           onAfterRender="@command('uzupelnijSumeStanowNaDzien')"
+           emptyMessage="Wybierz Kierunek Kosztów oraz Grupę Żywionych.">
             
                
             <auxhead>
