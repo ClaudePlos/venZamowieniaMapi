@@ -199,14 +199,13 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @Command
     @NotifyChange("grupyZywionych")
     public void wybranoKierKosztow() {
-
         grupyZywionych = new ArrayList<GrupaZywionychVO>( serviceFacade.getGrupaZywionych( selectedKierunekKosztow ) );
     }
     
     
     
     @Command
-    //@NotifyChange("stanyZywionychNaDzien")
+    @NotifyChange("stanyZywionychNaDzien")
     public void zapiszStanZyw() {
       //  Messagebox.show("StanZywionychNaDzienVM-pobInne"+naDzien+grupaZywionych);
         String ret = serviceFacade.zapiszStanZywionychWDniu2( stanyZywionychNaDzien, selectedKierunekKosztow, czyKorekta );

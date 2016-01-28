@@ -291,7 +291,7 @@ public class ServiceFacade {
                     "--*\n" +
                     "from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk\n" +
                     "where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
-                    //"and sz.id_dieta = d.id_dieta\n" +
+                    "and sz.id_dieta = d.id_dieta\n" +
                     "and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
                     "and p.id_posilek = szp.id_posilek\n" +
                     "and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
