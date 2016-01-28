@@ -301,7 +301,7 @@ public class ServiceFacade {
                     "and dgz.ID_DIETA = d.ID_DIETA \n" +
                     "and dk.ID_DIETA = d.ID_DIETA \n" +
                     "and dk.AKTYWNE = 1 \n" +
-                    "and dgz.AKTYWNE = 1 \n" +
+                    //"and dgz.AKTYWNE = 1 \n" +
                     "and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
                     ")\n" +
                     "PIVOT( \n" +
