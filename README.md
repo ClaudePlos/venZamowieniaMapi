@@ -2,6 +2,7 @@
 -- add k.skworonski 2015-08-03
 
 -- to run:
+
 1. use persistance.xml and "Data source" set "mapi_test" to work test
    mapi_test work on test DB (...0714 on schema jadlospis2)
    
