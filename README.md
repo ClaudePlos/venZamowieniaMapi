@@ -13,3 +13,5 @@ Start Netbeans and open the Tools/Plugins/Downloaded and add the downloaded plug
 REM - A NetBeans Module for ZK --> link: https://sourceforge.net/projects/rem1/files/
 
 4. Glassfish4/glassfish/lib -> add ojdbc7.jar for a JDBC Connection Pools
+
+5.
