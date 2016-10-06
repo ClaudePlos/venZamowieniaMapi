@@ -31,7 +31,7 @@ public class StanZywionychReportsVM {
     public void stanZywionychReports(@BindingParam("naDzien") Date naDzien, @BindingParam("kierKosztow") int kierKosztow){
         
         Window window = (Window)Executions.createComponents(
-                "/orderReports/report_for_plock_hospital.zul", null, null);
+                "/jasperreport.zul", null, null);
         window.doModal();
         
         Listbox listBoxR = new Listbox();
