@@ -22,10 +22,18 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.ejb.EJB;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.util.media.AMedia;
+import org.zkoss.util.media.Media;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Window;
 import pl.session.ServiceFacade;
 
 /**
@@ -40,11 +48,36 @@ public class StanZywionychReportsVM {
     
     @Command
     @NotifyChange("stanyZywionychReprots")
-    public void stanZywionychReports(@BindingParam("naDzien") Date naDzien, @BindingParam("kierKosztow") int kierKosztow) throws IOException, Exception{
+    public void stanZywionychReports() throws IOException, Exception{
         
-        try {
+        Window window = (Window)Executions.createComponents(
+                "/orderReports/report_for_plock_hospital.zul", null, null);
+        window.doModal();
+        
+        Listbox listBoxR = new Listbox();
+        listBoxR.setHeight("450px");
+        
+        Label test = new Label();
+        test.setValue("Test ks dzis");
+        
+        window.appendChild(test);
+        window.appendChild(listBoxR);
  
-              OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
+     }   
+    
+    
+        
+    @Command
+    @NotifyChange("zapiszPDF")
+    public void zapiszPDF() throws IOException, Exception{
+       
+        try {
+            
+            //Filedownload. .save("/widgets/file_handling/file_download/img/sun.jpg", null);
+		
+            
+              OutputStream file = new FileOutputStream(new File("C:\\PDF_Java4s_test.pdf"));
+            // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
 	          Document document = new Document();
 	          PdfWriter.getInstance(document, file);
  
@@ -116,6 +149,14 @@ public class StanZywionychReportsVM {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
+    }
+        
+        
+        
+    
+        
              
         /*
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -130,21 +171,10 @@ public class StanZywionychReportsVM {
             AMedia amedia = new AMedia("FirstReport.pdf", "pdf", "application/pdf", out.toByteArray());
             Filedownload.save(amedia);      
             out.close();
+        */
         
-        Window window = (Window)Executions.createComponents(
-                "/orderReports/report_for_plock_hospital.zul", null, null);
-        window.doModal();
-        
-        Listbox listBoxR = new Listbox();
-        listBoxR.setHeight("450px");
-        
-        Label test = new Label();
-        test.setValue("Test ks dzis");
-        
-        window.appendChild(test);
-        window.appendChild(listBoxR);*/
     
-    }
+    
     
     
 }
