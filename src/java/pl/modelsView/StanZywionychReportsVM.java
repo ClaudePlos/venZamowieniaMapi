@@ -21,6 +21,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.ejb.EJB;
@@ -31,6 +32,7 @@ import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
@@ -75,11 +77,18 @@ public class StanZywionychReportsVM {
             
             //Filedownload. .save("/widgets/file_handling/file_download/img/sun.jpg", null);
 		
+            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //Filedownload.save(baos.toByteArray(), "application/pdf","PDF_Java4s_test.pdf");
+            //.save("/widgets/file_handling/file_download/img/sun.jpg", null);
             
-              OutputStream file = new FileOutputStream(new File("C:\\PDF_Java4s_test.pdf"));
+            File f = new File("PDF_Java4s_test.pdf");
+            
+              OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
 	          Document document = new Document();
 	          PdfWriter.getInstance(document, file);
+                  
+                  Filedownload.save(f, "application/pdf");
  
 			//Inserting Image in PDF
 			    // Image image = Image.getInstance ("src/pdf/java4s.png");
