@@ -14,10 +14,14 @@ import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -81,11 +85,11 @@ public class StanZywionychReportsVM {
             
             
             // 02. Generation raport 
-            File f = new File("PDF_Java4s_test.pdf");
+            File f = new File("PDF_s_test.pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
-	          Document document = new Document();
+	          Document document = new Document(PageSize.A4.rotate());
 	          PdfWriter.getInstance(document, file);
                   
                   Filedownload.save(f, "application/pdf");
@@ -95,31 +99,68 @@ public class StanZywionychReportsVM {
 			    // image.scaleAbsolute(120f, 60f);//image width,height	
  
 			//Inserting Table in PDF
-			     PdfPTable table=new PdfPTable(3);
+			     PdfPTable table=new PdfPTable(14); // number of column
+                             
+                             table.setTotalWidth(790);
+                             table.setLockedWidth(true);
+                             
+                             
+                            BaseFont bf = BaseFont.createFont();
+                            Font myFont = new Font(bf, 8);
+                            
+                            Font regular = new Font(FontFamily.HELVETICA, 8);
+                            Font bold = new Font(FontFamily.HELVETICA, 8, Font.BOLD);
+
+                            
  
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe..."));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe...", myFont));
  
-				      cell.setColspan (3);
+				      cell.setColspan(14); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
 				      cell.setPadding (10.0f);
-				      cell.setBackgroundColor (new BaseColor (140, 221, 8));					               
+				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+                                      
+                                      
  
 				      table.addCell(cell);						               
- 
-				      table.addCell("Name");
-				      table.addCell("Address");
-				      table.addCell("Country");
-                               
-                                      table.addCell("Java4s");
-				      table.addCell("NC");
-				      table.addCell("United States");
+                                      // name of column
+                                      
+				      table.addCell(new PdfPCell (new Paragraph ("Grupa Zywionch", bold)));
+				      table.addCell("Grupa Zywionch Kod");
+				      table.addCell("c03");
+                                      table.addCell("c04");
+                                      table.addCell("c05");
+                                      table.addCell("c06");
+                                      table.addCell("c07");
+                                      table.addCell("c08");
+                                      table.addCell("c09");
+                                      table.addCell("c10");
+                                      table.addCell("c11");
+                                      table.addCell("c12");
+                                      table.addCell("c13");
+                                      table.addCell("c14");
+
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
                                       
-                                      
+                                      // row 
                                       for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
                                       {
-                                         table.addCell( swdK.getGrupaZywionych() );
+                                         PdfPCell cell01 = new PdfPCell (new Paragraph (swdK.getGrupaZywionych(), myFont)); 
+                                         table.addCell( cell01 );
+                                         table.addCell( swdK.getGrupaZywionychKod());
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         table.addCell( "" );
                                       }
                                       
  
