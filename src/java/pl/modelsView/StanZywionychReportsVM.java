@@ -36,6 +36,7 @@ import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
+import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.session.ServiceFacade;
 
 /**
@@ -71,16 +72,15 @@ public class StanZywionychReportsVM {
         
     @Command
     @NotifyChange("zapiszPDF")
-    public void zapiszPDF() throws IOException, Exception{
+    public void zapiszPDF( @BindingParam("naDzienRap") Date naDzienRap ) throws IOException, Exception{
        
         try {
+            // 01. preparing data 
+            java.util.List<SprWartDzialalnosciKuchniDTO> listaStanWartosciowy = serviceFacade.pobierzSprWartoscioweDzialalnoscKuchni(naDzienRap.toString());
             
-            //Filedownload. .save("/widgets/file_handling/file_download/img/sun.jpg", null);
-		
-            //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            //Filedownload.save(baos.toByteArray(), "application/pdf","PDF_Java4s_test.pdf");
-            //.save("/widgets/file_handling/file_download/img/sun.jpg", null);
             
+            
+            // 02. Generation raport 
             File f = new File("PDF_Java4s_test.pdf");
             
               OutputStream file = new FileOutputStream(f); //
@@ -97,7 +97,7 @@ public class StanZywionychReportsVM {
 			//Inserting Table in PDF
 			     PdfPTable table=new PdfPTable(3);
  
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Java4s.com"));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe..."));
  
 				      cell.setColspan (3);
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -109,17 +109,31 @@ public class StanZywionychReportsVM {
 				      table.addCell("Name");
 				      table.addCell("Address");
 				      table.addCell("Country");
-                      table.addCell("Java4s");
+                               
+                                      table.addCell("Java4s");
 				      table.addCell("NC");
 				      table.addCell("United States");
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
-				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS								          
+				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
+                                      
+                                      
+                                      for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
+                                      {
+                                         table.addCell( swdK.getGrupaZywionych() );
+                                      }
+                                      
  
 			 //Inserting List in PDF
 				      List list=new List(true,30);
-			          list.add(new ListItem("Java4s"));
+			              list.add(new ListItem("Java4s"));
 				      list.add(new ListItem("Php4s"));
-				      list.add(new ListItem("Some Thing..."));		
+				      list.add(new ListItem("Some Thing..."));	
+                                      
+                                      for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
+                                      {
+                                         list.add( swdK.getGrupaZywionychKod());
+                                      }
+                                      
  
 			 //Text formating in PDF
 	                Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
@@ -137,6 +151,7 @@ public class StanZywionychReportsVM {
  
                     document.add(new Paragraph("Dear Java4s.com"));
                     document.add(new Paragraph("k.skowronski"));
+                    document.add(new Paragraph(naDzienRap.toString()));
 	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
  
 					document.add(table);

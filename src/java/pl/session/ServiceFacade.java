@@ -29,6 +29,7 @@ import org.zkoss.zul.Messagebox;
 import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
 import pl.models.OperatorVO;
+import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
 
@@ -559,6 +560,53 @@ public class ServiceFacade {
         }
         
         return stanZywionych;
+    
+    }
+    
+    
+    
+    
+    public List<SprWartDzialalnosciKuchniDTO> pobierzSprWartoscioweDzialalnoscKuchni( String naDzien )
+    {  
+        //SprWartDzialalnosciKuchniDTO k = new SprWartDzialalnosciKuchniDTO();
+        List<Object[]> stany = null;
+        List<SprWartDzialalnosciKuchniDTO> listaStanWartosciowy = new ArrayList<SprWartDzialalnosciKuchniDTO>();
+        
+        try {
+
+             Query query =  em.createNativeQuery("select grupa_zywionych, grupa_zywionych_kod from grupy_zywionych" );
+             
+            //k =  (SprWartDzialalnosciKuchniDTO) query.getSingleResult();
+             
+             stany =  query.getResultList();
+             
+             int i = 1;
+             
+             for ( Object[] s : stany)
+             {
+               /*SprWartDzialalnosciKuchniDTO stan = new SprWartDzialalnosciKuchniDTO( 
+                               (String) s[0]
+                               );*/
+                 
+                 SprWartDzialalnosciKuchniDTO rowSprWart = new SprWartDzialalnosciKuchniDTO( 
+                           (String) s[0]
+                         , (String) s[1]    
+                 );
+     
+                 //rowSprWart.setGrupaZywionych((String) s[0]);
+                 //rowSprWart.setGrupaZywionychKod((String) s[1]);
+                 
+               listaStanWartosciowy.add(rowSprWart);
+               
+               i++;
+             }
+                                                                                  
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        
+        return listaStanWartosciowy;
     
     }
     

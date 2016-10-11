@@ -41,6 +41,8 @@ public class KierunekKosztowVO implements Serializable {
     private List<GrupaZywionychVO> grupyZywionych;
     
     private String sqlGrupyZywionych;
+    
+    
 
     public BigDecimal getIdKierunekKosztow() {
         return idKierunekKosztow;
