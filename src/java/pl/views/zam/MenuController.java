@@ -5,6 +5,25 @@
  */
 package pl.views.zam;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -36,8 +55,11 @@ import pl.session.ServiceFacade;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
+import pl.models.SprWartDzialalnosciKuchniDTO;
+import pl.models.StanZywionychNaDzienDTO;
 import pl.modelsView.StanZywionychNaDzienVM;
 
 /**
@@ -50,7 +72,7 @@ public class MenuController extends SelectorComposer<Component> {
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
-    
+
     List<GrupaZywionychVO> grupyZywionych;
     
     /*ListModel<String> grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych(null) );*/
@@ -161,6 +183,143 @@ public class MenuController extends SelectorComposer<Component> {
     public void gzWszystkie(Event event) {
           if ( cmbGrupaZywionych != null )
             result.removeChild(cmbGrupaZywionych);
+    }
+    
+    @Listen("onClick=button#drukujDS")
+    public void drukujDS(Event event) throws FileNotFoundException, DocumentException, IOException {
+          // Messagebox.show("sdfsdf");
+          
+
+          // 02. Generation raport 
+            File f = new File("PDF_s_test.pdf");
+            
+              OutputStream file = new FileOutputStream(f); //
+            // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
+	          Document document = new Document(PageSize.A4.rotate());
+	          PdfWriter.getInstance(document, file);
+                  
+                  Filedownload.save(f, "application/pdf");
+ 
+			//Inserting Image in PDF
+			    // Image image = Image.getInstance ("src/pdf/java4s.png");
+			    // image.scaleAbsolute(120f, 60f);//image width,height	
+ 
+			//Inserting Table in PDF
+			     PdfPTable table = new PdfPTable(8); // number of column
+                             
+                             //uklad poziomy
+                             table.setTotalWidth(790);
+                             table.setLockedWidth(true);
+                             
+                            //czcionki 
+                            BaseFont bf = BaseFont.createFont();
+                            Font myFont = new Font(bf, 8);
+                            
+                            Font regular = new Font(Font.FontFamily.HELVETICA, 8);
+                            Font bold = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
+
+                            
+                             
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe...", myFont));
+ 
+				      cell.setColspan(8); // connect column to one 
+				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cell.setPadding (10.0f);
+				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+                                      
+                                      
+ 
+				      table.addCell(cell);						               
+                                      // name of column
+                                      // naglowek tabeli
+				      table.addCell( new PdfPCell (new Paragraph ("LP", bold)) );
+				      table.addCell( new PdfPCell (new Paragraph ("Dieta", bold)) );
+				      table.addCell("S");
+                                      table.addCell("II S");
+                                      table.addCell("O");
+                                      table.addCell("P");
+                                      table.addCell("K");
+                                      table.addCell("PN");
+                                      
+                                      
+
+				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
+				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
+                                      
+                                      // row -> wiersze loop 
+                                      for ( StanZywionychNaDzienDTO s : serviceFacade.stanyZywionychNaDzien  )
+                                      {
+    
+                                         table.addCell( new PdfPCell (new Paragraph (s.getLp().toString() , myFont)) );
+                                         table.addCell( new PdfPCell (new Paragraph (s.getDietaNazwa() , myFont)) );
+                                         
+                                         if ( s.getSniadaniePlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getSniadaniePlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         
+                                         
+                                         
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" ); //null
+                                         table.addCell( "" );
+                                         table.addCell( "" );
+                                         
+                                      }
+                                      
+ 
+			 //Inserting List in PDF
+				      com.itextpdf.text.List list=new com.itextpdf.text.List(true,30);
+			              list.add(new ListItem("Java4s"));
+				      list.add(new ListItem("Php4s"));
+				      list.add(new ListItem("Some Thing..."));	
+                                      
+                                      
+                                      
+ 
+			 //Text formating in PDF
+	                Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
+					chunk.setUnderline(+1f,-2f);//1st co-ordinate is for line width,2nd is space between
+					Chunk chunk1=new Chunk("Php4s.com");
+					chunk1.setUnderline(+4f,-8f);
+					chunk1.setBackground(new BaseColor (17, 46, 193));      
+ 
+			 //Now Insert Every Thing Into PDF Document
+		         document.open();//PDF document opened........			       
+ 
+					//document.add(image);
+ 
+					document.add(Chunk.NEWLINE);   //Something like in HTML :-)
+ 
+                        document.add(new Paragraph("Dear Java4s.com"));
+                        document.add(new Paragraph("k.skowronski"));
+                       // document.add(new Paragraph(naDzienRap.toString()));
+	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
+ 
+					document.add(table);
+ 
+					document.add(chunk);
+					document.add(chunk1);
+ 
+					document.add(Chunk.NEWLINE);   //Something like in HTML :-)							    
+ 
+       				document.newPage();            //Opened new page
+					document.add(list);            //In the new page we are going to add list
+ 
+		         document.close();
+ 
+			             file.close();
+ 
+            System.out.println("Pdf created successfully..");
+ 
+        
+          
     }
     
     

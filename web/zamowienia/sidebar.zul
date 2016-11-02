@@ -7,7 +7,7 @@
             <button id="logout" label="Wyloguj" onClick=""></button>
         </row>
         <row>
-            <button label="Drukuj" onClick=""></button>
+            <button id="drukujDS" label="DrukujDS" onClick=""></button>
         </row>
     </rows>
 </grid>
