@@ -194,6 +194,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         Clients.showNotification("Dane zostały pobrane","info",null, null,300);
         
         serviceFacade.stanyZywionychNaDzien.clear();
+        serviceFacade.naDzienRaport =  formatter.format( naDzien );
+        serviceFacade.gzRaprot = grupaZywionych;
         serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
         
     }

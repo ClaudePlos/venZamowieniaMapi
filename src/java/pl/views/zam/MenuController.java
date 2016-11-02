@@ -206,6 +206,8 @@ public class MenuController extends SelectorComposer<Component> {
  
 			//Inserting Table in PDF
 			     PdfPTable table = new PdfPTable(8); // number of column
+                             table.setTotalWidth(new float[]{ 40, 100, 100, 100, 100, 100, 100, 100 });
+                             table.setLockedWidth(true);
                              
                              //uklad poziomy
                              table.setTotalWidth(790);
@@ -220,7 +222,7 @@ public class MenuController extends SelectorComposer<Component> {
 
                             
                              
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe...", myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + serviceFacade.gzRaprot + " na dzien: " + serviceFacade.naDzienRaport, myFont));
  
 				      cell.setColspan(8); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -253,6 +255,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          table.addCell( new PdfPCell (new Paragraph (s.getLp().toString() , myFont)) );
                                          table.addCell( new PdfPCell (new Paragraph (s.getDietaNazwa() , myFont)) );
                                          
+                                         //S
                                          if ( s.getSniadaniePlanIl() != null )
                                          {
                                             table.addCell( new PdfPCell (new Paragraph (s.getSniadaniePlanIl().toString() , myFont)) ); //S 
@@ -262,14 +265,60 @@ public class MenuController extends SelectorComposer<Component> {
                                              table.addCell( "" );
                                          }
                                          
+                                         //IIS
+                                         if ( s.getDrugieSniadaniePlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getDrugieSniadaniePlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         //O
+                                         if ( s.getObiadPlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getObiadPlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         //P
+                                         if ( s.getPodwieczorekPlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getPodwieczorekPlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         //K
+                                         if ( s.getKolacjaPlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getKolacjaPlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         //PN
+                                         if ( s.getPosilekNocnyPlanIl() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getPosilekNocnyPlanIl().toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
                                          
                                          
                                          
-                                         table.addCell( "" ); //null
-                                         table.addCell( "" ); //null
-                                         table.addCell( "" ); //null
-                                         table.addCell( "" );
-                                         table.addCell( "" );
+                                         
+                                         
                                          
                                       }
                                       
@@ -277,18 +326,17 @@ public class MenuController extends SelectorComposer<Component> {
 			 //Inserting List in PDF
 				      com.itextpdf.text.List list=new com.itextpdf.text.List(true,30);
 			              list.add(new ListItem("Java4s"));
-				      list.add(new ListItem("Php4s"));
 				      list.add(new ListItem("Some Thing..."));	
                                       
                                       
                                       
  
 			 //Text formating in PDF
-	                Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
+	               /* Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
 					chunk.setUnderline(+1f,-2f);//1st co-ordinate is for line width,2nd is space between
 					Chunk chunk1=new Chunk("Php4s.com");
 					chunk1.setUnderline(+4f,-8f);
-					chunk1.setBackground(new BaseColor (17, 46, 193));      
+					chunk1.setBackground(new BaseColor (17, 46, 193));  */    
  
 			 //Now Insert Every Thing Into PDF Document
 		         document.open();//PDF document opened........			       
@@ -297,15 +345,15 @@ public class MenuController extends SelectorComposer<Component> {
  
 					document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
-                        document.add(new Paragraph("Dear Java4s.com"));
-                        document.add(new Paragraph("k.skowronski"));
-                       // document.add(new Paragraph(naDzienRap.toString()));
+                        //document.add(new Paragraph("Dear Java4s.com"));
+                        //document.add(new Paragraph("k.skowronski"));
+                        // document.add(new Paragraph(naDzienRap.toString()));
 	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
  
 					document.add(table);
  
-					document.add(chunk);
-					document.add(chunk1);
+					//document.add(chunk);
+					//document.add(chunk1);
  
 					document.add(Chunk.NEWLINE);   //Something like in HTML :-)							    
  

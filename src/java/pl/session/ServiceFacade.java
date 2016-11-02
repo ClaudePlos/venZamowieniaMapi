@@ -58,6 +58,10 @@ public class ServiceFacade {
     
     public static OperatorVO user;
     
+    // dal raportow
+    public static String naDzienRaport;
+    public static String gzRaprot;
+    
     public ServiceFacade() {
         em = emfInstance.createEntityManager();
     }
