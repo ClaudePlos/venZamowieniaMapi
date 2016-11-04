@@ -359,7 +359,7 @@
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.szUwagi)" inplace="true" onClick="onClickRowGrid(self)"
+                    <textbox value="@bind(sz.szUwagi)" inplace="true"
                              onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                 

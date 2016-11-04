@@ -236,7 +236,7 @@ public class ServiceFacade {
             }
                      
                      
-            sql = sql + " order by grupa_zywionych";
+            sql = sql + " order by lp, grupa_zywionych";
                      
                      
              Query query =  em.createNativeQuery( sql );       
@@ -424,6 +424,8 @@ public class ServiceFacade {
                               + "," + s.getPodwieczorekKorIl()
                               + "," + s.getKolacjaKorIl()
                               + "," + s.getPosilekNocnyKorIl()
+                                
+                              + ",'" + s.getSzUwagi() + "'"
                                 
                               + "," + user.getIdOperator() 
                               + ",'" + czyKorekta + "'"
