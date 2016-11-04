@@ -119,19 +119,20 @@
             <template name="model" > <!-- var="StanZywionychNaDzienDTO" -->
                 <row renderdefer="200">
                     <cell width="123px"><label value="Razem: / " /><label value=" Korekta + Plan: " style="color:red"/></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.sPilSum)" /></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.dsPilSum)"/></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.oPilSum)"/></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.poPilSum)"/></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.kPilSum)"/></cell>
-                    <cell width="55px" align="center"><label value="@bind(each.pnPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.sPilSum)" /></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.dsPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.oPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.poPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.kPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value="@bind(each.pnPilSum)"/></cell>
+                    <cell width="50px" align="center"><label value=""/></cell>
                     
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.sK1ilSum)" style="color:red"/></cell>
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.dsK1ilSum)" style="color:red"/></cell>
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.oK1ilSum)" style="color:red"/></cell>
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.poK1ilSum)" style="color:red"/></cell>
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.kK1ilSum)" style="color:red"/></cell>
-                    <cell width="55px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.pnK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.sK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.dsK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.oK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.poK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.kK1ilSum)" style="color:red"/></cell>
+                    <cell width="50px" align="center" style="background-color: #BBC2DB;"><label value="@bind(each.pnK1ilSum)" style="color:red"/></cell>
                 </row>
             </template>
         </grid>
@@ -275,7 +276,7 @@
             <auxhead>
                 <auxheader label="LP" rowspan="2" align="center" width="30px"/>
                 <auxheader label="Nazwa Diety" rowspan="2" align="center" width="150px"/>
-                <auxheader label="Planowanie" colspan="6" align="center"/>
+                <auxheader label="Planowanie" colspan="7" align="center"/>
                 <auxheader label="Korekta +/- różnica między planem a stanem faktycznym" colspan="6" align="center" style="color: red;"/>
             </auxhead>
             <auxhead>
@@ -286,6 +287,7 @@
                 <auxheader label="P" align="center"  />
                 <auxheader label="K"  align="center" />
                 <auxheader label="PN" align="center" />
+                <auxheader label="Uwagi" align="center" />
                 
                 <auxheader label="Śniad." align="center" style="color: red;"/>
                 <auxheader label="II śniad." align="center" style="color: red;"/>
@@ -300,18 +302,19 @@
             <listhead visible="false">
                 <listheader  width="32px"/>
                 <listheader  width="150px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
-                <listheader  width="90px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
+                <listheader  width="83px"/>
             </listhead> 
             
                 
@@ -352,6 +355,11 @@
                     
                     <listcell>
                     <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
+                    </listcell>
+                    
+                    <listcell>
+                    <intbox value="@bind(sz.szUwagi)" inplace="true" onClick="onClickRowGrid(self)"
                              onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                 

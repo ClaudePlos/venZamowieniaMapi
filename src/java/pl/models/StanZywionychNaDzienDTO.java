@@ -35,6 +35,7 @@ public class StanZywionychNaDzienDTO {
     private BigDecimal posilekNocnyKorIl;
     
     private BigDecimal lp;
+    private String szUwagi;
 
     public StanZywionychNaDzienDTO(Timestamp dObr, BigDecimal idGrupaZywionych, BigDecimal idDieta, String dietaNazwa
      , BigDecimal sniadaniePlanIl
@@ -49,7 +50,8 @@ public class StanZywionychNaDzienDTO {
      , BigDecimal podwieczorekKorIl
      , BigDecimal kolacjaKorIl
      , BigDecimal posilekNocnyKorIl
-     , BigDecimal lp) {
+     , BigDecimal lp
+     , String szUwagi) {
         this.dObr = dObr;
         this.idGrupaZywionych = idGrupaZywionych;
         this.idDieta = idDieta;
@@ -67,6 +69,7 @@ public class StanZywionychNaDzienDTO {
         this.kolacjaKorIl = kolacjaKorIl;
         this.posilekNocnyKorIl = posilekNocnyKorIl;
         this.lp = lp;
+        this.szUwagi = szUwagi;
     }
 
     public Timestamp getdObr() {
@@ -203,6 +206,14 @@ public class StanZywionychNaDzienDTO {
 
     public void setLp(BigDecimal lp) {
         this.lp = lp;
+    }
+
+    public String getSzUwagi() {
+        return szUwagi;
+    }
+
+    public void setSzUwagi(String szUwagi) {
+        this.szUwagi = szUwagi;
     }
 
     
