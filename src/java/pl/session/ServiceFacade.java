@@ -28,6 +28,7 @@ import javax.json.JsonValue;
 import org.zkoss.zul.Messagebox;
 import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
+import pl.models.NapMapowaniaCenyVO;
 import pl.models.OperatorVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychNaDzienDTO;
@@ -615,6 +616,53 @@ public class ServiceFacade {
         }
         
         return listaStanWartosciowy;
+    
+    }
+    
+    
+    
+    
+    public List<NapMapowaniaCenyVO> getNapMapowaniaCeny()
+    {        
+        List<Object[]> napMapCeny = null;
+        List<NapMapowaniaCenyVO> napMapowaniaCenyList = new ArrayList<NapMapowaniaCenyVO>();
+        
+        try {
+             // TODO - zobacz jak Piotrek robi duże zapytania 
+             Query query =  em.createNativeQuery("select * from nap_mapowania_ceny" );
+
+        
+             napMapCeny =  query.getResultList();
+             
+             int i = 1;
+             
+             for ( Object[] s : napMapCeny)
+             {
+               NapMapowaniaCenyVO stan 
+                       = new NapMapowaniaCenyVO( 
+                                 (BigDecimal) s[9]
+                               , (String) s[0]
+                               , (BigDecimal) s[1]
+                               , (BigDecimal) s[2]
+                               , (BigDecimal) s[3]
+                               , (BigDecimal) s[4]
+                               , (BigDecimal) s[5]
+                               , (BigDecimal) s[6]
+                               , (BigDecimal) s[7]
+                               , (String) s[8]
+                               );
+               
+               napMapowaniaCenyList.add(stan);
+               
+               i++;
+             }
+                                                                                  
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        
+        return napMapowaniaCenyList;
     
     }
     

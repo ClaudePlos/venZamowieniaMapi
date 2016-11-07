@@ -28,6 +28,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -40,6 +41,7 @@ import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Window;
+import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.session.ServiceFacade;
 
@@ -52,9 +54,11 @@ public class StanZywionychReportsVM {
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
+    java.util.List<NapMapowaniaCenyVO> napMapowaniaCenyList = new ArrayList<NapMapowaniaCenyVO>();
+    
     
     @Command
-    @NotifyChange("stanyZywionychReprots")
+    @NotifyChange("stanyZywionychReprots") // init
     public void stanZywionychReports() throws IOException, Exception{
         
         Window window = (Window)Executions.createComponents(
@@ -69,9 +73,17 @@ public class StanZywionychReportsVM {
         
         window.appendChild(test);
         window.appendChild(listBoxR);
+        
+        getNapMapowaniaCeny();
  
      }   
     
+    
+    public void getNapMapowaniaCeny(){
+        
+        napMapowaniaCenyList = serviceFacade.getNapMapowaniaCeny();
+        
+    }
     
         
     @Command

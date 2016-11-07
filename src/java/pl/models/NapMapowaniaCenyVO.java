@@ -34,32 +34,30 @@ public class NapMapowaniaCenyVO {
     private String mapcRodzajDieta;
     
     @Column(name = "MAPC_SNIADANIE")
-    private String mapcSniadanie;
+    private BigDecimal mapcSniadanie;
     
     @Column(name = "MAPC_2_SNIADANIE")
-    private String mapc2Sniadanie;
+    private BigDecimal mapc2Sniadanie;
     
     @Column(name = "MAPC_OBIAD")
-    private String mapcObiad;
+    private BigDecimal mapcObiad;
     
     @Column(name = "MAPC_PODWIECZOREK")
-    private String mapcPodwieczorek;
+    private BigDecimal mapcPodwieczorek;
     
     @Column(name = "MAPC_KOLACJA")
-    private String mapcKolacja;
+    private BigDecimal mapcKolacja;
     
     @Column(name = "MAPC_POSILEK_NOCNY")
-    private String mapcPosilekNocny;
+    private BigDecimal mapcPosilekNocny;
     
     @Column(name = "MAPC_ZUPA_KOMPOT")
-    private String mapcZupaKompot;
+    private BigDecimal mapcZupaKompot;
     
     @Column(name = "MAPC_OPIS")
     private String mapcOpis;
-    
- 
 
-    public NapMapowaniaCenyVO(BigDecimal mapcId, String mapcRodzajDieta, String mapcSniadanie, String mapc2Sniadanie, String mapcObiad, String mapcPodwieczorek, String mapcKolacja, String mapcPosilekNocny, String mapcZupaKompot, String mapcOpis) {
+    public NapMapowaniaCenyVO(BigDecimal mapcId, String mapcRodzajDieta, BigDecimal mapcSniadanie, BigDecimal mapc2Sniadanie, BigDecimal mapcObiad, BigDecimal mapcPodwieczorek, BigDecimal mapcKolacja, BigDecimal mapcPosilekNocny, BigDecimal mapcZupaKompot, String mapcOpis) {
         this.mapcId = mapcId;
         this.mapcRodzajDieta = mapcRodzajDieta;
         this.mapcSniadanie = mapcSniadanie;
@@ -71,6 +69,8 @@ public class NapMapowaniaCenyVO {
         this.mapcZupaKompot = mapcZupaKompot;
         this.mapcOpis = mapcOpis;
     }
+    
+    
     
     
     
@@ -91,59 +91,59 @@ public class NapMapowaniaCenyVO {
         this.mapcRodzajDieta = mapcRodzajDieta;
     }
 
-    public String getMapcSniadanie() {
+    public BigDecimal getMapcSniadanie() {
         return mapcSniadanie;
     }
 
-    public void setMapcSniadanie(String mapcSniadanie) {
+    public void setMapcSniadanie(BigDecimal mapcSniadanie) {
         this.mapcSniadanie = mapcSniadanie;
     }
 
-    public String getMapc2Sniadanie() {
+    public BigDecimal getMapc2Sniadanie() {
         return mapc2Sniadanie;
     }
 
-    public void setMapc2Sniadanie(String mapc2Sniadanie) {
+    public void setMapc2Sniadanie(BigDecimal mapc2Sniadanie) {
         this.mapc2Sniadanie = mapc2Sniadanie;
     }
 
-    public String getMapcObiad() {
+    public BigDecimal getMapcObiad() {
         return mapcObiad;
     }
 
-    public void setMapcObiad(String mapcObiad) {
+    public void setMapcObiad(BigDecimal mapcObiad) {
         this.mapcObiad = mapcObiad;
     }
 
-    public String getMapcPodwieczorek() {
+    public BigDecimal getMapcPodwieczorek() {
         return mapcPodwieczorek;
     }
 
-    public void setMapcPodwieczorek(String mapcPodwieczorek) {
+    public void setMapcPodwieczorek(BigDecimal mapcPodwieczorek) {
         this.mapcPodwieczorek = mapcPodwieczorek;
     }
 
-    public String getMapcKolacja() {
+    public BigDecimal getMapcKolacja() {
         return mapcKolacja;
     }
 
-    public void setMapcKolacja(String mapcKolacja) {
+    public void setMapcKolacja(BigDecimal mapcKolacja) {
         this.mapcKolacja = mapcKolacja;
     }
 
-    public String getMapcPosilekNocny() {
+    public BigDecimal getMapcPosilekNocny() {
         return mapcPosilekNocny;
     }
 
-    public void setMapcPosilekNocny(String mapcPosilekNocny) {
+    public void setMapcPosilekNocny(BigDecimal mapcPosilekNocny) {
         this.mapcPosilekNocny = mapcPosilekNocny;
     }
 
-    public String getMapcZupaKompot() {
+    public BigDecimal getMapcZupaKompot() {
         return mapcZupaKompot;
     }
 
-    public void setMapcZupaKompot(String mapcZupaKompot) {
+    public void setMapcZupaKompot(BigDecimal mapcZupaKompot) {
         this.mapcZupaKompot = mapcZupaKompot;
     }
 
@@ -154,6 +154,8 @@ public class NapMapowaniaCenyVO {
     public void setMapcOpis(String mapcOpis) {
         this.mapcOpis = mapcOpis;
     }
-              
+    
+ 
+    
 
 }
