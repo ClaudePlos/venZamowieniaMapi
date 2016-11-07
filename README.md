@@ -11,6 +11,7 @@
 3. I work in Netbeans and if you don't have zkoss in netbeans 
 Start Netbeans and open the Tools/Plugins/Downloaded and add the downloaded plugin (with the usual agree and confirm unsigned plugin dialog.
 REM - A NetBeans Module for ZK --> link: https://sourceforge.net/projects/rem1/files/
+After install you can add lib to project too 
 
 4. Glassfish4/glassfish/lib -> add ojdbc7.jar for a JDBC Connection Pools
 
