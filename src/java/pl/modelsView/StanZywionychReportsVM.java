@@ -34,6 +34,7 @@ import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Fileupload;
@@ -43,6 +44,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
+import pl.models.StanZywionychNaDzienDTO;
 import pl.session.ServiceFacade;
 
 /**
@@ -50,6 +52,8 @@ import pl.session.ServiceFacade;
  * @author k.skowronski
  */
 public class StanZywionychReportsVM {
+
+   
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
@@ -58,7 +62,7 @@ public class StanZywionychReportsVM {
     
     
     @Command
-    @NotifyChange("stanyZywionychReprots") // init
+    @NotifyChange("stanyZywionychReprots")
     public void stanZywionychReports() throws IOException, Exception{
         
         Window window = (Window)Executions.createComponents(
@@ -80,11 +84,19 @@ public class StanZywionychReportsVM {
         run.addEventListener("onClick", new EventListener() {
             @Override
             public void onEvent(Event arg0) throws Exception {
-                zapiszPDF(tbOkres);
+                
+                try {
+                    zapiszPDF( tbOkres.getText() );
+                } catch (Exception e) {
+                    //alert();
+                }
+    
+                
             }   
         });
         
         
+       
         window.appendChild(tbOkres);
         window.appendChild(run);
         window.appendChild(test);
@@ -102,13 +114,15 @@ public class StanZywionychReportsVM {
     }
     
         
-    @Command
-    @NotifyChange("zapiszPDF")
+    //@Command
+    //@NotifyChange("zapiszPDF")
     public void zapiszPDF( String okres ) throws IOException, Exception{
        
+         java.util.List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
+        
         try {
             // 01. preparing data 
-            java.util.List<SprWartDzialalnosciKuchniDTO> listaStanWartosciowy = serviceFacade.getDataForFinancialRaport(okres);
+            stanZywionych = serviceFacade.getDataForFinancialRaport(okres, serviceFacade.kkRaport.getIdKierunekKosztow().intValue() );
             
             
             
@@ -172,11 +186,11 @@ public class StanZywionychReportsVM {
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
                                       
                                       // row 
-                                      for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
+                                      for ( StanZywionychNaDzienDTO stanZywionychOkres : stanZywionych )
                                       {
-                                         PdfPCell cell01 = new PdfPCell (new Paragraph (swdK.getGrupaZywionych(), myFont)); 
+                                         PdfPCell cell01 = new PdfPCell (new Paragraph (stanZywionychOkres.getDietaNazwa(), myFont)); 
                                          table.addCell( cell01 );
-                                         table.addCell( swdK.getGrupaZywionychKod());
+                                         table.addCell( stanZywionychOkres.getSniadaniePlanIl().toString() );
                                          table.addCell( "" ); //null
                                          table.addCell( "" ); //null
                                          table.addCell( "" ); //null
@@ -194,14 +208,14 @@ public class StanZywionychReportsVM {
  
 			 //Inserting List in PDF
 				      List list=new List(true,30);
-			              list.add(new ListItem("Java4s"));
+			             /* list.add(new ListItem("Java4s"));
 				      list.add(new ListItem("Php4s"));
-				      list.add(new ListItem("Some Thing..."));	
+				      list.add(new ListItem("Some Thing..."));	*/
                                       
-                                      for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
+                                     /* for ( SprWartDzialalnosciKuchniDTO swdK : listaStanWartosciowy )
                                       {
                                          list.add( swdK.getGrupaZywionychKod());
-                                      }
+                                      }*/
                                       
  
 			 //Text formating in PDF
