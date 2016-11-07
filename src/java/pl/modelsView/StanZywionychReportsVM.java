@@ -16,7 +16,6 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
 import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
@@ -25,21 +24,22 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import javax.ejb.EJB;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.AMedia;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
@@ -69,10 +69,26 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue("Test ks dzis");
+        test.setValue("Raport dla kk:" + serviceFacade.kkRaport.getKierunekKosztowNazwa() );
         
+        Textbox tbOkres = new Textbox();
+        tbOkres.setWidth("100px");
+        tbOkres.setText("2016-10");
+        
+        Button run = new Button();
+        run.setLabel("Run");
+        run.addEventListener("onClick", new EventListener() {
+            @Override
+            public void onEvent(Event arg0) throws Exception {
+                zapiszPDF(tbOkres);
+            }   
+        });
+        
+        
+        window.appendChild(tbOkres);
+        window.appendChild(run);
         window.appendChild(test);
-        window.appendChild(listBoxR);
+       // window.appendChild(listBoxR);
         
         getNapMapowaniaCeny();
  
@@ -88,11 +104,11 @@ public class StanZywionychReportsVM {
         
     @Command
     @NotifyChange("zapiszPDF")
-    public void zapiszPDF( @BindingParam("naDzienRap") Date naDzienRap ) throws IOException, Exception{
+    public void zapiszPDF( String okres ) throws IOException, Exception{
        
         try {
             // 01. preparing data 
-            java.util.List<SprWartDzialalnosciKuchniDTO> listaStanWartosciowy = serviceFacade.pobierzSprWartoscioweDzialalnoscKuchni(naDzienRap.toString());
+            java.util.List<SprWartDzialalnosciKuchniDTO> listaStanWartosciowy = serviceFacade.getDataForFinancialRaport(okres);
             
             
             
@@ -204,7 +220,7 @@ public class StanZywionychReportsVM {
  
                     document.add(new Paragraph("Dear Java4s.com"));
                     document.add(new Paragraph("k.skowronski"));
-                    document.add(new Paragraph(naDzienRap.toString()));
+                    document.add(new Paragraph(okres.toString()));
 	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
  
 					document.add(table);

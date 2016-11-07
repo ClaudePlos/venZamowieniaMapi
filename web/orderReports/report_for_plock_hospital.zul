@@ -6,14 +6,14 @@
     
     
     <vlayout>       
-            <label value='Na dzien: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px" 
+            <label value='Okres: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px" 
             onChange="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)"-->
-            <datebox  id="naDzienRapBox" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"
-            />
+            <!--<datebox  id="naDzienRapBox" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"
+            />-->
     </vlayout> 
     
-    <button id="reportsBtn" label="Raporty" autodisable="self" 
-                       onClick="@command('zapiszPDF', naDzienRap = naDzienRapBox.value)"/>  
+    <!--<button id="reportsBtn" label="Raporty" autodisable="self" 
+                       onClick="@command('zapiszPDF', naDzienRap = naDzienRapBox.value)"/>  -->
     
     
 </window>

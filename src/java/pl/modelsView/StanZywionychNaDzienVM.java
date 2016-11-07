@@ -204,7 +204,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @Command
     @NotifyChange("grupyZywionych")
     public void wybranoKierKosztow() {
+        serviceFacade.kkRaport = selectedKierunekKosztow;
         grupyZywionych = new ArrayList<GrupaZywionychVO>( serviceFacade.getGrupaZywionych( selectedKierunekKosztow ) );
+        
     }
     
     
