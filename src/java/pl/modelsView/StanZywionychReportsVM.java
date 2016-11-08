@@ -25,6 +25,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import org.zkoss.bind.annotation.Command;
@@ -168,12 +169,12 @@ public class StanZywionychReportsVM {
 				      table.addCell(cell);						               
                                       // name of column
                                       
-				      table.addCell(new PdfPCell (new Paragraph ("Grupa Zywionch", bold)));
-				      table.addCell("Grupa Zywionch Kod");
-				      table.addCell("c03");
-                                      table.addCell("c04");
-                                      table.addCell("c05");
-                                      table.addCell("c06");
+				      table.addCell(new PdfPCell (new Paragraph ("-", bold)));
+				      table.addCell("SN3");
+				      table.addCell("SN5");
+                                      table.addCell("SN6");
+                                      table.addCell("II SN5");
+                                      table.addCell("II SN6");
                                       table.addCell("c07");
                                       table.addCell("c08");
                                       table.addCell("c09");
@@ -184,7 +185,35 @@ public class StanZywionychReportsVM {
                                       table.addCell("c14");
 
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
-				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
+				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS
+                                      
+                                        BigDecimal cS3 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .findFirst().get().getMapcSniadanie() ;
+                                      
+                                         table.addCell("Cena diety");
+                                         table.addCell( cS3.toString() );
+                                         table.addCell( napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapcSniadanie().toString() );
+                                         table.addCell( napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapcSniadanie().toString() );
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         table.addCell("5,45");
+                                         
+                                      
+                                          
+                                      
+                                      
                                       
                                       // row 
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
@@ -194,11 +223,11 @@ public class StanZywionychReportsVM {
                                          PdfPCell cell01 = new PdfPCell (new Paragraph (stanZywionychOkres.getGz(), myFont)); 
                                          table.addCell( cell01 );
                                          
-                                         table.addCell( stanZywionychOkres.getSn3().toString() );
+                                         table.addCell( stanZywionychOkres.getSn3().toString() + "/" + stanZywionychOkres.getSn3().multiply(cS3) );
                                          table.addCell( stanZywionychOkres.getSn5().toString() ); //null
-                                         table.addCell( stanZywionychOkres.getSn6().toString()); //null
-                                         table.addCell( "" ); //null
-                                         table.addCell( "" ); //null
+                                         table.addCell( stanZywionychOkres.getSn6().toString()); 
+                                         table.addCell( stanZywionychOkres.getDsn5().toString());
+                                         table.addCell( stanZywionychOkres.getDsn6().toString());
                                          table.addCell( "" );
                                          table.addCell( "" );
                                          table.addCell( "" );

@@ -859,7 +859,14 @@ public class ServiceFacade {
                             .filter((s) -> s.getGz().equals(rr.getGz() ))
                             .findFirst().get();
                       
-                      firstMatchedName.getSn3().add(rr.getSn3());
+                      firstMatchedName.setSn3( firstMatchedName.getSn3().add(rr.getSn3()) ) ;
+                      firstMatchedName.setSn5( firstMatchedName.getSn5().add(rr.getSn5()) ) ;
+                      firstMatchedName.setSn6( firstMatchedName.getSn6().add(rr.getSn6()) ) ;
+                      
+                      firstMatchedName.setDsn5( firstMatchedName.getDsn5().add(rr.getDsn5()) ) ;
+                      firstMatchedName.setDsn6( firstMatchedName.getDsn6().add(rr.getDsn6()) ) ;
+                      
+                      
                   }
                   else
                   {
