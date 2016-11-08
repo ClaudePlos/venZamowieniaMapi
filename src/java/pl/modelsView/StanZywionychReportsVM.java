@@ -44,6 +44,7 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
+import pl.models.StanZywionychMMRapRozDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.session.ServiceFacade;
 
@@ -73,7 +74,7 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue("Raport dla kk:" + serviceFacade.kkRaport.getKierunekKosztowNazwa() );
+        test.setValue("Raport dla kk: " + serviceFacade.kkRaport.getKierunekKosztowNazwa() + " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
         Textbox tbOkres = new Textbox();
         tbOkres.setWidth("100px");
@@ -118,7 +119,7 @@ public class StanZywionychReportsVM {
     //@NotifyChange("zapiszPDF")
     public void zapiszPDF( String okres ) throws IOException, Exception{
        
-         java.util.List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
+         java.util.List<StanZywionychMMRapRozDTO> stanZywionych = new ArrayList<StanZywionychMMRapRozDTO>();
         
         try {
             // 01. preparing data 
@@ -186,13 +187,16 @@ public class StanZywionychReportsVM {
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
                                       
                                       // row 
-                                      for ( StanZywionychNaDzienDTO stanZywionychOkres : stanZywionych )
+                                      for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
-                                         PdfPCell cell01 = new PdfPCell (new Paragraph (stanZywionychOkres.getDietaNazwa(), myFont)); 
+                                         System.out.print(stanZywionychOkres.getGz());
+                                          
+                                         PdfPCell cell01 = new PdfPCell (new Paragraph (stanZywionychOkres.getGz(), myFont)); 
                                          table.addCell( cell01 );
-                                         table.addCell( stanZywionychOkres.getSniadaniePlanIl().toString() );
-                                         table.addCell( "" ); //null
-                                         table.addCell( "" ); //null
+                                         
+                                         table.addCell( stanZywionychOkres.getSn3().toString() );
+                                         table.addCell( stanZywionychOkres.getSn5().toString() ); //null
+                                         table.addCell( stanZywionychOkres.getSn6().toString()); //null
                                          table.addCell( "" ); //null
                                          table.addCell( "" ); //null
                                          table.addCell( "" );
