@@ -763,7 +763,10 @@ public class ServiceFacade {
                      stan.setKol5(  new BigDecimal(BigInteger.ZERO)  );
                      stan.setKol6(  new BigDecimal(BigInteger.ZERO)  );
                      
-                     stan.setPn(  (BigDecimal) s[7]  );
+                     if ( s[7] != null )
+                        stan.setPn(  (BigDecimal) s[7]  );
+                     else 
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO) );
                  }
                
                  if ( ((BigDecimal) s[8]).intValue() == 3 )
@@ -789,7 +792,10 @@ public class ServiceFacade {
                      stan.setKol5( new BigDecimal(BigInteger.ZERO)  );
                      stan.setKol6( new BigDecimal(BigInteger.ZERO)  );
                      
-                     stan.setPn(  (BigDecimal) s[7]  );
+                     if ( s[7] != null )
+                        stan.setPn(  (BigDecimal) s[7]  );
+                     else 
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO) );
                  }
                  
                  if ( ((BigDecimal) s[8]).intValue() == 5 )
@@ -815,7 +821,10 @@ public class ServiceFacade {
                      stan.setKol5( (BigDecimal) s[6]  );
                      stan.setKol6(  new BigDecimal(BigInteger.ZERO)  );
                      
-                     stan.setPn(  (BigDecimal) s[7]  );
+                     if ( s[7] != null )
+                        stan.setPn(  (BigDecimal) s[7]  );
+                     else 
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO) );
                      
                      
                  }
@@ -843,7 +852,10 @@ public class ServiceFacade {
                      stan.setKol5(  new BigDecimal(BigInteger.ZERO)  );
                      stan.setKol6( (BigDecimal) s[6]  );
                      
-                     stan.setPn(  (BigDecimal) s[7]  );   
+                     if ( s[7] != null )
+                        stan.setPn(  (BigDecimal) s[7]  );
+                     else 
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO) ); 
                  }
                  
                stanZywionychRapRoz.add(stan);

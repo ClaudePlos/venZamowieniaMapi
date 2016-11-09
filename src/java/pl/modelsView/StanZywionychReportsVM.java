@@ -143,7 +143,7 @@ public class StanZywionychReportsVM {
 			    // image.scaleAbsolute(120f, 60f);//image width,height	
  
 			//Inserting Table in PDF
-			     PdfPTable table=new PdfPTable(14); // number of column
+			     PdfPTable table=new PdfPTable(17); // number of column
                              
                              table.setTotalWidth(790);
                              table.setLockedWidth(true);
@@ -157,15 +157,15 @@ public class StanZywionychReportsVM {
 
                             
  
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe...", myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe z dzialalnosci kuchni", myFont));
  
-				      cell.setColspan(14); // connect column to one 
+				      cell.setColspan(17); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
 				      cell.setPadding (10.0f);
 				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
                                       
                                       
- 
+                                      table.setWidths(new int[]{200,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50});
 				      table.addCell(cell);						               
                                       // name of column
                                       
@@ -175,67 +175,152 @@ public class StanZywionychReportsVM {
                                       table.addCell("SN6");
                                       table.addCell("II SN5");
                                       table.addCell("II SN6");
-                                      table.addCell("c07");
-                                      table.addCell("c08");
-                                      table.addCell("c09");
-                                      table.addCell("c10");
-                                      table.addCell("c11");
-                                      table.addCell("c12");
-                                      table.addCell("c13");
-                                      table.addCell("c14");
+                                      table.addCell("OB3");
+                                      table.addCell("OB5");
+                                      table.addCell("OB6");
+                                      table.addCell("POD5");
+                                      table.addCell("POD6");
+                                      table.addCell("KOL3");
+                                      table.addCell("KOL5");
+                                      table.addCell("KOL6");
+                                      table.addCell("PNoc");
+                                      table.addCell("Dod");
+                                      table.addCell("Suma");
 
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS
                                       
+                                      //pobieram ceny
                                         BigDecimal cS3 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
+                                        
+                                        BigDecimal cS5 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapcSniadanie() ;
+                                        
+                                        BigDecimal cS6 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapcSniadanie() ;
+                                        //
+                                        BigDecimal cDS5 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapc2Sniadanie() ;
+                                        
+                                        BigDecimal cDS6 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapc2Sniadanie();
+                                        
+                                        //
+                                        BigDecimal cO3 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .findFirst().get().getMapcObiad();
+                                        
+                                        BigDecimal cO5 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapcObiad() ;
+                                        
+                                        BigDecimal cO6 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapcObiad() ;
+                                        
+                                        //
+                                        BigDecimal cPO5 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapcPodwieczorek() ;
+                                        
+                                        BigDecimal cPO6 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapcPodwieczorek();
+                                        
+                                        //
+                                        BigDecimal cK3 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .findFirst().get().getMapcKolacja();
+                                        
+                                        BigDecimal cK5 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .findFirst().get().getMapcKolacja() ;
+                                        
+                                        BigDecimal cK6 = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .findFirst().get().getMapcKolacja() ;
+                                        
+                                        
+                                        //dieta 3 posiłkowa + nocny
+                                        BigDecimal cPN = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .findFirst().get().getMapcPosilekNocny() ;
+                                        
+                                        //dieta 3 posiłkowa + nocny
+                                        BigDecimal cKompot = napMapowaniaCenyList.stream()
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .findFirst().get().getMapcZupaKompot() ;
+                                        
                                       
                                          table.addCell("Cena diety");
                                          table.addCell( cS3.toString() );
-                                         table.addCell( napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
-                                                                .findFirst().get().getMapcSniadanie().toString() );
-                                         table.addCell( napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
-                                                                .findFirst().get().getMapcSniadanie().toString() );
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
-                                         table.addCell("5,45");
+                                         table.addCell( cS5.toString() );
+                                         table.addCell( cS6.toString() );
+                                         table.addCell( cDS5.toString() );
+                                         table.addCell( cDS6.toString() );
+                                         table.addCell( cO3.toString() );
+                                         table.addCell( cO5.toString() );
+                                         table.addCell( cO6.toString() );
+                                         table.addCell( cPO5.toString() );
+                                         table.addCell( cPO6.toString() );
+                                         table.addCell( cK3.toString() );
+                                         table.addCell( cK5.toString() );
+                                         table.addCell( cK6.toString() );
+                                         table.addCell( cPN.toString() );
+                                         table.addCell( cKompot.toString() );
+                                         table.addCell("");
+                                         
                                          
                                       
                                           
                                       
                                       
-                                      
+                                      String kkName = "Start";
                                       // row 
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
+                                        
+                                        
+                                        if ( !kkName.equals(stanZywionychOkres.getKk()) )
+                                        {
+                                            PdfPCell cellKK = new PdfPCell (new Paragraph (stanZywionychOkres.getKk(), bold));
+                                            cellKK.setColspan(17); // connect column to one 
+                                            cellKK.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                            cellKK.setPadding (3.0f);
+                                            cellKK.setBackgroundColor (new BaseColor (222, 222, 222));
+                                            table.addCell(cellKK);
+                                        }
+                                          
                                          System.out.print(stanZywionychOkres.getGz());
                                           
-                                         PdfPCell cell01 = new PdfPCell (new Paragraph (stanZywionychOkres.getGz(), myFont)); 
+                                         PdfPCell cell01 = new PdfPCell( new Paragraph( stanZywionychOkres.getGz(), myFont )); 
                                          table.addCell( cell01 );
                                          
-                                         table.addCell( stanZywionychOkres.getSn3().toString() + "/" + stanZywionychOkres.getSn3().multiply(cS3) );
-                                         table.addCell( stanZywionychOkres.getSn5().toString() ); //null
-                                         table.addCell( stanZywionychOkres.getSn6().toString()); 
-                                         table.addCell( stanZywionychOkres.getDsn5().toString());
-                                         table.addCell( stanZywionychOkres.getDsn6().toString());
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + stanZywionychOkres.getSn3().multiply(cS3) , myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + stanZywionychOkres.getSn5().multiply(cS5) , myFont)) ); //null
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + stanZywionychOkres.getSn6().multiply(cS6) , myFont)) ); 
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn5().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn6().toString(), myFont)) );
+                                         
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb3().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb5().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb6().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPod5().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPod6().toString(), myFont)));
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol3().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol5().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol6().toString(), myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPn().toString(), myFont)));
                                          table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
-                                         table.addCell( "" );
+                                         table.addCell( "-" );
+                                         
+                                         kkName =  stanZywionychOkres.getKk();
                                       }
                                       
  
@@ -265,10 +350,10 @@ public class StanZywionychReportsVM {
  
 					document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
-                    document.add(new Paragraph("Dear Java4s.com"));
-                    document.add(new Paragraph("k.skowronski"));
-                    document.add(new Paragraph(okres.toString()));
-	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
+                    
+                    
+                    document.add(new Paragraph("Miesiąc: " + okres.toString()));
+	              //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
  
 					document.add(table);
  
