@@ -303,9 +303,19 @@ public class StanZywionychReportsVM {
                                             if ( !kkName.equals("Start") )
                                             {
                                                 table.addCell( new PdfPCell (new Paragraph ( "Razem " + kkName, bold )) );
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS3.toString(), bold )) ); 
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS5.toString(), bold )) );
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS6.toString(), bold )) );
+                                                
+                                                PdfPCell r02 = new PdfPCell (new Paragraph ( sumS3.toString(), bold ));
+                                                r02.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r02 ); 
+                                                
+                                                PdfPCell r03 = new PdfPCell (new Paragraph ( sumS5.toString(), bold ));
+                                                r03.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r03 );
+                                                
+                                                PdfPCell r04 = new PdfPCell (new Paragraph ( sumS6.toString(), bold ));
+                                                r04.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r04 );
+                                                
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
@@ -318,9 +328,11 @@ public class StanZywionychReportsVM {
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
-                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                
+                                                PdfPCell r17 = new PdfPCell (new Paragraph ( 
                                                     sumS3.add( sumS5.add( sumS6 ) ).toString()
-                                                        , bold )) );
+                                                        , bold ));
+                                                table.addCell( r17 );
                                                 
                                                 allSumS3 = allSumS3.add(sumS3);
                                                 allSumS5 = allSumS5.add(sumS5);
@@ -433,14 +445,26 @@ public class StanZywionychReportsVM {
                                          sumS6 = sumS6.add(sn6m);
                                          kkName =  stanZywionychOkres.getKk();
                                          
+                                         
+                                         // LAST ROW
                                          i++;
                                          
                                          if ( i == numberOfRow)
                                          {
                                                 table.addCell( new PdfPCell (new Paragraph ( "Razem " + kkName, bold )) );
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS3.toString(), bold )) ); 
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS5.toString(), bold )) ); 
-                                                table.addCell( new PdfPCell (new Paragraph ( sumS6.toString(), bold )) ); 
+                                                
+                                                PdfPCell r01 = new PdfPCell (new Paragraph ( sumS3.toString(), bold ));
+                                                r01.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r01 ); 
+                                                
+                                                PdfPCell r02 = new PdfPCell (new Paragraph ( sumS5.toString(), bold ));
+                                                r02.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r02 ); 
+                                                
+                                                PdfPCell r03 = new PdfPCell (new Paragraph ( sumS6.toString(), bold ));
+                                                r03.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r03 ); 
+                                                
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
@@ -453,18 +477,31 @@ public class StanZywionychReportsVM {
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
-                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                
+                                                
+                                                PdfPCell r17 = new PdfPCell (new Paragraph ( 
                                                     sumS3.add( sumS5.add( sumS6 ) ).toString()
-                                                        , bold )) );
+                                                        , bold )); 
+                                                table.addCell( r17 );
                                                 
                                                 allSumS3 = allSumS3.add(sumS3);
                                                 allSumS5 = allSumS5.add(sumS5);
                                                 allSumS6 = allSumS6.add(sumS6);
                                                 
                                                 table.addCell( new PdfPCell (new Paragraph ( "Razem ", bold )) );
-                                                table.addCell( new PdfPCell (new Paragraph ( allSumS3.toString(), bold )) ); 
-                                                table.addCell( new PdfPCell (new Paragraph ( allSumS5.toString(), bold )) ); 
-                                                table.addCell( new PdfPCell (new Paragraph ( allSumS6.toString(), bold )) ); 
+                                                
+                                                PdfPCell ar01 = new PdfPCell (new Paragraph ( allSumS3.toString(), bold ));
+                                                ar01.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar01 ); 
+                                                
+                                                PdfPCell ar02 = new PdfPCell (new Paragraph ( allSumS5.toString(), bold ));
+                                                ar02.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar02 ); 
+                                                
+                                                PdfPCell ar03 = new PdfPCell (new Paragraph ( allSumS6.toString(), bold ));
+                                                ar03.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar03 ); 
+                                                
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
@@ -477,9 +514,11 @@ public class StanZywionychReportsVM {
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
-                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                
+                                                PdfPCell ar17 = new PdfPCell (new Paragraph ( 
                                                         allSumS3.add( allSumS5.add( allSumS6 ) ).toString()
-                                                        , bold )) );
+                                                        , bold ));
+                                                table.addCell( ar17 );
                                                 
                                                 
                                          }
