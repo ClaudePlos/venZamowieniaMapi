@@ -332,6 +332,7 @@ public class StanZywionychReportsVM {
                                                 PdfPCell r17 = new PdfPCell (new Paragraph ( 
                                                     sumS3.add( sumS5.add( sumS6 ) ).toString()
                                                         , bold ));
+                                                r17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r17 );
                                                 
                                                 allSumS3 = allSumS3.add(sumS3);
@@ -482,6 +483,7 @@ public class StanZywionychReportsVM {
                                                 PdfPCell r17 = new PdfPCell (new Paragraph ( 
                                                     sumS3.add( sumS5.add( sumS6 ) ).toString()
                                                         , bold )); 
+                                                r17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r17 );
                                                 
                                                 allSumS3 = allSumS3.add(sumS3);
@@ -518,6 +520,7 @@ public class StanZywionychReportsVM {
                                                 PdfPCell ar17 = new PdfPCell (new Paragraph ( 
                                                         allSumS3.add( allSumS5.add( allSumS6 ) ).toString()
                                                         , bold ));
+                                                ar17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( ar17 );
                                                 
                                                 
