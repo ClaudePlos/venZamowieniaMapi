@@ -170,6 +170,7 @@ public class StanZywionychReportsVM {
 				      table.addCell(cell);						               
                                       // name of column
                                       
+                                      
 				      table.addCell(new PdfPCell (new Paragraph ("-", bold)));
 				      table.addCell("SN3");
 				      table.addCell("SN5");
@@ -258,6 +259,7 @@ public class StanZywionychReportsVM {
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
                                                                 .findFirst().get().getMapcZupaKompot() ;
                                         
+                                       
                                       
                                          table.addCell("Cena diety");
                                          table.addCell( cS3.toString() );
@@ -286,6 +288,11 @@ public class StanZywionychReportsVM {
                                       BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
+                                      
+                                      
+                                      BigDecimal allSumS3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumS5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
                                       // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
@@ -311,11 +318,22 @@ public class StanZywionychReportsVM {
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
-                                                table.addCell( "" );
+                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                    sumS3.add( sumS5.add( sumS6 ) ).toString()
+                                                        , bold )) );
+                                                
+                                                allSumS3 = allSumS3.add(sumS3);
+                                                allSumS5 = allSumS5.add(sumS5);
+                                                allSumS6 = allSumS6.add(sumS6);
                                                 
                                                 sumS3 = new BigDecimal(BigInteger.ZERO);
                                                 sumS5 = new BigDecimal(BigInteger.ZERO);
                                                 sumS6 = new BigDecimal(BigInteger.ZERO);
+                                                
+
+                                                PdfPCell cellNewLine = new PdfPCell (new Paragraph ("", bold ));
+                                                cellNewLine.setColspan(17);
+                                                table.addCell(cellNewLine);
                                                 
                                             }
                                             
@@ -329,30 +347,86 @@ public class StanZywionychReportsVM {
                                           
                                          System.out.print(stanZywionychOkres.getGz());
                                           
-                                         PdfPCell cell01 = new PdfPCell( new Paragraph( stanZywionychOkres.getGz(), myFont )); 
+                                         PdfPCell cell01 = new PdfPCell( new Paragraph( stanZywionychOkres.getGz(), myFont ));
                                          table.addCell( cell01 );
                                          
                                          BigDecimal sn3m = stanZywionychOkres.getSn3().multiply(cS3);
                                          BigDecimal sn5m = stanZywionychOkres.getSn5().multiply(cS5);
                                          BigDecimal sn6m = stanZywionychOkres.getSn6().multiply(cS6);
                                          
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + sn5m , myFont)) ); //null
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + sn6m , myFont)) ); 
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn5().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn6().toString(), myFont)) );
                                          
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb3().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb5().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getOb6().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPod5().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPod6().toString(), myFont)));
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol3().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol5().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol6().toString(), myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPn().toString(), myFont)));
-                                         table.addCell( "" );
-                                         table.addCell( new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m)).toString(), bold )) );
+                                         PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
+                                         cell02.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell02 );
+                                         
+                                         PdfPCell cell03 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + sn5m , myFont));
+                                         cell03.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell03 );
+                                         
+                                         
+                                         PdfPCell cell04 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + sn6m , myFont));
+                                         cell04.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell04 );
+                                         
+                                         //
+                                         PdfPCell cell05 = new PdfPCell( new Paragraph(stanZywionychOkres.getDsn5().toString(), myFont));
+                                         cell05.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell05 );
+                                         
+                                         PdfPCell cell06 = new PdfPCell( new Paragraph(stanZywionychOkres.getDsn6().toString(), myFont));
+                                         cell06.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell06 );
+                                         
+                                         //
+                                         PdfPCell cell07 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb3().toString(), myFont));
+                                         cell07.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell07 );
+                                         
+                                         PdfPCell cell08 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb5().toString(), myFont));
+                                         cell08.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell08 );
+                                         
+                                         PdfPCell cell09 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb6().toString(), myFont));
+                                         cell09.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell09 );
+                                         
+                                         //
+                                         PdfPCell cell10 = new PdfPCell( new Paragraph(stanZywionychOkres.getPod5().toString(), myFont));
+                                         cell10.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell10 );
+                                         
+                                         PdfPCell cell11 = new PdfPCell( new Paragraph(stanZywionychOkres.getPod6().toString(), myFont));
+                                         cell11.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell11 );
+                                         
+                                         
+                                         //
+                                         PdfPCell cell12 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol3().toString(), myFont));
+                                         cell12.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell12 );
+                                         
+                                         PdfPCell cell13 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol5().toString(), myFont));
+                                         cell13.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell13 );
+                                         
+                                         PdfPCell cell14 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol6().toString(), myFont));
+                                         cell14.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell14 );
+                                         
+                                        //
+                                         PdfPCell cell15 = new PdfPCell( new Paragraph(stanZywionychOkres.getPn().toString(), myFont));
+                                         cell15.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell15 );
+                                         
+                                         PdfPCell cell16 = new PdfPCell( new Paragraph("", myFont));
+                                         cell16.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell16 );
+                                         
+                                         PdfPCell cell17 = new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m)).toString(), bold ));
+                                         cell17.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                         table.addCell( cell17 );
+                                        
+                                   
                                          
                                          sumS3 = sumS3.add(sn3m);
                                          sumS5 = sumS5.add(sn5m);
@@ -379,9 +453,35 @@ public class StanZywionychReportsVM {
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
-                                                table.addCell( "" );
+                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                    sumS3.add( sumS5.add( sumS6 ) ).toString()
+                                                        , bold )) );
                                                 
-                                                sumS3 = new BigDecimal(BigInteger.ZERO); 
+                                                allSumS3 = allSumS3.add(sumS3);
+                                                allSumS5 = allSumS5.add(sumS5);
+                                                allSumS6 = allSumS6.add(sumS6);
+                                                
+                                                table.addCell( new PdfPCell (new Paragraph ( "Razem ", bold )) );
+                                                table.addCell( new PdfPCell (new Paragraph ( allSumS3.toString(), bold )) ); 
+                                                table.addCell( new PdfPCell (new Paragraph ( allSumS5.toString(), bold )) ); 
+                                                table.addCell( new PdfPCell (new Paragraph ( allSumS6.toString(), bold )) ); 
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( new PdfPCell (new Paragraph ( 
+                                                        allSumS3.add( allSumS5.add( allSumS6 ) ).toString()
+                                                        , bold )) );
+                                                
+                                                
                                          }
                                       }
                                       
@@ -399,11 +499,11 @@ public class StanZywionychReportsVM {
                                       
  
 			 //Text formating in PDF
-	                Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
+	                /*Chunk chunk=new Chunk("Welecome To Java4s Programming Blog...");
 					chunk.setUnderline(+1f,-2f);//1st co-ordinate is for line width,2nd is space between
 					Chunk chunk1=new Chunk("Php4s.com");
 					chunk1.setUnderline(+4f,-8f);
-					chunk1.setBackground(new BaseColor (17, 46, 193));      
+					chunk1.setBackground(new BaseColor (17, 46, 193));    */  
  
 			 //Now Insert Every Thing Into PDF Document
 		         document.open();//PDF document opened........			       
@@ -419,8 +519,8 @@ public class StanZywionychReportsVM {
  
 					document.add(table);
  
-					document.add(chunk);
-					document.add(chunk1);
+					//document.add(chunk);
+					//document.add(chunk1);
  
 					document.add(Chunk.NEWLINE);   //Something like in HTML :-)							    
  
