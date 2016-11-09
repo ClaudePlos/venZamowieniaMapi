@@ -26,6 +26,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import org.zkoss.bind.annotation.Command;
@@ -279,17 +280,46 @@ public class StanZywionychReportsVM {
                                          
                                       
                                           
-                                      
-                                      
+                                      int i = 0;
+                                      int numberOfRow = stanZywionych.size();
                                       String kkName = "Start";
-                                      // row 
+                                      BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumS5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
+                                      // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
                                         
                                         
                                         if ( !kkName.equals(stanZywionychOkres.getKk()) )
                                         {
-                                            PdfPCell cellKK = new PdfPCell (new Paragraph (stanZywionychOkres.getKk(), bold));
+                                            if ( !kkName.equals("Start") )
+                                            {
+                                                table.addCell( new PdfPCell (new Paragraph ( "Razem " + kkName, bold )) );
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS3.toString(), bold )) ); 
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS5.toString(), bold )) );
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS6.toString(), bold )) );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                
+                                                sumS3 = new BigDecimal(BigInteger.ZERO);
+                                                sumS5 = new BigDecimal(BigInteger.ZERO);
+                                                sumS6 = new BigDecimal(BigInteger.ZERO);
+                                                
+                                            }
+                                            
+                                            PdfPCell cellKK = new PdfPCell (new Paragraph (stanZywionychOkres.getKk(), bold ));
                                             cellKK.setColspan(17); // connect column to one 
                                             cellKK.setHorizontalAlignment (Element.ALIGN_LEFT);
                                             cellKK.setPadding (3.0f);
@@ -302,9 +332,13 @@ public class StanZywionychReportsVM {
                                          PdfPCell cell01 = new PdfPCell( new Paragraph( stanZywionychOkres.getGz(), myFont )); 
                                          table.addCell( cell01 );
                                          
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + stanZywionychOkres.getSn3().multiply(cS3) , myFont)) );
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + stanZywionychOkres.getSn5().multiply(cS5) , myFont)) ); //null
-                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + stanZywionychOkres.getSn6().multiply(cS6) , myFont)) ); 
+                                         BigDecimal sn3m = stanZywionychOkres.getSn3().multiply(cS3);
+                                         BigDecimal sn5m = stanZywionychOkres.getSn5().multiply(cS5);
+                                         BigDecimal sn6m = stanZywionychOkres.getSn6().multiply(cS6);
+                                         
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont)) );
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + sn5m , myFont)) ); //null
+                                         table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + sn6m , myFont)) ); 
                                          table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn5().toString(), myFont)) );
                                          table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getDsn6().toString(), myFont)) );
                                          
@@ -318,9 +352,37 @@ public class StanZywionychReportsVM {
                                          table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getKol6().toString(), myFont)) );
                                          table.addCell( new PdfPCell( new Paragraph(stanZywionychOkres.getPn().toString(), myFont)));
                                          table.addCell( "" );
-                                         table.addCell( "-" );
+                                         table.addCell( new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m)).toString(), bold )) );
                                          
+                                         sumS3 = sumS3.add(sn3m);
+                                         sumS5 = sumS5.add(sn5m);
+                                         sumS6 = sumS6.add(sn6m);
                                          kkName =  stanZywionychOkres.getKk();
+                                         
+                                         i++;
+                                         
+                                         if ( i == numberOfRow)
+                                         {
+                                                table.addCell( new PdfPCell (new Paragraph ( "Razem " + kkName, bold )) );
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS3.toString(), bold )) ); 
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS5.toString(), bold )) ); 
+                                                table.addCell( new PdfPCell (new Paragraph ( sumS6.toString(), bold )) ); 
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                table.addCell( "" );
+                                                
+                                                sumS3 = new BigDecimal(BigInteger.ZERO); 
+                                         }
                                       }
                                       
  
