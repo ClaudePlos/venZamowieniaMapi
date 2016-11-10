@@ -288,11 +288,17 @@ public class StanZywionychReportsVM {
                                       BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sum2S5 = new BigDecimal(BigInteger.ZERO);
+                                      //TODO Marcin
+                                     
                                       
                                       
                                       BigDecimal allSumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSum2S5 = new BigDecimal(BigInteger.ZERO);
+                                      //TODO MArcin
+                                      
                                       // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
@@ -316,7 +322,11 @@ public class StanZywionychReportsVM {
                                                 r04.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r04 );
                                                 
-                                                table.addCell( "" );
+                                                //TODO Marcin
+                                                PdfPCell r05 = new PdfPCell (new Paragraph ( sumS6.toString(), bold ));
+                                                r05.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r05 );
+                                                
                                                 table.addCell( "" );
                                                 table.addCell( "" );
                                                 table.addCell( "" );
@@ -338,11 +348,14 @@ public class StanZywionychReportsVM {
                                                 allSumS3 = allSumS3.add(sumS3);
                                                 allSumS5 = allSumS5.add(sumS5);
                                                 allSumS6 = allSumS6.add(sumS6);
+                                                allSum2S5 = allSum2S5.add(sum2S5);
+                                                //TODO Marcin
                                                 
                                                 sumS3 = new BigDecimal(BigInteger.ZERO);
                                                 sumS5 = new BigDecimal(BigInteger.ZERO);
                                                 sumS6 = new BigDecimal(BigInteger.ZERO);
-                                                
+                                                sum2S5 = new BigDecimal(BigInteger.ZERO);
+                                                //TODO Marcin
 
                                                 PdfPCell cellNewLine = new PdfPCell (new Paragraph ("", bold ));
                                                 cellNewLine.setColspan(17);
@@ -366,6 +379,8 @@ public class StanZywionychReportsVM {
                                          BigDecimal sn3m = stanZywionychOkres.getSn3().multiply(cS3);
                                          BigDecimal sn5m = stanZywionychOkres.getSn5().multiply(cS5);
                                          BigDecimal sn6m = stanZywionychOkres.getSn6().multiply(cS6);
+                                         BigDecimal dsn5m = stanZywionychOkres.getDsn5().multiply(cDS5);
+                                         //TODO Marcin
                                          
                                          
                                          PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
@@ -381,8 +396,8 @@ public class StanZywionychReportsVM {
                                          cell04.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell04 );
                                          
-                                         //
-                                         PdfPCell cell05 = new PdfPCell( new Paragraph(stanZywionychOkres.getDsn5().toString(), myFont));
+                                         //TODO Marcin
+                                         PdfPCell cell05 = new PdfPCell( new Paragraph(dsn5m.toString(), myFont));
                                          cell05.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell05 );
                                          
