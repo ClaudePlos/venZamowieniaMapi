@@ -166,6 +166,8 @@ public class StanZywionychReportsVM {
 				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
                                       
                                       
+                                      
+                                      
                                       table.setWidths(new int[]{200,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50});
 				      table.addCell(cell);						               
                                       // name of column
@@ -191,6 +193,9 @@ public class StanZywionychReportsVM {
 
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS
+                                      
+                                      
+                                      //************************************************************************************************************
                                       
                                       //pobieram ceny
                                         BigDecimal cS3 = napMapowaniaCenyList.stream()
@@ -280,11 +285,13 @@ public class StanZywionychReportsVM {
                                          table.addCell("");
                                          
                                          
-                                      
+                                    //***********************************************************************
                                           
                                       int i = 0;
                                       int numberOfRow = stanZywionych.size();
                                       String kkName = "Start";
+                                      
+                                      // suma razem kk
                                       BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
@@ -292,7 +299,7 @@ public class StanZywionychReportsVM {
                                       //TODO Marcin
                                      
                                       
-                                      
+                                      //suma razem
                                       BigDecimal allSumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
@@ -383,6 +390,12 @@ public class StanZywionychReportsVM {
                                          //TODO Marcin
                                          
                                          
+                                         
+                                         
+                                         
+                                         
+                                         //**********************************************
+                                         //// wiersze gz
                                          PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
                                          cell02.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell02 );
@@ -460,6 +473,9 @@ public class StanZywionychReportsVM {
                                          sumS5 = sumS5.add(sn5m);
                                          sumS6 = sumS6.add(sn6m);
                                          kkName =  stanZywionychOkres.getKk();
+                                         
+                                         //****************************************8
+                                         
                                          
                                          
                                          // LAST ROW
