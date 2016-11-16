@@ -24,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -188,10 +189,11 @@ public class MenuController extends SelectorComposer<Component> {
     @Listen("onClick=button#drukujDS")
     public void drukujDS(Event event) throws FileNotFoundException, DocumentException, IOException {
           // Messagebox.show("sdfsdf");
-          
+          SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
+          SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
 
           // 02. Generation raport 
-            File f = new File("PDF_s_test.pdf");
+            File f = new File("SZ" + serviceFacade.gzRaprot + "_" + dtf1.format( serviceFacade.naDzienRaport ) + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -205,8 +207,8 @@ public class MenuController extends SelectorComposer<Component> {
 			    // image.scaleAbsolute(120f, 60f);//image width,height	
  
 			//Inserting Table in PDF
-			     PdfPTable table = new PdfPTable(8); // number of column
-                             table.setTotalWidth(new float[]{ 40, 100, 100, 100, 100, 100, 100, 100 });
+			     PdfPTable table = new PdfPTable(9); // number of column
+                             table.setTotalWidth(new float[]{ 40, 100, 100, 100, 100, 100, 100, 100, 150 });
                              table.setLockedWidth(true);
                              
                              //uklad poziomy
@@ -222,9 +224,9 @@ public class MenuController extends SelectorComposer<Component> {
 
                             
                              
-	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + serviceFacade.gzRaprot + " na dzien: " + serviceFacade.naDzienRaport, myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + serviceFacade.gzRaprot + " na dzien: " + dtf.format( serviceFacade.naDzienRaport ), myFont));
  
-				      cell.setColspan(8); // connect column to one 
+				      cell.setColspan(9); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
 				      cell.setPadding (10.0f);
 				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
@@ -242,6 +244,7 @@ public class MenuController extends SelectorComposer<Component> {
                                       table.addCell("P");
                                       table.addCell("K");
                                       table.addCell("PN");
+                                      table.addCell("Uwagi");
                                       
                                       
 
@@ -258,7 +261,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          //S
                                          if ( s.getSniadaniePlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getSniadaniePlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph ( s.getSniadaniePlanIl().add(s.getSniadanieKorIl()).toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -268,7 +271,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          //IIS
                                          if ( s.getDrugieSniadaniePlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getDrugieSniadaniePlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph (s.getDrugieSniadaniePlanIl().add(s.getDrugieSniadanieKorIl()).toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -278,7 +281,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          //O
                                          if ( s.getObiadPlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getObiadPlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph (s.getObiadPlanIl().add(s.getObiadKorIl()).toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -288,7 +291,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          //P
                                          if ( s.getPodwieczorekPlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getPodwieczorekPlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph (s.getPodwieczorekPlanIl().add(s.getPodwieczorekKorIl()).toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -298,7 +301,7 @@ public class MenuController extends SelectorComposer<Component> {
                                          //K
                                          if ( s.getKolacjaPlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getKolacjaPlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph (s.getKolacjaPlanIl().add(s.getKolacjaKorIl()).toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -308,7 +311,17 @@ public class MenuController extends SelectorComposer<Component> {
                                          //PN
                                          if ( s.getPosilekNocnyPlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph (s.getPosilekNocnyPlanIl().toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph (s.getPosilekNocnyPlanIl().add(s.getPosilekNocnyKorIl()).toString() , myFont)) ); //S 
+                                         }
+                                         else 
+                                         {
+                                             table.addCell( "" );
+                                         }
+                                         
+                                         //Uwagi
+                                         if ( s.getSzUwagi() != null )
+                                         {
+                                            table.addCell( new PdfPCell (new Paragraph (s.getSzUwagi().toString() , myFont)) ); //S 
                                          }
                                          else 
                                          {
@@ -325,8 +338,8 @@ public class MenuController extends SelectorComposer<Component> {
  
 			 //Inserting List in PDF
 				      com.itextpdf.text.List list=new com.itextpdf.text.List(true,30);
-			              list.add(new ListItem("Java4s"));
-				      list.add(new ListItem("Some Thing..."));	
+			              //list.add(new ListItem("Java4s"));
+				      //list.add(new ListItem("Some Thing..."));	
                                       
                                       
                                       
@@ -348,7 +361,7 @@ public class MenuController extends SelectorComposer<Component> {
                         //document.add(new Paragraph("Dear Java4s.com"));
                         //document.add(new Paragraph("k.skowronski"));
                         // document.add(new Paragraph(naDzienRap.toString()));
-	                document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
+	                document.add(new Paragraph("SZ w dniu dla GZ. Document Generated On - "+ dtf.format( new Date() ).toString()));	
  
 					document.add(table);
  
