@@ -76,14 +76,14 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue("Raport dla kk: " + serviceFacade.kkRaport.getKierunekKosztowNazwa() + " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
+        test.setValue(" Raport dla kierunku kosztów: " + serviceFacade.kkRaport.getKierunekKosztowNazwa() ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
         Textbox tbOkres = new Textbox();
         tbOkres.setWidth("100px");
         tbOkres.setText("2016-10");
         
         Button run = new Button();
-        run.setLabel("Run");
+        run.setLabel("Uruchom");
         run.addEventListener("onClick", new EventListener() {
             @Override
             public void onEvent(Event arg0) throws Exception {
@@ -130,7 +130,7 @@ public class StanZywionychReportsVM {
             
             
             // 02. Generation raport 
-            File f = new File("PDF_s_test.pdf");
+            File f = new File("raport_finansowy.pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -587,7 +587,7 @@ public class StanZywionychReportsVM {
  
                     
                     
-                    document.add(new Paragraph("Miesiąc: " + okres.toString()));
+                    document.add(new Paragraph("Okres: " + okres.toString()));
 	              //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
  
 					document.add(table);
