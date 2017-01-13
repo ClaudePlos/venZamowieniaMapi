@@ -15,7 +15,7 @@ import pl.services.UserInfoService;
 
 /**
  *
- * @author k.skowronski
+ * @author k.skowronski (test)
  */
 public class UserInfoServiceChapter5Impl implements UserInfoService,Serializable{
 	private static final long serialVersionUID = 1L;
