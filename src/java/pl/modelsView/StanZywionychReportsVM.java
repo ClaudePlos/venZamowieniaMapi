@@ -80,7 +80,7 @@ public class StanZywionychReportsVM {
         
         Textbox tbOkres = new Textbox();
         tbOkres.setWidth("100px");
-        tbOkres.setText("2016-10");
+        tbOkres.setText("2017-01");
         
         Button run = new Button();
         run.setLabel("Uruchom");
@@ -151,29 +151,71 @@ public class StanZywionychReportsVM {
                              
                              
                             BaseFont bf = BaseFont.createFont();
-                            Font myFont = new Font(bf, 8);
+                            Font myFont_Naglowek = new Font(bf, 12); //rozmiar czcionki
+                            Font myFont_Posilek = new Font(bf, 10);  //rozmiar czcionki
+                            Font myFont = new Font(bf, 8);           //rozmiar czcionki
+                            
                             
                             Font regular = new Font(FontFamily.HELVETICA, 8);
                             Font bold = new Font(FontFamily.HELVETICA, 8, Font.BOLD);
 
                             
  
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe z dzialalnosci kuchni", myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe z dzialalnosci kuchni", myFont_Naglowek));
  
 				      cell.setColspan(17); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
 				      cell.setPadding (10.0f);
 				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
-                                      
-                                      
-                                      
+
                                       
                                       table.setWidths(new int[]{200,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50});
 				      table.addCell(cell);						               
                                       // name of column
                                       
                                       
-				      table.addCell(new PdfPCell (new Paragraph ("-", bold)));
+                                      PdfPCell cell_1 = new PdfPCell (new Paragraph ("posilek", myFont_Posilek));
+				      cell_1.setColspan(1); // connect column to one 
+                                      cell_1.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_1);
+                                      
+                                      PdfPCell cell_2 = new PdfPCell (new Paragraph ("sniadanie", myFont_Posilek));
+				      cell_2.setColspan(3); // connect column to one 
+                                      cell_2.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_2);
+                                      
+                                      PdfPCell cell_3 = new PdfPCell (new Paragraph ("2 sniadanie", myFont_Posilek));
+				      cell_3.setColspan(2); // connect column to one 
+                                      cell_3.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_3);
+                                      
+                                      PdfPCell cell_4 = new PdfPCell (new Paragraph ("obiad", myFont_Posilek));
+				      cell_4.setColspan(3); // connect column to one 
+                                      cell_4.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_4);
+                                      
+                                      PdfPCell cell_5 = new PdfPCell (new Paragraph ("podwieczorek", myFont_Posilek));
+				      cell_5.setColspan(2); // connect column to one 
+                                      cell_5.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_5);
+                                      
+                                      PdfPCell cell_6 = new PdfPCell (new Paragraph ("kolacja", myFont_Posilek));
+				      cell_6.setColspan(3); // connect column to one 
+                                      cell_6.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_6);
+                                      
+                                      PdfPCell cell_7 = new PdfPCell (new Paragraph ("posilek nocny / dodatek", myFont_Posilek));
+				      cell_7.setColspan(2); // connect column to one 
+                                      cell_7.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_7);
+                                                                                                                 
+                                      PdfPCell cell_9 = new PdfPCell (new Paragraph (" ", myFont_Posilek));
+				      cell_9.setColspan(1); // connect column to one 
+                                      cell_9.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      table.addCell(cell_9);
+                                      
+                                      
+				      table.addCell(new PdfPCell (new Paragraph (" ", bold)));
 				      table.addCell("SN3");
 				      table.addCell("SN5");
                                       table.addCell("SN6");
@@ -191,8 +233,8 @@ public class StanZywionychReportsVM {
                                       table.addCell("Dod");
                                       table.addCell("Suma");
 
-				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
-				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS
+				      table.setSpacingBefore(10.0f);       // Space Before table starts, like margin-top in CSS
+				      table.setSpacingAfter(10.0f);        // Space After table starts, like margin-Bottom in CSS
                                       
                                       
                                       //************************************************************************************************************
@@ -292,19 +334,22 @@ public class StanZywionychReportsVM {
                                       String kkName = "Start";
                                       
                                       // suma razem kk
+                                      //deklaracja
                                       BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sum2S5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sum2S6 = new BigDecimal(BigInteger.ZERO);
                                       //TODO Marcin
                                      
                                       
                                       //suma razem
+                                      //deklaracja
                                       BigDecimal allSumS3 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSum2S5 = new BigDecimal(BigInteger.ZERO);
-                                      //TODO MArcin
+                                      //TODO Marcin
                                       
                                       // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
@@ -370,10 +415,10 @@ public class StanZywionychReportsVM {
                                                 
                                             }
                                             
-                                            PdfPCell cellKK = new PdfPCell (new Paragraph (stanZywionychOkres.getKk(), bold ));
+                                            PdfPCell cellKK = new PdfPCell (new Paragraph (stanZywionychOkres.getKk(), myFont_Naglowek )); //generowana nazwa kierunku kosztow
                                             cellKK.setColspan(17); // connect column to one 
-                                            cellKK.setHorizontalAlignment (Element.ALIGN_LEFT);
-                                            cellKK.setPadding (3.0f);
+                                            cellKK.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                            cellKK.setPadding (10.0f);
                                             cellKK.setBackgroundColor (new BaseColor (222, 222, 222));
                                             table.addCell(cellKK);
                                         }
@@ -604,7 +649,7 @@ public class StanZywionychReportsVM {
  
 			             file.close();
  
-            System.out.println("Pdf created successfully..");
+            System.out.println("Raport created successfully...");
  
         } catch (Exception e) {
             e.printStackTrace();
