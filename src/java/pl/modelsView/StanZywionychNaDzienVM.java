@@ -152,6 +152,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
   
     public StanZywionychNaDzienVM()
     {
+        stanyZywionychNaDzien.clear();
         uzupelnijSumeStanowNaDzien();
        //stanyZywionychNaDzien = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych("2015-04-01","aa");
         
