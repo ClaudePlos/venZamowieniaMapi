@@ -707,7 +707,7 @@ public class ServiceFacade {
 "                    and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
 "                    and to_char(sz.d_obr,'YYYY-MM') = '" + okres + "'\n" +
 "					and gz.id_kierunek_kosztow = kk.ID_KIERUNEK_KOSZTOW\n" +
-"					and gz.id_kierunek_kosztow in (1321, 1322)\n" +
+"					and gz.id_kierunek_kosztow = " + kierunekKosztow + "\n" +
 "                    and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
 "                    and dgz.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.ID_DIETA = d.ID_DIETA \n" +
