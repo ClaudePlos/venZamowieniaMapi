@@ -89,7 +89,7 @@
                 <window apply="org.zkoss.bind.BindComposer" id="w03" renderdefer="100"
                     viewModel="@id('vm3') @init('pl.modelsView.StanZywionychReportsVM')"
                      style="background:#f96bd2; border: solid pink 3px">
-                    <button id="reportsBtn" label="Raporty" autodisable="self" 
+                    <button id="reportsBtn" label="Raporty" autodisable="self" visible="false" 
                        onClick="@command('stanZywionychReports')"/>
                 </window>
             </hlayout>  
