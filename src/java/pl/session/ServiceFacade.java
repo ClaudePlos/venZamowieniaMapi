@@ -52,9 +52,9 @@ public class ServiceFacade {
 		        Persistence.createEntityManagerFactory("venZamowieniaMapiPU2");
     private EntityManager em;
 
-    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien = new ArrayList<StanZywionychNaDzienDTO>();
+    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien;
     
-    public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma = new ArrayList<StanZywionychNaDzienSumaDTO>();
+    public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma;
     
     public static List<KierunekKosztowVO> kierunkiKosztow;
     

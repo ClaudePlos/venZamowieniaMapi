@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -20,6 +21,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Label;
@@ -35,7 +37,7 @@ import pl.session.ServiceFacade;
  *
  * @author k.skowronski
  */
-
+@VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @EJB 
@@ -67,11 +69,11 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     private String statusZamowienia = "STATUS PLANOWANIE";
         
-    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien = serviceFacade.stanyZywionychNaDzien;
+    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien;
     
     public List<StanZywionychNaDzienDTO> stanyZywionychDoKopiowania;
     
-    public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma = serviceFacade.stanyZywionychNaDzienSuma;
+    public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma;
     
      
     
@@ -152,8 +154,12 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
   
     public StanZywionychNaDzienVM()
     {
-        stanyZywionychNaDzien.clear();
-        uzupelnijSumeStanowNaDzien();
+        //stanyZywionychNaDzien.clear();
+        if ( stanyZywionychNaDzien != null )
+        {
+            uzupelnijSumeStanowNaDzien();
+        }
+        
        //stanyZywionychNaDzien = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych("2015-04-01","aa");
         
       // Messagebox.show("StanZywionychNaDzienVM-StanZywionychNaDzienVM");
@@ -180,7 +186,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         }
         
         
-        stanyZywionychNaDzien.clear();
+        stanyZywionychNaDzien = new ArrayList<StanZywionychNaDzienDTO>();
         
         stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych);
         
@@ -194,7 +200,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
         Clients.showNotification("Dane zostały pobrane","info",null, null,300);
         
-        serviceFacade.stanyZywionychNaDzien.clear();
+        //serviceFacade.stanyZywionychNaDzien.clear();
         serviceFacade.naDzienRaport =   naDzien;
         serviceFacade.gzRaprot = grupaZywionych;
         serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
@@ -239,7 +245,12 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @NotifyChange("stanyZywionychNaDzienSuma")
     public void uzupelnijSumeStanowNaDzien()
     {
+       if ( stanyZywionychNaDzien != null )
+       {
+           
+       
         
+        stanyZywionychNaDzienSuma = new ArrayList<StanZywionychNaDzienSumaDTO>();
         //Messagebox.show("Odswiezam !");
         //@Listen("onChange = gridStanZywionych2")
         
@@ -326,7 +337,10 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
             suma.setPoK1ilSum( sumPodwieczorekKor );
             suma.setkK1ilSum( sumKolacjaKor );
             suma.setPnK1ilSum( sumPosilekNocnyKor );
-        }    
+        } 
+        
+        
+      } 
     }
     
     
