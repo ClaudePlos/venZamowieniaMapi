@@ -6,7 +6,7 @@
     
     
     <vlayout>       
-            <label value='Okres: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px" 
+            <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px" 
             onChange="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label)"-->
             <!--<datebox  id="naDzienRapBox" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"
             />-->

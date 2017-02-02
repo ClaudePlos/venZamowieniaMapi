@@ -200,6 +200,7 @@ public class ServiceFacade {
                  kk.setIdKierunekKosztow( (BigDecimal) dane[0] );
                  kk.setKierunekKosztowNazwa((String) dane[1]);
                  kk.setKierunekKosztowKod( (String) dane[2]); 
+                 kk.setUwagi( (String) dane[6] );
                  kk.setSqlGrupyZywionych( kierKosz.getSqlGrupyZywionych() );
                  
                  ret.add(kk);

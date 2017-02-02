@@ -38,11 +38,14 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
@@ -72,7 +75,20 @@ public class StanZywionychReportsVM {
                 "/orderReports/report_for_plock_hospital.zul", null, null);
         window.doModal();
         
-        Listbox listBoxR = new Listbox();
+        
+        Vbox vb01 = new Vbox();
+        
+        
+        ArrayList listZest = new ArrayList();
+        listZest.add("Ilość żywionych wg oddziałów z podziałem na diety");
+        listZest.add("Wydanie posiłków wg oddziałów w miesiącu");
+        
+        ListModelList lmZest = new ListModelList(listZest);
+        
+        Combobox cmbZestawienia = new Combobox();
+        cmbZestawienia.setModel( lmZest );
+        
+        Listbox listBoxR = new Listbox(); 
         listBoxR.setHeight("450px");
         
         Label test = new Label();
@@ -99,10 +115,13 @@ public class StanZywionychReportsVM {
         });
         
         
-       
-        window.appendChild(tbOkres);
-        window.appendChild(run);
-        window.appendChild(test);
+        vb01.appendChild(cmbZestawienia);
+        vb01.appendChild(tbOkres);
+        vb01.appendChild(run);
+        vb01.appendChild(test);
+        
+        window.appendChild(vb01);
+
        // window.appendChild(listBoxR);
         
         getNapMapowaniaCeny();

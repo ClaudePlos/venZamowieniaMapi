@@ -36,7 +36,9 @@ public class KierunekKosztowVO implements Serializable {
     
     @Column(name = "KIERUNEK_KOSZTOW_KOD")
     private String kierunekKosztowKod;
-    
+
+    @Column(name = "UWAGI")
+    private String uwagi;
     
     private List<GrupaZywionychVO> grupyZywionych;
     
@@ -84,6 +86,14 @@ public class KierunekKosztowVO implements Serializable {
 
     public void setSqlGrupyZywionych(String sqlGrupyZywionych) {
         this.sqlGrupyZywionych = sqlGrupyZywionych;
+    }
+
+    public String getUwagi() {
+        return uwagi;
+    }
+
+    public void setUwagi(String uwagi) {
+        this.uwagi = uwagi;
     }
     
     
