@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -895,6 +896,14 @@ public class ServiceFacade {
         
         return stanZywionychRapRoz2;
     
+    }
+    
+    
+    
+    public String dateToStringYYYMMDD( Date d )
+    {
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+        return dt1.format(d);
     }
     
     

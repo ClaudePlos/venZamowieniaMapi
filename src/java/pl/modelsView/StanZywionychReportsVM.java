@@ -41,6 +41,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Fileupload;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
@@ -51,6 +52,7 @@ import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychMMRapRozDTO;
 import pl.models.StanZywionychNaDzienDTO;
+import pl.reports.IlzywWgOddPodDiety;
 import pl.session.ServiceFacade;
 
 /**
@@ -85,8 +87,15 @@ public class StanZywionychReportsVM {
         
         ListModelList lmZest = new ListModelList(listZest);
         
+        Hbox hb01 = new Hbox();
+        Label l01 = new Label();
+        l01.setValue("Zestawienie:");
         Combobox cmbZestawienia = new Combobox();
+        cmbZestawienia.setWidth("450px");
+        cmbZestawienia.appendItem("Zestwienie:");
         cmbZestawienia.setModel( lmZest );
+        hb01.appendChild(l01);
+        hb01.appendChild(cmbZestawienia);
         
         Listbox listBoxR = new Listbox(); 
         listBoxR.setHeight("450px");
@@ -94,9 +103,42 @@ public class StanZywionychReportsVM {
         Label test = new Label();
         test.setValue(" Raport dla kierunku kosztów: " + serviceFacade.kkRaport.getKierunekKosztowNazwa() ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
+        Hbox hb02 = new Hbox();
+        Label l02 = new Label();
+        l02.setValue("Data od:");
         Textbox tbOkres = new Textbox();
         tbOkres.setWidth("100px");
-        tbOkres.setText("2017-01");
+        Date d = new Date();
+        tbOkres.setText( serviceFacade.dateToStringYYYMMDD(d) );
+        hb02.appendChild(l02);
+        hb02.appendChild(tbOkres);
+        
+        
+        
+        
+        ArrayList listPosilki = new ArrayList();
+        listPosilki.add("Śniadanie");
+        listPosilki.add("2 Śniadanie");
+        listPosilki.add("Obiad");
+        listPosilki.add("Podwieczorek");
+        listPosilki.add("Kolacja");
+        listPosilki.add("Posilek nocny");
+        
+        ListModelList lmPosiliki = new ListModelList(listPosilki);
+        
+        Hbox hb03 = new Hbox();
+        Label l03 = new Label();
+        l03.setValue("Posiłek:");
+        Combobox cmbPosilek = new Combobox();
+        cmbPosilek.setWidth("250px");
+        cmbPosilek.setId("cmbPosilek");
+        cmbPosilek.appendItem("Zestwienie:");
+        cmbPosilek.setModel( lmPosiliki );
+        hb03.appendChild(l03);
+        hb03.appendChild(cmbPosilek);
+        
+        
+        
         
         Button run = new Button();
         run.setLabel("Uruchom");
@@ -104,19 +146,34 @@ public class StanZywionychReportsVM {
             @Override
             public void onEvent(Event arg0) throws Exception {
                 
+         
+                
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
+                {
+                    IlzywWgOddPodDiety rap01 = new IlzywWgOddPodDiety();
+                    rap01.zapiszPDF( tbOkres.getValue() );
+                }
+                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
+                {
+                    System.out.print("2");
+                }
+                
+                
+                /* TODO dla onkologi 
                 try {
                     zapiszPDF( tbOkres.getText() );
                 } catch (Exception e) {
                     //alert();
-                }
+                }*/
     
                 
             }   
         });
         
         
-        vb01.appendChild(cmbZestawienia);
-        vb01.appendChild(tbOkres);
+        vb01.appendChild(hb01);
+        vb01.appendChild(hb02);
+        vb01.appendChild(hb03);
         vb01.appendChild(run);
         vb01.appendChild(test);
         
