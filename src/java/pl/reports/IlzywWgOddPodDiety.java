@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -44,11 +45,11 @@ public class IlzywWgOddPodDiety {
         
     }
     
-    public void zapiszPDF( String okres ) throws IOException, Exception{
+    public void zapiszPDF( String okres, BigDecimal kierunekKosztow ) throws IOException, Exception{
         
         System.out.print("Pobierma dane w IlzywWgOddPodDiety");
         
-        List<StanZywDzienPosilekKkDTO> stanyKK = serviceReports.pobierzStanZywionychDzienPosilekKK(okres, 1231);
+        List<StanZywDzienPosilekKkDTO> stanyKK = serviceReports.pobierzStanZywionychDzienPosilekKK(okres, kierunekKosztow);
         
         List<GzDTO> gzList = new ArrayList<GzDTO>();
         

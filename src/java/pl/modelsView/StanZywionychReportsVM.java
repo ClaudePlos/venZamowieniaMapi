@@ -151,7 +151,7 @@ public class StanZywionychReportsVM {
                 if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
                 {
                     IlzywWgOddPodDiety rap01 = new IlzywWgOddPodDiety();
-                    rap01.zapiszPDF( tbOkres.getValue() );
+                    rap01.zapiszPDF( tbOkres.getValue(), serviceFacade.kkRaport.getIdKierunekKosztow() );
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
                 {

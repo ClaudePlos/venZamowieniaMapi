@@ -47,13 +47,13 @@ public class ServiceReports {
     
     
     
-    public List<StanZywDzienPosilekKkDTO> pobierzStanZywionychDzienPosilekKK( String naDzien, int kierunekKosztow)
+    public List<StanZywDzienPosilekKkDTO> pobierzStanZywionychDzienPosilekKK( String naDzien, BigDecimal kierunekKosztow)
     {        
         List<Object[]> stanyKK = null;
         List<StanZywDzienPosilekKkDTO> stanZywionych = new ArrayList<StanZywDzienPosilekKkDTO>();
 
         try {
-             // TODO - zobacz jak Piotrek robi duże zapytania 
+         
              Query query =  em.createNativeQuery("select  grupa_zywionych\n" +
 "  , dieta_nazwa, sum(szp.ilosc) ilosc\n" +
 "  from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk\n" +
@@ -62,8 +62,8 @@ public class ServiceReports {
 "  and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
 "  and p.id_posilek = szp.id_posilek\n" +
 "  and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
-"  and sz.d_obr = '2017-01-02'--to_Date('\" + naDzien + \"','YYYY-MM-DD')\n" +
-"  and id_kierunek_kosztow = 1321 --\" + kierunekKosztow + \"\n" +
+"  and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
+"  and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
 "  and p.posilek = 'Obiad'\n" +
 "  and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
 "  and dgz.ID_DIETA = d.ID_DIETA \n" +
