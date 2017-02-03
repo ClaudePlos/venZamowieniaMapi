@@ -56,6 +56,7 @@ public class IlzywWgOddPodDiety {
         
         List<DietaDTO> dietyList = new ArrayList<DietaDTO>();
         
+        int k = 0;
         for ( StanZywDzienPosilekKkDTO s : stanyKK )
         {
             boolean spr = gzList.stream().anyMatch( rd -> rd.getGzNazwa().equals( s.getGz() ));
@@ -64,7 +65,9 @@ public class IlzywWgOddPodDiety {
             {
                GzDTO g = new GzDTO();
                g.setGzNazwa( s.getGz() );
+               g.setLp(k);
                gzList.add(g);
+               k++;
             }  
         }
 
@@ -88,7 +91,7 @@ public class IlzywWgOddPodDiety {
         
         
         // 02. Generation raport 
-            File f = new File("Zestawienie01.pdf");
+            File f = new File("Zest01_" + kkNazwa + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -102,7 +105,7 @@ public class IlzywWgOddPodDiety {
 			    // image.scaleAbsolute(120f, 60f);//image width,height	
  
 			//Inserting Table in PDF
-			     PdfPTable table=new PdfPTable( gzList.size() + 1 ); // number of column
+			     PdfPTable table=new PdfPTable( gzList.size() + 2 ); // number of column
                              
                              table.setTotalWidth(790);
                              table.setLockedWidth(true);
@@ -129,7 +132,7 @@ public class IlzywWgOddPodDiety {
                                       
 	                     PdfPCell cell = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
  
-				      cell.setColspan( gzList.size()  ); // connect column to one 
+				      cell.setColspan( gzList.size() + 1  ); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
 				      cell.setPadding (10.0f);
 				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
@@ -137,7 +140,7 @@ public class IlzywWgOddPodDiety {
                                       float[] fl = {2f, 1f, };
                                       //table.setWidths(fl);
                                       //Array t1 = "";
-                                      int[] size = new int[ gzList.size() + 1 ];
+                                      int[] size = new int[ gzList.size() + 2 ];
                                       
                                       for (int i = 0; i < size.length; i++) {
                                           if ( i == 0 )
@@ -172,9 +175,32 @@ public class IlzywWgOddPodDiety {
                                          table.addCell(cell_01); 
                                       }
                                       
+                                        PdfPCell cell_011 = new PdfPCell (new Paragraph ( "SUMA" , myFont_Posilek));
+                                        cell_011.setColspan(1); // connect column to one 
+                                        cell_011.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                        cell_011.setRotation(90);
+                                        table.addCell(cell_011); 
                                       
                                       
-                                      // rysujemy kolejne wiersze, diety i ilosci 
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+
+                                     
+                                      
+                                    //**************************************************  
+                                     // rysujemy kolejne wiersze, diety i ilosci 
+                                     BigDecimal[] sumaKolumna = new BigDecimal[ gzList.size() ];
+                                     for (int i=0; i<(sumaKolumna.length); i++ ) {
+                                         sumaKolumna[i] = BigDecimal.ZERO;
+                                     }
+                                     
                                      for( DietaDTO d : dietyList )
                                      {
                                         
@@ -183,6 +209,7 @@ public class IlzywWgOddPodDiety {
                                          cell_02.setHorizontalAlignment (Element.ALIGN_LEFT);
                                          table.addCell(cell_02); 
                                          
+                                         BigDecimal sumaWiersz = BigDecimal.ZERO;
                                          for ( GzDTO gz : gzList )
                                          {
                                             
@@ -193,6 +220,8 @@ public class IlzywWgOddPodDiety {
                                             String ilosc = ""; 
                                             if ( cS3 != null )
                                             {
+                                               sumaWiersz  = sumaWiersz.add( cS3.getIlosc() );
+                                               sumaKolumna[gz.getLp()] = sumaKolumna[gz.getLp()].add(cS3.getIlosc());
                                                ilosc = cS3.getIlosc().toString();
                                                
                                                if ( ilosc.equals("0") )
@@ -205,10 +234,37 @@ public class IlzywWgOddPodDiety {
                                             cell_022.setHorizontalAlignment (Element.ALIGN_LEFT);
                                             table.addCell(cell_022); 
                                          }
+                                        
+                                         
+                                        // wstawiam suma wiersza 
+                                        PdfPCell cell_023 = new PdfPCell (new Paragraph ( sumaWiersz.toString() , myFont_Posilek));
+                                        cell_023.setColspan(1); // connect column to one 
+                                        cell_023.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                        table.addCell(cell_023);
+                                         
                                          
                                      }
+                                    
+                                    
+                                    // suma kolumna
+                                    PdfPCell cell_03 = new PdfPCell (new Paragraph ( "SUMA" , myFont_Posilek));
+                                    cell_03.setColspan(1); // connect column to one 
+                                    cell_03.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                    table.addCell(cell_03); 
+                                    
+                                    
+                                    for (int i=0; i<(sumaKolumna.length); i++ ) {
+                                        System.out.print(sumaKolumna[i].toString());
+                                        PdfPCell cell_033 = new PdfPCell (new Paragraph ( sumaKolumna[i].toString() , myFont_Posilek));
+                                        cell_033.setColspan(1); // connect column to one 
+                                        cell_033.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                        table.addCell(cell_033);
+                                    }
         
-        
+                                    PdfPCell cell_034 = new PdfPCell (new Paragraph ( "" , myFont_Posilek));
+                                    cell_034.setColspan(1); // connect column to one 
+                                    cell_034.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                    table.addCell(cell_034);
         
         
         com.itextpdf.text.List list=new com.itextpdf.text.List(true,30);

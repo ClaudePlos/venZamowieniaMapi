@@ -90,7 +90,7 @@
                     viewModel="@id('vm3') @init('pl.modelsView.StanZywionychReportsVM')"
                      style="background:#f96bd2; border: solid pink 3px">
                     <button id="reportsBtn" label="Raporty" autodisable="self" visible="true" 
-                       onClick="@command('stanZywionychReports')"/>
+                       onClick="@command('stanZywionychReports',kierKosztow=cmbKK.selectedItem.value,kierKosztowNazwa=cmbKK.selectedItem.label)"/>
                 </window>
             </hlayout>  
          

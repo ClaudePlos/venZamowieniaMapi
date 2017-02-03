@@ -12,6 +12,7 @@ package pl.models.reports;
 public class GzDTO {
     
     private String gzNazwa;
+    private int lp;
 
     public String getGzNazwa() {
         return gzNazwa;
@@ -20,6 +21,15 @@ public class GzDTO {
     public void setGzNazwa(String gzNazwa) {
         this.gzNazwa = gzNazwa;
     }
+
+    public int getLp() {
+        return lp;
+    }
+
+    public void setLp(int lp) {
+        this.lp = lp;
+    }
+    
     
     
     

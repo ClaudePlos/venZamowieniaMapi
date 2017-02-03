@@ -29,6 +29,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import javax.ejb.EJB;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.AMedia;
@@ -71,7 +72,7 @@ public class StanZywionychReportsVM {
     
     @Command
     @NotifyChange("stanyZywionychReprots")
-    public void stanZywionychReports() throws IOException, Exception{
+    public void stanZywionychReports( @BindingParam("kierKosztow") int kierKosztowId, @BindingParam("kierKosztowNazwa") String kierKosztowNazwa ) throws IOException, Exception{
         
         Window window = (Window)Executions.createComponents(
                 "/orderReports/report_for_plock_hospital.zul", null, null);
@@ -102,7 +103,7 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue(" Raport dla kierunku kosztów: " + serviceFacade.kkRaport.getKierunekKosztowNazwa() ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
+        test.setValue(" Raport dla kierunku kosztów: " + kierKosztowNazwa  ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
         Hbox hb02 = new Hbox();
         Label l02 = new Label();
@@ -153,9 +154,9 @@ public class StanZywionychReportsVM {
                 {
                     IlzywWgOddPodDiety rap01 = new IlzywWgOddPodDiety();
                     rap01.zapiszPDF( tbOkres.getValue()
-                            , serviceFacade.kkRaport.getIdKierunekKosztow()
+                            , BigDecimal.valueOf(kierKosztowId)
                             , cmbPosilek.getSelectedItem().getValue().toString()
-                            , serviceFacade.kkRaport.getKierunekKosztowNazwa() );
+                            , kierKosztowNazwa );
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
                 {
@@ -165,7 +166,7 @@ public class StanZywionychReportsVM {
                 
                 /* TODO dla onkologi 
                 try {
-                    zapiszPDF( tbOkres.getText() );
+                    zapiszPDF( tbOkres.getText(), kierKosztowId );
                 } catch (Exception e) {
                     //alert();
                 }*/
@@ -199,13 +200,13 @@ public class StanZywionychReportsVM {
         
     //@Command
     //@NotifyChange("zapiszPDF")
-    public void zapiszPDF( String okres ) throws IOException, Exception{
+    public void zapiszPDF( String okres, int kkId ) throws IOException, Exception{
        
          java.util.List<StanZywionychMMRapRozDTO> stanZywionych = new ArrayList<StanZywionychMMRapRozDTO>();
         
         try {
             // 01. preparing data 
-            stanZywionych = serviceFacade.getDataForFinancialRaport(okres, serviceFacade.kkRaport.getIdKierunekKosztow().intValue() );
+            stanZywionych = serviceFacade.getDataForFinancialRaport(okres, kkId );
             
             
             

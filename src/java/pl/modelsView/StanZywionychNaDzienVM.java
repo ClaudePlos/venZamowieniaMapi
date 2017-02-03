@@ -59,7 +59,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     private String gzC;
     
-    private List<KierunekKosztowVO> kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
+    private List<KierunekKosztowVO> kierunkiKosztow;
     
     private KierunekKosztowVO selectedKierunekKosztow = new KierunekKosztowVO();
 
@@ -154,15 +154,13 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
   
     public StanZywionychNaDzienVM()
     {
-        //stanyZywionychNaDzien.clear();
+        kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
+        
         if ( stanyZywionychNaDzien != null )
         {
             uzupelnijSumeStanowNaDzien();
         }
-        
-       //stanyZywionychNaDzien = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych("2015-04-01","aa");
-        
-      // Messagebox.show("StanZywionychNaDzienVM-StanZywionychNaDzienVM");
+
     }
 
     @Command
@@ -212,7 +210,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @NotifyChange("grupyZywionych")
     public void wybranoKierKosztow() {
          System.out.println( selectedKierunekKosztow.getUwagi() );
-        serviceFacade.kkRaport = selectedKierunekKosztow;
+        //serviceFacade.kkRaport = selectedKierunekKosztow;
         grupyZywionych = new ArrayList<GrupaZywionychVO>( serviceFacade.getGrupaZywionych( selectedKierunekKosztow ) );
         
     }

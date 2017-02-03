@@ -68,7 +68,7 @@ public class ServiceFacade {
     // dal raportow
     public Date naDzienRaport;
     public static String gzRaprot;
-    public static KierunekKosztowVO kkRaport;
+
     
     public ServiceFacade() {
         em = emfInstance.createEntityManager();
