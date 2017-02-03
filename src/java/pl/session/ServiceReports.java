@@ -47,11 +47,11 @@ public class ServiceReports {
     
     
     
-    public List<StanZywDzienPosilekKkDTO> pobierzStanZywionychDzienPosilekKK( String naDzien, BigDecimal kierunekKosztow)
+    public List<StanZywDzienPosilekKkDTO> pobierzStanZywionychDzienPosilekKK( String naDzien, BigDecimal kierunekKosztow, String posilek)
     {        
         List<Object[]> stanyKK = null;
         List<StanZywDzienPosilekKkDTO> stanZywionych = new ArrayList<StanZywDzienPosilekKkDTO>();
-
+    System.out.print( naDzien + " kkId: " + kierunekKosztow + " " + posilek );
         try {
          
              Query query =  em.createNativeQuery("select  grupa_zywionych\n" +
@@ -64,7 +64,7 @@ public class ServiceReports {
 "  and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
 "  and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
 "  and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
-"  and p.posilek = 'Obiad'\n" +
+"  and p.posilek = '" + posilek + "'\n" +
 "  and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
 "  and dgz.ID_DIETA = d.ID_DIETA \n" +
 "  and dk.ID_DIETA = d.ID_DIETA \n" +

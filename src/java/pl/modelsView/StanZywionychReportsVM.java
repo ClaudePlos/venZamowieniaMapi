@@ -92,8 +92,9 @@ public class StanZywionychReportsVM {
         l01.setValue("Zestawienie:");
         Combobox cmbZestawienia = new Combobox();
         cmbZestawienia.setWidth("450px");
-        cmbZestawienia.appendItem("Zestwienie:");
+        cmbZestawienia.setValue("Wybierz raport: ");
         cmbZestawienia.setModel( lmZest );
+        
         hb01.appendChild(l01);
         hb01.appendChild(cmbZestawienia);
         
@@ -132,8 +133,8 @@ public class StanZywionychReportsVM {
         Combobox cmbPosilek = new Combobox();
         cmbPosilek.setWidth("250px");
         cmbPosilek.setId("cmbPosilek");
-        cmbPosilek.appendItem("Zestwienie:");
         cmbPosilek.setModel( lmPosiliki );
+        cmbPosilek.setValue("Obiad");
         hb03.appendChild(l03);
         hb03.appendChild(cmbPosilek);
         
@@ -151,7 +152,10 @@ public class StanZywionychReportsVM {
                 if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
                 {
                     IlzywWgOddPodDiety rap01 = new IlzywWgOddPodDiety();
-                    rap01.zapiszPDF( tbOkres.getValue(), serviceFacade.kkRaport.getIdKierunekKosztow() );
+                    rap01.zapiszPDF( tbOkres.getValue()
+                            , serviceFacade.kkRaport.getIdKierunekKosztow()
+                            , cmbPosilek.getSelectedItem().getValue().toString()
+                            , serviceFacade.kkRaport.getKierunekKosztowNazwa() );
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
                 {

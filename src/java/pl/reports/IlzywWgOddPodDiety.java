@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import org.zkoss.zul.Filedownload;
@@ -45,11 +46,11 @@ public class IlzywWgOddPodDiety {
         
     }
     
-    public void zapiszPDF( String okres, BigDecimal kierunekKosztow ) throws IOException, Exception{
+    public void zapiszPDF( String okres, BigDecimal kierunekKosztow, String posilek, String kkNazwa ) throws IOException, Exception{
         
         System.out.print("Pobierma dane w IlzywWgOddPodDiety");
         
-        List<StanZywDzienPosilekKkDTO> stanyKK = serviceReports.pobierzStanZywionychDzienPosilekKK(okres, kierunekKosztow);
+        List<StanZywDzienPosilekKkDTO> stanyKK = serviceReports.pobierzStanZywionychDzienPosilekKK(okres, kierunekKosztow, posilek);
         
         List<GzDTO> gzList = new ArrayList<GzDTO>();
         
@@ -67,7 +68,7 @@ public class IlzywWgOddPodDiety {
             }  
         }
 
-        //Collections.sort(gzList, (o1, o2) -> o1.getGzNazwa().compareTo(o2.getGzNazwa()));
+        Collections.sort(gzList, (o1, o2) -> o1.getGzNazwa().compareTo(o2.getGzNazwa()));
         
         
         
@@ -108,7 +109,7 @@ public class IlzywWgOddPodDiety {
                              
                              
                             BaseFont bf = BaseFont.createFont();
-                            Font myFont_Naglowek = new Font(bf, 10); //rozmiar czcionki
+                            Font myFont_Naglowek = new Font(bf, 8); //rozmiar czcionki
                             Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
                             Font myFont = new Font(bf, 8);           //rozmiar czcionki
                             
@@ -141,11 +142,11 @@ public class IlzywWgOddPodDiety {
                                       for (int i = 0; i < size.length; i++) {
                                           if ( i == 0 )
                                           {
-                                            size[i] = 200;  
+                                            size[i] = 300;  
                                           }
                                           else
                                           {
-                                             size[i] = 50; 
+                                             size[i] = 30; 
                                           }    
                                       }
                                       
@@ -220,9 +221,13 @@ public class IlzywWgOddPodDiety {
         document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
                     
-                    
-        document.add(new Paragraph("Okres: " + okres.toString()));
+        document.add(new Paragraph("Vendi Servis Sp. z o.o. " + okres.toString(), myFont_Posilek )); 
+        document.add(new Paragraph( okres.toString(), myFont_Posilek ));
+        document.add(new Paragraph("Na dzień: " + okres.toString(), myFont_Posilek ));
+        document.add(new Paragraph( posilek, myFont_Posilek ));
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
+          
+        document.add(Chunk.NEWLINE);  
  
         document.add(table);
 
