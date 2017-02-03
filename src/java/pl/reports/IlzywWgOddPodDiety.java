@@ -107,8 +107,8 @@ public class IlzywWgOddPodDiety {
                              table.setTotalWidth(790);
                              table.setLockedWidth(true);
                              
-                             
-                            BaseFont bf = BaseFont.createFont();
+                             //BaseFont.CP1250
+                            BaseFont bf = BaseFont.createFont( BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED ); // na polskie zniaki
                             Font myFont_Naglowek = new Font(bf, 8); //rozmiar czcionki
                             Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
                             Font myFont = new Font(bf, 8);           //rozmiar czcionki
