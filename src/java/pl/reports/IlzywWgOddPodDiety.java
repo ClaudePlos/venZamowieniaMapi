@@ -142,7 +142,7 @@ public class IlzywWgOddPodDiety {
                                       for (int i = 0; i < size.length; i++) {
                                           if ( i == 0 )
                                           {
-                                            size[i] = 300;  
+                                            size[i] = 250;  
                                           }
                                           else
                                           {
@@ -222,9 +222,8 @@ public class IlzywWgOddPodDiety {
  
                     
         document.add(new Paragraph("Vendi Servis Sp. z o.o. " + okres.toString(), myFont_Posilek )); 
-        document.add(new Paragraph( okres.toString(), myFont_Posilek ));
-        document.add(new Paragraph("Na dzień: " + okres.toString(), myFont_Posilek ));
-        document.add(new Paragraph( posilek, myFont_Posilek ));
+        document.add(new Paragraph( kkNazwa + " Na dzień: " + okres.toString() + " " + posilek, myFont_Posilek ));
+
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
           
         document.add(Chunk.NEWLINE);  
