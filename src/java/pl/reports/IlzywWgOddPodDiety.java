@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import org.zkoss.zul.Filedownload;
+import pl.models.reports.DietaDTO;
 import pl.models.reports.GzDTO;
 import pl.models.reports.StanZywDzienPosilekKkDTO;
 import pl.session.ServiceReports;
@@ -51,6 +52,8 @@ public class IlzywWgOddPodDiety {
         
         List<GzDTO> gzList = new ArrayList<GzDTO>();
         
+        List<DietaDTO> dietyList = new ArrayList<DietaDTO>();
+        
         for ( StanZywDzienPosilekKkDTO s : stanyKK )
         {
             boolean spr = gzList.stream().anyMatch( rd -> rd.getGzNazwa().equals( s.getGz() ));
@@ -60,14 +63,26 @@ public class IlzywWgOddPodDiety {
                GzDTO g = new GzDTO();
                g.setGzNazwa( s.getGz() );
                gzList.add(g);
-            }
+            }  
+        }
+
+        //Collections.sort(gzList, (o1, o2) -> o1.getGzNazwa().compareTo(o2.getGzNazwa()));
+        
+        
+        
+        for ( StanZywDzienPosilekKkDTO s : stanyKK )
+        {
+            boolean spr = dietyList.stream().anyMatch( rd -> rd.getDietaNazwa().equals( s.getDieta() ));
             
-            
+            if( spr == false )
+            {
+               DietaDTO d = new DietaDTO();
+               d.setDietaNazwa( s.getDieta() );
+               dietyList.add(d);
+            } 
         }
         
-        
-        
-        
+        //TODO add sort
         
         
         // 02. Generation raport 
@@ -92,8 +107,8 @@ public class IlzywWgOddPodDiety {
                              
                              
                             BaseFont bf = BaseFont.createFont();
-                            Font myFont_Naglowek = new Font(bf, 12); //rozmiar czcionki
-                            Font myFont_Posilek = new Font(bf, 10);  //rozmiar czcionki
+                            Font myFont_Naglowek = new Font(bf, 10); //rozmiar czcionki
+                            Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
                             Font myFont = new Font(bf, 8);           //rozmiar czcionki
                             
                             
@@ -154,7 +169,42 @@ public class IlzywWgOddPodDiety {
                                          cell_01.setRotation(90);
                                          table.addCell(cell_01); 
                                       }
-        
+                                      
+                                      
+                                      
+                                      // rysujemy kolejne wiersze, diety i ilosci 
+                                     for( DietaDTO d : dietyList )
+                                     {
+                                        
+                                         PdfPCell cell_02 = new PdfPCell (new Paragraph ( d.getDietaNazwa() , myFont_Posilek));
+                                         cell_02.setColspan(1); // connect column to one 
+                                         cell_02.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                         table.addCell(cell_02); 
+                                         
+                                         for ( GzDTO gz : gzList )
+                                         {
+                                            
+                                            StanZywDzienPosilekKkDTO cS3 = stanyKK.stream()
+                                                                .filter((s) -> s.getDieta().equals(d.getDietaNazwa()) &&  s.getGz().equals(gz.getGzNazwa()) )
+                                                                .findAny().orElse(null);
+                                                    
+                                            String ilosc = ""; 
+                                            if ( cS3 != null )
+                                            {
+                                               ilosc = cS3.getIlosc().toString();
+                                               
+                                               if ( ilosc.equals("0") )
+                                                   ilosc = ""; 
+                                            }
+                                             
+                                            
+                                            PdfPCell cell_022 = new PdfPCell (new Paragraph ( ilosc , myFont_Posilek));
+                                            cell_022.setColspan(1); // connect column to one 
+                                            cell_022.setHorizontalAlignment (Element.ALIGN_LEFT);
+                                            table.addCell(cell_022); 
+                                         }
+                                         
+                                     }
         
         
         
