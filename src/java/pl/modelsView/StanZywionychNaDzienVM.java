@@ -18,18 +18,15 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.ExecutionArgParam;
-import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
@@ -87,6 +84,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Wire
     Listbox listBoxSZ;
+    
+    @Wire
+    Button buttScale;
     
    
     
@@ -171,7 +171,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
     public StanZywionychNaDzienVM()
     {  
-        
+        width = "1283";
         kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
         
         if ( stanyZywionychNaDzien != null )
@@ -492,17 +492,30 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @Command
     @NotifyChange("cmd1")
     public void cmd1() {
-        if ( Integer.parseInt(width) <= 1024 )
+        
+        System.out.println( buttScale.getImage() );
+        
+        if ( buttScale.getImage().equals("img/scale16x16down.png") )
         {
+           buttScale.setImage("img/scale16x16.png");
            listBoxSZ.setRows(7);
            listBoxSZ.setWidth("975px"); 
         }
         else
         {
+           buttScale.setImage("img/scale16x16down.png");
            listBoxSZ.setRows(15);
            listBoxSZ.setWidth("1283px");  
         }
             
+    }
+    
+    public void zmienX( String w )
+    {
+        System.out.println(w + "x");
+        width = w;
+        System.out.println(width + "x");
+        
     }
  
    

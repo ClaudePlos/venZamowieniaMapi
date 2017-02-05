@@ -7,7 +7,7 @@
             void doOrientationChange(ClientInfoEvent evt) {
                StanZywionychNaDzienVM serviceSZ = StanZywionychNaDzienVM.getInstance();  
                lbWidth.setValue( evt.getDesktopWidth().toString() + "x" );
-               serviceSZ.width = evt.getDesktopWidth().toString();
+               serviceSZ.zmienX(evt.getDesktopWidth().toString());
        
                 /*if ("portrait".equals(evt.getOrientation())) {
                     main.setWidth("100%");
@@ -35,10 +35,10 @@
         </west>
         
         <center id="mainContent" autoscroll="false" >
-            <include id="main" src="main.zul" type="DupaDupa"/>
+            <include id="main" src="main.zul"/> 
         </center>
-        <south height="20px" border="none">
-           <label id="lbWidth" />
+        <south height="10px" border="none">
+            <label id="lbWidth" />
         </south>
     </borderlayout>
 </zk>

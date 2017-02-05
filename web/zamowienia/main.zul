@@ -87,7 +87,7 @@
                 </window>
                 
                 <div style="background:#B8D335; border: solid green 2px">
-                <button id="testId" image="img/scale16x16.png" autodisable="self" visible="true"  
+                <button id="buttScale" image="img/scale16x16down.png" autodisable="self" visible="true"  
                                 onClick="@command('cmd1')"
                          />
                 </div>
