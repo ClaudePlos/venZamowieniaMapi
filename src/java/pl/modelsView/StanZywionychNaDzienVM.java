@@ -5,26 +5,32 @@
  */
 package pl.modelsView;
 
+
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.ExecutionArgParam;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.ClientInfoEvent;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.ForwardEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import pl.models.GrupaZywionychVO;
@@ -44,7 +50,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
     private static volatile StanZywionychNaDzienVM instance = null;
-    
+
     public static StanZywionychNaDzienVM getInstance() {
         if (instance == null) {
           instance = new StanZywionychNaDzienVM();
@@ -52,7 +58,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         return instance;
     }
     
-
+    
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
     private Date dC;
@@ -75,9 +81,19 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma;
     
-     
+    public String width;
     
- 
+    public Number ilWierszy = 15;
+    
+    @Wire
+    Listbox listBoxSZ;
+    
+   
+    
+    @AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+        Selectors.wireComponents(view, this, false);
+    }
 
     public List<StanZywionychNaDzienDTO> getStanyZywionychNaDzien() {
 		return stanyZywionychNaDzien;
@@ -127,6 +143,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         this.statusZamowienia = statusZamowienia;
     }
 
+    public Number getIlWierszy() {
+        return ilWierszy;
+    }
+
+    public void setIlWierszy(Number ilWierszy) {
+        this.ilWierszy = ilWierszy;
+    }
+
     
 
     
@@ -144,16 +168,10 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         this.stanyZywionychNaDzienSuma = stanyZywionychNaDzienSuma;
     }
     
-    
 
-    
-
-   
-    
-    
-  
     public StanZywionychNaDzienVM()
-    {
+    {  
+        
         kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
         
         if ( stanyZywionychNaDzien != null )
@@ -436,8 +454,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
     }
     
-    
-    
+
     private void copyStanZywDlaDnia2()
     {
         stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC);
@@ -472,6 +489,23 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     }
     
     
-    
-    
-}
+    @Command
+    @NotifyChange("cmd1")
+    public void cmd1() {
+        if ( Integer.parseInt(width) <= 1024 )
+        {
+           listBoxSZ.setRows(7);
+           listBoxSZ.setWidth("975px"); 
+        }
+        else
+        {
+           listBoxSZ.setRows(15);
+           listBoxSZ.setWidth("1283px");  
+        }
+            
+    }
+ 
+   
+   
+
+    }

@@ -398,6 +398,8 @@ public class ServiceFacade {
         int ileWierszy = stany.size();
         int i = 1;
         
+        System.out.print("Start wgranie, StZy kk: " + kierKosztow + " Czy korekta?: " + czyKorekta + " Na dzien: TODO********************************" );
+        
         EntityTransaction tx = em.getTransaction();
         
         for(StanZywionychNaDzienDTO s : stany )
@@ -405,8 +407,8 @@ public class ServiceFacade {
             
             
              try {
-                 
-                System.out.print("Zapisuje dane, wgrałem już " + i * 100 / ileWierszy); 
+                // TODO w wolnej chwili można napisać ile procent danych jest już wgrane :) 
+                //System.out.print("Zapisuje dane, wgrałem już " + i * 100 / ileWierszy); 
                  
                 tx.begin();
                 
@@ -460,7 +462,7 @@ public class ServiceFacade {
             i++;
         }
         
-
+        System.out.print("End wgranie StZy, kk: " + kierKosztow + " Czy korekta?: " + czyKorekta + " Na dzien: TODO" );
         return "OK";
     }
     

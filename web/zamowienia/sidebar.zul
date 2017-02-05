@@ -1,13 +1,19 @@
-<grid hflex="1" vflex="1" sclass="sidebar" apply="pl.views.zam.MenuController">
+<grid hflex="0" vflex="1" sclass="sidebar" apply="pl.views.zam.MenuController">
     <columns>
         <column/>
     </columns>
     <rows>
         <row>
-            <button id="logout" label="Wyloguj" onClick=""></button>
+            <button id="logout" width="25px" 
+                    image="img/logout16x16.png"
+                    label="" onClick="">
+            </button>
         </row>
         <row>
-            <button id="drukujDS" label="DrukujDS" onClick=""></button>
+            <button id="drukujDS" width="25px" 
+                    image="img/print16x16.png"
+                    label="" onClick="">
+            </button>
         </row>
     </rows>
 </grid>

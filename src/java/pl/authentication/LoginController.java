@@ -6,6 +6,8 @@
 package pl.authentication;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.EJB;
 import pl.services.AuthenticationService;
 import pl.services.UserCredential;
@@ -43,6 +45,8 @@ public class LoginController extends SelectorComposer<Component> {
 	public void doLogin(){
 		String nm = account.getValue();
 		String pd = password.getValue();
+                
+                SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		
 		if(!authService.login(nm,pd)){
 			message.setValue("Login lu hasło są niepoprawne.");
@@ -52,9 +56,9 @@ public class LoginController extends SelectorComposer<Component> {
           
                 
 		UserCredential cre= authService.getUserCredential();
-		message.setValue("Loguje się:, "+cre.getName());
+		message.setValue("Loguje się: "+cre.getName());
 		message.setSclass("");
-		System.out.print("Zalogowano " + cre.getName() );
+		System.out.print("Zalogowano " + cre.getName() + " " + dt.format(new Date()) );
 		Executions.sendRedirect("/zamowienia/");
 		
 	}

@@ -1,18 +1,44 @@
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <zk>
+   <zscript><![CDATA[
+       
+            import pl.modelsView.StanZywionychNaDzienVM;
+       
+            void doOrientationChange(ClientInfoEvent evt) {
+               StanZywionychNaDzienVM serviceSZ = StanZywionychNaDzienVM.getInstance();  
+               lbWidth.setValue( evt.getDesktopWidth().toString() + "x" );
+               serviceSZ.width = evt.getDesktopWidth().toString();
+       
+                /*if ("portrait".equals(evt.getOrientation())) {
+                    main.setWidth("100%");
+                    if (evt.getDesktopWidth() < 640)
+                        sv.setVisible(false);
+                    Clients.resize(content);
+                } else {
+                    if (!execution.isBrowser("mobile"))
+                        main.setWidth("80%");
+                    sv.setVisible(true);
+                    Clients.resize(content);
+                }*/
+            }
+]]> </zscript> 
+<tabbox onClientInfo="doOrientationChange(event)"/>  
+
+ 
     <borderlayout hflex="1" vflex="1">
         <north height="85px" border="none" >
             <include src="banner.zul"/>
         </north>
-        <west width="100px" border="none" collapsible="true" splittable="true" minsize="300">
+        
+        <west width="39px" border="none" collapsible="true" splittable="false" minsize="300">
             <include src="sidebar.zul"/>
         </west>
-        <center id="mainContent" autoscroll="true">
-            <include src="main.zul"/>
-        </center>
-        <south height="50px" border="none">
         
-            
+        <center id="mainContent" autoscroll="false" >
+            <include id="main" src="main.zul" type="DupaDupa"/>
+        </center>
+        <south height="20px" border="none">
+           <label id="lbWidth" />
         </south>
     </borderlayout>
 </zk>

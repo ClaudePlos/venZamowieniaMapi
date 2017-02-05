@@ -1,7 +1,9 @@
-      <zk>     
-       <style> .red { color: red; font-size: 20px; } </style>   
+      <zk>  
+       <style> .red { color: red; font-size: 20px; } </style> 
        <window apply="org.zkoss.bind.BindComposer" id="meals" renderdefer="100"
-        viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')">
+        viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')"
+       onClientInfo="@command('updateClientInfo', width=event.desktopWidth, height=event.desktopHeight, orientation=event.orientation)"
+       >
         <hlayout id="ctlhlayout1" >
             
          <vlayout width="10px"></vlayout>
@@ -83,6 +85,12 @@
                     <button id="orderBtn" label="Podsumowanie KK" autodisable="self" 
                        onClick="@command('stanZywionychGlobal',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.value)"/>
                 </window>
+                
+                <div style="background:#B8D335; border: solid green 2px">
+                <button id="testId" image="img/scale16x16.png" autodisable="self" visible="true"  
+                                onClick="@command('cmd1')"
+                         />
+                </div>
             </hlayout>  
             
             <hlayout>
@@ -90,9 +98,12 @@
                     viewModel="@id('vm3') @init('pl.modelsView.StanZywionychReportsVM')"
                      style="background:#f96bd2; border: solid pink 3px">
                     <button id="reportsBtn" label="Raporty" autodisable="self" visible="true" 
-                       onClick="@command('stanZywionychReports',kierKosztow=cmbKK.selectedItem.value,kierKosztowNazwa=cmbKK.selectedItem.label)"/>
+                       onClick="@command('stanZywionychReports',kierKosztow=cmbKK.selectedItem.value,kierKosztowNazwa=cmbKK.selectedItem.label)"/> 
                 </window>
             </hlayout>  
+            
+            <!-- onClientInfo="onClientInfo(event)" -->
+        
          
            </vlayout>         
          
@@ -115,6 +126,7 @@
         <div width="1283px">
         <!-- podsumowanie -->
         <div width="1260px">
+ 
         <grid height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)" >
             <template name="model" > <!-- var="StanZywionychNaDzienDTO" -->
                 <row renderdefer="200">
@@ -267,8 +279,8 @@
             
            
      
-           <listbox  width="1283px"  mold="paging"  pageSize="150" height="600px"
-		model="@bind(vm.stanyZywionychNaDzien)"
+           <listbox id="listBoxSZ" width="1283px"  mold="paging"  pageSize="150" rows = "@bind(vm.ilWierszy)" 
+		model="@bind(vm.stanyZywionychNaDzien)" 
            onAfterRender="@command('uzupelnijSumeStanowNaDzien')"
            emptyMessage="Wybierz Kierunek Kosztów oraz Grupę Żywionych.">
             
@@ -400,46 +412,15 @@
                 
            </template>      
 	</listbox>
-                  
-
-       </div>
- 
- 
-       <!-- 
-         <grid id = "gridStanZywionych2" height="550px" 
-               model="@load(vm.stanyZywionychNaDzien)"  
-               autopaging="true" mold="paging"
-               emptyMessage="Nothing in Inbox." 
-               onAfterRender="@command('uzupelnijSumeStanowNaDzie')" 
-               rowRenderer="pl.views.zam.GridZamowieniaRow"
-               sclass="narrow">
-            <columns menupopup="auto">
-                <column label="DietaNazwa" sort="auto"  width="150px"/>
-                <column label="Sniadanie" width="90px"/>
-                <column label="DrugSniadanie" width="90px"/>
-                <column label="Obiad" width="90px"/>
-                <column label="Podwieczorek" width="90px"/>
-                <column label="Kolacja" width="90px"/>
-                <column label="PosilekNocny" width="90px"/>
-                
-                <column label="SniadanieKor"/>
-                <column label="DrugieSniKor"/>
-                <column label="ObiadKor"/>
-                <column label="PodwieczoKor"/>
-                <column label="KolacjaKor"/>
-                <column label="PosilekNocKor"/>
-            </columns>
-      
-        </grid>
-      -->
+           
+                 
        
-        
-        
-        
-        <zscript><![CDATA[
+       </div>
+<zscript><![CDATA[
             
             import java.io.IOException;
-          
+            import pl.modelsView.StanZywionychNaDzienVM;
+           
             void onClickRowGrid(Intbox ds) { 
             
                 if ( lab02.getValue() != "STATUS PLANOWANIE")
@@ -472,10 +453,10 @@
 					listitem.setStyle("background-color: green;");
 				}
             }
-            
+
         ]]></zscript>
-        
     </window>
+    
     
    
 
