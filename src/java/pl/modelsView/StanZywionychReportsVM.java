@@ -96,6 +96,8 @@ public class StanZywionychReportsVM {
         cmbZestawienia.setValue("Wybierz raport: ");
         cmbZestawienia.setModel( lmZest );
         
+        
+        
         hb01.appendChild(l01);
         hb01.appendChild(cmbZestawienia);
         
@@ -107,13 +109,25 @@ public class StanZywionychReportsVM {
         
         Hbox hb02 = new Hbox();
         Label l02 = new Label();
+        
         l02.setValue("Data od:");
         Textbox tbOkres = new Textbox();
         tbOkres.setWidth("100px");
         Date d = new Date();
         tbOkres.setText( serviceFacade.dateToStringYYYMMDD(d) );
+        
+        Label l022 = new Label();
+        l022.setVisible(false);
+        l022.setValue("Data do:");
+        Textbox tbOkresDo = new Textbox();
+        tbOkresDo.setWidth("100px");
+        tbOkresDo.setVisible(false);
+        tbOkresDo.setText( serviceFacade.dateToStringYYYMMDD(d) );
+        
         hb02.appendChild(l02);
         hb02.appendChild(tbOkres);
+        hb02.appendChild(l022);
+        hb02.appendChild(tbOkresDo);
         
         
         
@@ -141,6 +155,23 @@ public class StanZywionychReportsVM {
         
         
         
+        cmbZestawienia.addEventListener("onChange", new EventListener() {
+            public void onEvent(Event event) throws Exception {
+                
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
+                { 
+                   System.out.println("2");
+                   l022.setVisible(true);
+                   tbOkresDo.setVisible(true);
+                }
+                else
+                {
+                   l022.setVisible(false);
+                   tbOkresDo.setVisible(false);
+                }
+            }
+        });
+        
         
         Button run = new Button();
         run.setLabel("Uruchom");
@@ -152,6 +183,8 @@ public class StanZywionychReportsVM {
                 
                 if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
                 {
+                    l022.setVisible(false);
+                    tbOkresDo.setVisible(false);
                     IlzywWgOddPodDiety rap01 = new IlzywWgOddPodDiety();
                     rap01.zapiszPDF( tbOkres.getValue()
                             , BigDecimal.valueOf(kierKosztowId)
@@ -159,8 +192,9 @@ public class StanZywionychReportsVM {
                             , kierKosztowNazwa );
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
-                {
-                    System.out.print("2");
+                { 
+                   System.out.println("2");
+                 
                 }
                 
                 
