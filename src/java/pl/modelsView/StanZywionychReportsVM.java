@@ -120,11 +120,11 @@ public class StanZywionychReportsVM {
         
         ArrayList listPosilki = new ArrayList();
         listPosilki.add("Śniadanie");
-        listPosilki.add("2 Śniadanie");
+        listPosilki.add("2. śniadanie");
         listPosilki.add("Obiad");
         listPosilki.add("Podwieczorek");
         listPosilki.add("Kolacja");
-        listPosilki.add("Posilek nocny");
+        listPosilki.add("Posiłek nocny");
         
         ListModelList lmPosiliki = new ListModelList(listPosilki);
         
