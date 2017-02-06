@@ -387,32 +387,32 @@
                     
                     
                     <listcell  style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoS_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" 
+                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoIIS_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.obiadKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                        <intbox value="@bind(sz.obiadKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoO_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoP_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoK_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell  style="background-color: #BBC2DD; color: red;">
-                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" onClick="onClickRowGridKor(self)"
+                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoPN_readOnly)"
                                  onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
