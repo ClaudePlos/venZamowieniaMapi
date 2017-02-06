@@ -248,7 +248,10 @@ public class IlzywWgOddPodDiety {
                                         
                                          
                                         // wstawiam suma wiersza 
-                                        PdfPCell cell_023 = new PdfPCell (new Paragraph ( sumaWiersz.toString() , myFont_Posilek));
+                                        String sum00 = sumaWiersz.toString();
+                                        if ( sum00.equals("0") )
+                                          sum00 = ""; 
+                                        PdfPCell cell_023 = new PdfPCell (new Paragraph ( sum00 , myFont_Posilek));
                                         cell_023.setColspan(1); // connect column to one 
                                         cell_023.setHorizontalAlignment (Element.ALIGN_LEFT);
                                         table.addCell(cell_023);
@@ -265,8 +268,10 @@ public class IlzywWgOddPodDiety {
                                     
                                     
                                     for (int i=0; i<(sumaKolumna.length); i++ ) {
-                                        //System.out.print(sumaKolumna[i].toString());
-                                        PdfPCell cell_033 = new PdfPCell (new Paragraph ( sumaKolumna[i].toString() , myFont_Posilek));
+                                        String sum01 = sumaKolumna[i].toString();
+                                        if ( sum01.equals("0") )
+                                          sum01 = ""; 
+                                        PdfPCell cell_033 = new PdfPCell (new Paragraph ( sum01 , myFont_Posilek));
                                         cell_033.setColspan(1); // connect column to one 
                                         cell_033.setHorizontalAlignment (Element.ALIGN_LEFT);
                                         table.addCell(cell_033);

@@ -20,10 +20,11 @@
             <label value="Kierunek kosztow" id="kkWybrane"/>         
                 <combobox id="cmbKK" model="@load(vm.kierunkiKosztow)" 
                           selectedItem="@bind(vm.selectedKierunekKosztow)"
-                          onSelect="@command('wybranoKierKosztow')">
+                          onSelect="@command('wybranoKierKosztow',uwagi=cmbKK.selectedItem.value)">
                     <template name="model" var="p1">
                          <comboitem label="@load(p1.kierunekKosztowKod)"
-                               value="@load(p1.idKierunekKosztow)" />
+                               value="@load(p1.uwagi)" 
+                               id="@load(p1.idKierunekKosztow)"/>
                      </template>
                 </combobox>
            
@@ -83,7 +84,7 @@
                     viewModel="@id('vm2') @init('pl.modelsView.StanZywionychNaDzienPodsumowanieVM')"
                      style="background:#f96bd2; border: solid pink 3px">
                     <button id="orderBtn" label="Podsumowanie KK" autodisable="self" 
-                       onClick="@command('stanZywionychGlobal',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.value)"/>
+                       onClick="@command('stanZywionychGlobal',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.id)"/>
                 </window>
                 
                 <div style="background:#B8D335; border: solid green 2px">
@@ -98,7 +99,7 @@
                     viewModel="@id('vm3') @init('pl.modelsView.StanZywionychReportsVM')"
                      style="background:#f96bd2; border: solid pink 3px">
                     <button id="reportsBtn" label="Raporty" autodisable="self" visible="true" 
-                       onClick="@command('stanZywionychReports',kierKosztow=cmbKK.selectedItem.value,kierKosztowNazwa=cmbKK.selectedItem.label)"/> 
+                       onClick="@command('stanZywionychReports',kierKosztow=cmbKK.selectedItem.id,kierKosztowNazwa=cmbKK.selectedItem.label)"/> 
                 </window>
             </hlayout>  
             
@@ -119,6 +120,13 @@
         <separator />
          <label id="lab01" value="Stany żywionych: " /> 
          <label id="lab02" value="@bind(vm.statusZamowienia)" sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')" /> 
+         <label id="godz" value=" Godz do wprowadzania(S/IIS/O/P/K/PN): " /> 
+         <label id="godzDoS" />
+         <label id="godzDoIIS" />
+         <label id="godzDoO" />
+         <label id="godzDoP" />
+         <label id="godzDoK" />
+         <label id="godzDoPN" />
         <separator />
         
         <!--<frozen style="background: #DFDED8" columns="2"/> przesuwanie od drugiej kolumny--> 
@@ -341,32 +349,32 @@
                     <!--   -->
                     
                     <listcell>
-                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoS_readOnly)"
                               onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoIIS_readOnly)"
                              onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoO_readOnly)"
                               onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoP_readOnly)"
                              onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoK_readOnly)"
                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4"/>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)"
+                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoPN_readOnly)"
                              onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4"/>
                     </listcell>
                     

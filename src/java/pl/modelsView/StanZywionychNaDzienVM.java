@@ -6,12 +6,24 @@
 package pl.modelsView;
 
 
+import java.io.StringReader;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonString;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -27,6 +39,8 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
@@ -80,16 +94,39 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     public String width;
     
-    public Number ilWierszy = 15;
+    private Number ilWierszy = 15;
+    
+    private Boolean godzDoS_readOnly = false;
+    private Boolean godzDoIIS_readOnly = false;
+    private Boolean godzDoO_readOnly = false;
+    private Boolean godzDoP_readOnly = false;
+    private Boolean godzDoK_readOnly = false;
+    private Boolean godzDoPN_readOnly = false;
     
     @Wire
     Listbox listBoxSZ;
     
     @Wire
     Button buttScale;
+      
+    @Wire
+    Label godzDoS;
     
-   
+    @Wire
+    Label godzDoIIS;
     
+    @Wire 
+    Label godzDoO;
+    
+    @Wire 
+    Label godzDoP;
+    
+    @Wire 
+    Label godzDoK;
+    
+    @Wire 
+    Label godzDoPN;
+
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
         Selectors.wireComponents(view, this, false);
@@ -150,6 +187,58 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     public void setIlWierszy(Number ilWierszy) {
         this.ilWierszy = ilWierszy;
     }
+
+    public Boolean getGodzDoS_readOnly() {
+        return godzDoS_readOnly;
+    }
+
+    public void setGodzDoS_readOnly(Boolean godzDoS_readOnly) {
+        this.godzDoS_readOnly = godzDoS_readOnly;
+    }
+
+    public Boolean getGodzDoIIS_readOnly() {
+        return godzDoIIS_readOnly;
+    }
+
+    public void setGodzDoIIS_readOnly(Boolean godzDoIIS_readOnly) {
+        this.godzDoIIS_readOnly = godzDoIIS_readOnly;
+    }
+
+    public Boolean getGodzDoO_readOnly() {
+        return godzDoO_readOnly;
+    }
+
+    public void setGodzDoO_readOnly(Boolean godzDoO_readOnly) {
+        this.godzDoO_readOnly = godzDoO_readOnly;
+    }
+
+    public Boolean getGodzDoP_readOnly() {
+        return godzDoP_readOnly;
+    }
+
+    public void setGodzDoP_readOnly(Boolean godzDoP_readOnly) {
+        this.godzDoP_readOnly = godzDoP_readOnly;
+    }
+
+    public Boolean getGodzDoK_readOnly() {
+        return godzDoK_readOnly;
+    }
+
+    public void setGodzDoK_readOnly(Boolean godzDoK_readOnly) {
+        this.godzDoK_readOnly = godzDoK_readOnly;
+    }
+
+    public Boolean getGodzDoPN_readOnly() {
+        return godzDoPN_readOnly;
+    }
+
+    public void setGodzDoPN_readOnly(Boolean godzDoPN_readOnly) {
+        this.godzDoPN_readOnly = godzDoPN_readOnly;
+    }
+
+    
+    
+    
 
     
 
@@ -221,15 +310,152 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         serviceFacade.gzRaprot = grupaZywionych;
         serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
         
+        
+        
     }
     
     
     @Command
     @NotifyChange("grupyZywionych")
-    public void wybranoKierKosztow() {
-         System.out.println( selectedKierunekKosztow.getUwagi() );
+    public void wybranoKierKosztow( @BindingParam("uwagi") String uwagi ) {
+        //System.out.println( selectedKierunekKosztow.getUwagi() );
         //serviceFacade.kkRaport = selectedKierunekKosztow;
         grupyZywionych = new ArrayList<GrupaZywionychVO>( serviceFacade.getGrupaZywionych( selectedKierunekKosztow ) );
+        
+        System.out.println( "Uwagi:" + uwagi );
+       
+        if ( uwagi!= null )
+        {
+            SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+  
+            
+            Date d1 = new Date();
+            
+            
+           
+            
+            JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
+            JsonObject object = jsonReader.readObject();
+            jsonReader.close();
+
+            JsonArray dane1 = (JsonArray) object.getJsonArray("dane");
+
+            JsonObject itemDane = dane1.getJsonObject(0);
+
+            JsonString jsonGodzZamDoS = itemDane.getJsonString("S");
+            JsonString jsonGodzZamDoIIS = itemDane.getJsonString("IIS");
+            JsonString jsonGodzZamDoO = itemDane.getJsonString("O");
+            JsonString jsonGodzZamDoP = itemDane.getJsonString("P");
+            JsonString jsonGodzZamDoK = itemDane.getJsonString("K");
+            JsonString jsonGodzZamDoPN = itemDane.getJsonString("PN");
+
+            godzDoS.setValue( jsonGodzZamDoS.toString() );
+            godzDoIIS.setValue( jsonGodzZamDoIIS.toString() );
+            godzDoO.setValue( jsonGodzZamDoO.toString() );
+            godzDoP.setValue( jsonGodzZamDoP.toString() );
+            godzDoK.setValue( jsonGodzZamDoK.toString() );
+            godzDoPN.setValue( jsonGodzZamDoPN.toString() );
+            
+            String d2s = dt.format(d1);
+            String d2IIs = dt.format(d1);
+            String d2o = dt.format(d1);
+            String d2p = dt.format(d1);
+            String d2k = dt.format(d1);
+            String d2pn = dt.format(d1);
+            
+            d2s = d2s.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
+            d2IIs = d2IIs.substring(0, 11) + jsonGodzZamDoIIS.toString().replace("\"","");
+            d2o = d2o.substring(0, 11) + jsonGodzZamDoO.toString().replace("\"","");
+            d2p = d2p.substring(0, 11) + jsonGodzZamDoP.toString().replace("\"","");
+            d2k = d2k.substring(0, 11) + jsonGodzZamDoK.toString().replace("\"","");
+            d2pn = d2pn.substring(0, 11) + jsonGodzZamDoPN.toString().replace("\"","");
+            
+            Date ds2 = new Date();
+            Date dIIs2 = new Date();
+            Date do2 = new Date();
+            Date dp2 = new Date();
+            Date dk2 = new Date();
+            Date dpn2 = new Date();
+            
+            try {
+                ds2 = dt.parse(d2s);
+                dIIs2 = dt.parse(d2IIs);
+                do2 = dt.parse(d2o);
+                dp2 = dt.parse(d2p);
+                dk2 = dt.parse(d2k);
+                dpn2 = dt.parse(d2pn);
+            } catch (ParseException ex) {
+                Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if ( d1.after(ds2) && !jsonGodzZamDoS.toString().equals("\"0:00\"")  )
+            {
+                godzDoS.setStyle("color:red;");
+                godzDoS_readOnly = true;
+            }
+            else 
+            {
+                godzDoS.setStyle("color:black;");
+                godzDoS_readOnly = false;
+            }
+            
+            if ( d1.after(dIIs2) && !jsonGodzZamDoIIS.toString().equals("\"0:00\"")  )
+            {
+                godzDoIIS.setStyle("color:red;");
+                godzDoIIS_readOnly = true;
+            }
+            else 
+            {
+                godzDoIIS.setStyle("color:black;");
+                godzDoIIS_readOnly = false;
+            }
+            
+            if ( d1.after(do2)  )
+            {
+                godzDoO.setStyle("color:red;");
+                godzDoO_readOnly = true;
+            }
+            else 
+            {
+                godzDoO.setStyle("color:black;");
+                godzDoO_readOnly = false;
+            }
+           
+            if ( d1.after(dp2)  )
+            {
+                godzDoP.setStyle("color:red;");
+                godzDoP_readOnly = true;
+            }
+            else 
+            {
+                godzDoP.setStyle("color:black;");
+                godzDoP_readOnly = false;
+            }
+            
+            if ( d1.after(dk2)  )
+            {
+                godzDoK.setStyle("color:red;");
+                godzDoK_readOnly = true;
+            }
+            else 
+            {
+                godzDoK.setStyle("color:black;");
+                godzDoK_readOnly = false;
+            }
+            
+            if ( d1.after(dpn2)  )
+            {
+                godzDoPN.setStyle("color:red;");
+                godzDoPN_readOnly = true;
+            }
+            else 
+            {
+                godzDoPN.setStyle("color:black;");
+                godzDoPN_readOnly = false;
+            }
+            
+        }
+        
         
     }
     
