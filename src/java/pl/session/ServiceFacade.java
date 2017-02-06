@@ -398,7 +398,7 @@ public class ServiceFacade {
         int ileWierszy = stany.size();
         int i = 1;
         
-        System.out.print("Start wgranie, StZy kk: " + kierKosztow + " Czy korekta?: " + czyKorekta + " Na dzien: TODO********************************" );
+        System.out.print("Start wgranie, StZy kk: " + kierKosztow + " Czy korekta?: " + czyKorekta + " Na dzien: TODO******" );
         
         EntityTransaction tx = em.getTransaction();
         
