@@ -176,7 +176,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         
         stanyZywionychNaDzien2.clear();
         
-        stanyZywionychNaDzien2 = serviceFacade.pobierzStanZywionychWdniuDlaKierunkuKosztow( formatter.format(naDzien), kierKosztow );
+        stanyZywionychNaDzien2 = serviceFacade.pobierzStanZywionychWdniuDlaKierunkuKosztowGlobal(formatter.format(naDzien), kierKosztow );
         
         for ( StanZywionychNaDzienDTO szDTO : stanyZywionychNaDzien2)
         {     
