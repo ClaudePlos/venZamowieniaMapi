@@ -1018,7 +1018,7 @@ public class ServiceFacade {
 "  and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
 "  and p.id_posilek = szp.id_posilek\n" +
 "  and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
-"                    and sz.d_obr = '" + naDzien + "'\n" +
+"                    and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
 "					and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
 "					and gz.GRUPA_ZYWIONYCH = '" + grupaZywkonych + "'\n" +
 "  and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
