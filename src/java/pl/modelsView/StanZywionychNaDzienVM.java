@@ -270,12 +270,6 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
     }
     
-    @Command
-    @NotifyChange("onClickRowGrid")
-    public void onClickRowGrid(Intbox ds) { 
-        
-        ds.setValue(0);
-    }
 
     @Command
     @NotifyChange("stanyZywionychNaDzien")
