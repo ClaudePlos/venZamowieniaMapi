@@ -438,6 +438,7 @@
                      
                 if ( ds.getValue() == null )
                 {
+    
                     Messagebox.show( "Nie można wprowadzać zamówień dla pustych pól !!!", "Error", Messagebox.OK, Messagebox.ERROR );
                 }
             }
