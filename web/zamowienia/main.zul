@@ -347,36 +347,60 @@
                     <listcell label="@load(sz.lp)" />
                     <listcell label="@load(sz.dietaNazwa)" />
                     
-                    <!--   -->
+                    <!-- Dane Stanow Zywionych ********************************** PLAN  -->
                     
                     <listcell>
-                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoS_readOnly)"
-                              onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4" visible="@bind(sz.sVisible)"/>
+                    <intbox value="@bind(sz.sniadaniePlanIl)" inplace="true"  readonly="@bind(vm.godzDoS_readOnly)"
+                              onChange="@command('uzupelnijPozycjePoZmianieSniadania', row = sz )" tabindex="4" visible="@bind(sz.sVisible)">
+                        <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoIIS_readOnly)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.s2Visible)"/>
+                    <intbox value="@bind(sz.drugieSniadaniePlanIl)" inplace="true"  readonly="@bind(vm.godzDoIIS_readOnly)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.s2Visible)">
+                        <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoO_readOnly)"
-                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4" visible="@bind(sz.oVisible)"/>
+                    <intbox value="@bind(sz.obiadPlanIl)"  inplace="true"  readonly="@bind(vm.godzDoO_readOnly)"
+                              onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4" visible="@bind(sz.oVisible)">
+                        <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoP_readOnly)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.pVisible)"/>
+                    <intbox value="@bind(sz.podwieczorekPlanIl)" inplace="true" readonly="@bind(vm.godzDoP_readOnly)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.pVisible)">
+                        <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoK_readOnly)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4" visible="@bind(sz.kVisible)"/>
+                    <intbox value="@bind(sz.kolacjaPlanIl)" inplace="true"  readonly="@bind(vm.godzDoK_readOnly)"
+                             onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4" visible="@bind(sz.kVisible)">
+                    <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
-                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true" onClick="onClickRowGrid(self)" readonly="@bind(vm.godzDoPN_readOnly)"
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.pnVisible)"/>
+                    <intbox value="@bind(sz.posilekNocnyPlanIl)" inplace="true"  readonly="@bind(vm.godzDoPN_readOnly)"
+                            onChange="@command('uzupelnijSumeStanowNaDzien')" tabindex="4" visible="@bind(sz.pnVisible)">
+                        <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell>
@@ -385,36 +409,60 @@
                     </listcell>
                 
                     
-                    
+                    <!-- ******************* KOREKTY -->
                     
                     <listcell  style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoS_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.ksVisible)"/>
+                        <intbox value="@bind(sz.sniadanieKorIl)" inplace="true"  readonly="@bind(vm.godzDoS_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.ksVisible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoIIS_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.ks2Visible)"/>
+                        <intbox value="@bind(sz.drugieSniadanieKorIl)" inplace="true"  readonly="@bind(vm.godzDoIIS_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.ks2Visible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.obiadKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoO_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.koVisible)"/>
+                        <intbox value="@bind(sz.obiadKorIl)" inplace="true"  readonly="@bind(vm.godzDoO_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.koVisible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoP_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kpVisible)"/>
+                        <intbox value="@bind(sz.podwieczorekKorIl)" inplace="true"  readonly="@bind(vm.godzDoP_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kpVisible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell style="background-color: #BBC2DB; color: red;">
-                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoK_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kkVisible)"/>
+                        <intbox value="@bind(sz.kolacjaKorIl)" inplace="true"  readonly="@bind(vm.godzDoK_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kkVisible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                     <listcell  style="background-color: #BBC2DD; color: red;">
-                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" onClick="onClickRowGridKor(self)" readonly="@bind(vm.godzDoPN_readOnly)"
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kpnVisible)"/>
+                        <intbox value="@bind(sz.posilekNocnyKorIl)" inplace="true" readonly="@bind(vm.godzDoPN_readOnly)"
+                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  tabindex="4" visible="@bind(sz.kpnVisible)">
+                            <attribute name="onChange">
+                            if ( self.value == null) { self.value = 0;}
+                       </attribute>
+                    </intbox>
                     </listcell>
                     
                 </listitem>
@@ -430,7 +478,7 @@
 
         
 <zscript><![CDATA[
-            
+            // juz nie dziala, ale chodzilo jako w intbox onClick="onClickRowGrid(self)" i dla korekt onClickRowGridKor
             import java.io.IOException;
             import pl.modelsView.StanZywionychNaDzienVM;
            
@@ -443,7 +491,7 @@
                      
                 if ( ds.getValue() == null )
                 {
-    
+                    self.value = 0;
                     Messagebox.show( "Nie można wprowadzać zamówień dla pustych pól !!!", "Error", Messagebox.OK, Messagebox.ERROR );
                 }
             }
