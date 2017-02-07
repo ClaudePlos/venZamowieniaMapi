@@ -1,7 +1,7 @@
 <div hflex="1" vflex="1" sclass="footer">
     <!-- 07.02.2017 -->
 	<vbox hflex="1" vflex="1" align="center">
-		Zamowienia_v11 - ZK ${desktop.webApp.version}
+		#Zamowienia v11 - ZK ${desktop.webApp.version}
 		<a href="http://www.vendiservis.pl/">http://www.vendiservis.pl/</a>
 	</vbox>
 </div>
