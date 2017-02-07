@@ -96,6 +96,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     private Number ilWierszy = 15;
     
+    private Boolean godzDoPlan_readOnly = false;
     private Boolean godzDoS_readOnly = false;
     private Boolean godzDoIIS_readOnly = false;
     private Boolean godzDoO_readOnly = false;
@@ -108,6 +109,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Wire
     Button buttScale;
+    
+    @Wire
+    Label godzDoPlan;
       
     @Wire
     Label godzDoS;
@@ -236,6 +240,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         this.godzDoPN_readOnly = godzDoPN_readOnly;
     }
 
+    public Boolean getGodzDoPlan_readOnly() {
+        return godzDoPlan_readOnly;
+    }
+
+    public void setGodzDoPlan_readOnly(Boolean godzDoPlan_readOnly) {
+        this.godzDoPlan_readOnly = godzDoPlan_readOnly;
+    }
+
     
     
     
@@ -355,13 +367,15 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
                 JsonObject itemDane = dane1.getJsonObject(0);
 
+                JsonString jsonGodzZamDoPlan = itemDane.getJsonString("Plan");
                 JsonString jsonGodzZamDoS = itemDane.getJsonString("S");
                 JsonString jsonGodzZamDoIIS = itemDane.getJsonString("IIS");
                 JsonString jsonGodzZamDoO = itemDane.getJsonString("O");
                 JsonString jsonGodzZamDoP = itemDane.getJsonString("P");
                 JsonString jsonGodzZamDoK = itemDane.getJsonString("K");
                 JsonString jsonGodzZamDoPN = itemDane.getJsonString("PN");
-
+                
+                godzDoPlan.setValue( jsonGodzZamDoPlan.toString() );
                 godzDoS.setValue( jsonGodzZamDoS.toString() );
                 godzDoIIS.setValue( jsonGodzZamDoIIS.toString() );
                 godzDoO.setValue( jsonGodzZamDoO.toString() );
@@ -369,6 +383,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 godzDoK.setValue( jsonGodzZamDoK.toString() );
                 godzDoPN.setValue( jsonGodzZamDoPN.toString() );
 
+                String d2plan = dt.format(d1);
                 String d2s = dt.format(d1);
                 String d2IIs = dt.format(d1);
                 String d2o = dt.format(d1);
@@ -376,6 +391,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 String d2k = dt.format(d1);
                 String d2pn = dt.format(d1);
 
+                d2plan = d2plan.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
                 d2s = d2s.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
                 d2IIs = d2IIs.substring(0, 11) + jsonGodzZamDoIIS.toString().replace("\"","");
                 d2o = d2o.substring(0, 11) + jsonGodzZamDoO.toString().replace("\"","");
@@ -383,6 +399,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 d2k = d2k.substring(0, 11) + jsonGodzZamDoK.toString().replace("\"","");
                 d2pn = d2pn.substring(0, 11) + jsonGodzZamDoPN.toString().replace("\"","");
 
+                Date dplan2= new Date();
                 Date ds2 = new Date();
                 Date dIIs2 = new Date();
                 Date do2 = new Date();
@@ -391,6 +408,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 Date dpn2 = new Date();
 
                 try {
+                    dplan2 = dt.parse(d2plan);
                     ds2 = dt.parse(d2s);
                     dIIs2 = dt.parse(d2IIs);
                     do2 = dt.parse(d2o);
@@ -399,6 +417,17 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                     dpn2 = dt.parse(d2pn);
                 } catch (ParseException ex) {
                     Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                if ( d1.after(dplan2) && !jsonGodzZamDoPlan.toString().equals("\"0:00\"")  )
+                {
+                    godzDoPlan.setStyle("color:red;");
+                    godzDoPlan_readOnly = true;
+                }
+                else 
+                {
+                    godzDoPlan.setStyle("color:black;");
+                    godzDoPlan_readOnly = false;
                 }
 
                 if ( d1.after(ds2) && !jsonGodzZamDoS.toString().equals("\"0:00\"")  )
@@ -471,12 +500,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         } // end sprawdzania godzinowego
         else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
         {
+            godzDoPlan_readOnly = true;
             godzDoS_readOnly = true;
             godzDoIIS_readOnly = true;
             godzDoO_readOnly = true;
             godzDoP_readOnly = true;
             godzDoK_readOnly = true;
             godzDoPN_readOnly = true;
+            godzDoPlan.setValue("");
             godzDoS.setValue("");
             godzDoIIS.setValue("");
             godzDoO.setValue("");
@@ -486,12 +517,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         }
         else if ( d1.before( naDzien ) ) //jeżeli spr. daty później to wprowadzają zamówienia 
         {
+            godzDoPlan_readOnly = false;
             godzDoS_readOnly = false;
             godzDoIIS_readOnly = false;
             godzDoO_readOnly = false;
             godzDoP_readOnly = false;
             godzDoK_readOnly = false;
             godzDoPN_readOnly = false;
+            godzDoPlan.setValue("");
             godzDoS.setValue("");
             godzDoIIS.setValue("");
             godzDoO.setValue("");
