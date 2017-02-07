@@ -280,31 +280,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @Command
     @NotifyChange("stanyZywionychNaDzien")
     public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych, @BindingParam("uwagi") String uwagi) {
-      
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = new Date();
-        
-        if ( !dt1.format(naDzien).equals(dt1.format(d1))  )
-        {
-            godzDoS_readOnly = false;
-            godzDoIIS_readOnly = false;
-            godzDoO_readOnly = false;
-            godzDoP_readOnly = false;
-            godzDoK_readOnly = false;
-            godzDoPN_readOnly = false;
-            godzDoS.setValue("");
-            godzDoIIS.setValue("");
-            godzDoO.setValue("");
-            godzDoP.setValue("");
-            godzDoK.setValue("");
-            godzDoPN.setValue("");
-        }
-        else
-        {
-            sprawdzGodziny( uwagi );
-        }
-            
-        
+         
+        sprawdzBlokadeGodzinWstawiania( uwagi, naDzien );
+ 
         System.out.print(" Pobieram stany dla: " + grupaZywionych + " na dzien: " + naDzien);
         
         if ( grupaZywionych == null )
@@ -343,53 +321,29 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     public void wybranoKierKosztow( @BindingParam("uwagi") String uwagi, @BindingParam("naDzien") Date naDzien ) {
         //System.out.println( selectedKierunekKosztow.getUwagi() );
         //serviceFacade.kkRaport = selectedKierunekKosztow;
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = new Date();
+        
 
         grupyZywionych = new ArrayList<GrupaZywionychVO>( serviceFacade.getGrupaZywionych( selectedKierunekKosztow ) );
         
-        if ( dt1.format(naDzien).equals(dt1.format(d1))  )
-        {
-            sprawdzGodziny( uwagi );
-        }
-        
-        /*
-        else
-        {
-            godzDoS_readOnly = false;
-            godzDoIIS_readOnly = false;
-            godzDoO_readOnly = false;
-            godzDoP_readOnly = false;
-            godzDoK_readOnly = false;
-            godzDoPN_readOnly = false;
-            godzDoS.setValue("");
-            godzDoIIS.setValue("");
-            godzDoO.setValue("");
-            godzDoP.setValue("");
-            godzDoK.setValue("");
-            godzDoPN.setValue("");
-        }*/
-        
-        
-        
-        
+        sprawdzBlokadeGodzinWstawiania( uwagi, naDzien );
     }
     
     
     
-    private void sprawdzGodziny( String uwagi )
+    private void sprawdzBlokadeGodzinWstawiania( String uwagi, Date naDzien )
     {
+        
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = new Date();
+        
+        if ( dt1.format(naDzien).equals(dt1.format(d1)) ) // daty równe dziś i oznaczona na stronie, sprawdzamy do któreh godz można wprowadzać zamówienia
+        {
+
         System.out.println( "Uwagi:" + uwagi );
        
             if ( uwagi!= null )
             {
                 SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
-
-
-
-
-
 
 
                 JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
@@ -513,6 +467,40 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 }
 
             }
+        } // end sprawdzania godzinowego
+        else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
+        {
+            godzDoS_readOnly = true;
+            godzDoIIS_readOnly = true;
+            godzDoO_readOnly = true;
+            godzDoP_readOnly = true;
+            godzDoK_readOnly = true;
+            godzDoPN_readOnly = true;
+            godzDoS.setValue("");
+            godzDoIIS.setValue("");
+            godzDoO.setValue("");
+            godzDoP.setValue("");
+            godzDoK.setValue("");
+            godzDoPN.setValue("");
+        }
+        else if ( d1.before( naDzien ) ) //jeżeli spr. daty później to wprowadzają zamówienia 
+        {
+            godzDoS_readOnly = false;
+            godzDoIIS_readOnly = false;
+            godzDoO_readOnly = false;
+            godzDoP_readOnly = false;
+            godzDoK_readOnly = false;
+            godzDoPN_readOnly = false;
+            godzDoS.setValue("");
+            godzDoIIS.setValue("");
+            godzDoO.setValue("");
+            godzDoP.setValue("");
+            godzDoK.setValue("");
+            godzDoPN.setValue("");
+        }
+        
+        
+            
         
     }
     
@@ -657,39 +645,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
             BindUtils.postNotifyChange(null, null, stanZyw, "obiadPlanIl");
             BindUtils.postNotifyChange(null, null, stanZyw, "kolacjaPlanIl");
             
-           /* if ( stanyZywionychNaDzien.get(INDEX).getDrugieSniadaniePlanIl() != null )
-            {
-                stanyZywionychNaDzien.get(INDEX).setDrugieSniadaniePlanIl(stanZyw.getSniadaniePlanIl());
-                BindUtils.postNotifyChange(null, null, stanZyw, "drugieSniadaniePlanIl");
-            }
-            
-            if ( stanyZywionychNaDzien.get(INDEX).getPodwieczorekPlanIl()!= null )
-            {
-                stanyZywionychNaDzien.get(INDEX).setPodwieczorekPlanIl(stanZyw.getSniadaniePlanIl());
-                BindUtils.postNotifyChange(null, null, stanZyw, "podwieczorekPlanIl");
-            }
-            
-            
-            if ( stanyZywionychNaDzien.get(INDEX).getPosilekNocnyPlanIl()!= null )
-            {
-                stanyZywionychNaDzien.get(INDEX).setPosilekNocnyPlanIl(stanZyw.getSniadaniePlanIl());
-                BindUtils.postNotifyChange(null, null, stanZyw, "posilekNocnyPlanIl");
-            }
-            */
-            
-       
         
-       /* 
-        
-         if  ( stanyZywionychNaDzien.contains(stanZyw) )
-        {
-            System.out.println("Account found");
-        } else {
-            System.out.println("Account not found");
-        }
-       
-       
-       */
         
         uzupelnijSumeStanowNaDzien();
     }
