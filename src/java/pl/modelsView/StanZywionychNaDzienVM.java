@@ -111,6 +111,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     Button buttScale;
     
     @Wire
+    Label labGodzOpis;
+    
+    @Wire
     Label godzDoPlan;
       
     @Wire
@@ -348,6 +351,9 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
         Date d1 = new Date();
+        Date d1_tommorow = new Date();
+
+        d1_tommorow.setTime(d1.getTime() + 1 * 24 * 60 * 60 * 1000);
         
         if ( dt1.format(naDzien).equals(dt1.format(d1)) ) // daty równe dziś i oznaczona na stronie, sprawdzamy do któreh godz można wprowadzać zamówienia
         {
@@ -356,6 +362,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
        
             if ( uwagi!= null )
             {
+                labGodzOpis.setValue(" Godz. do wprowadzania KOREKTA(S/IIS/O/P/K/PN): ");
+                        
                 SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 
 
@@ -367,7 +375,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
                 JsonObject itemDane = dane1.getJsonObject(0);
 
-                JsonString jsonGodzZamDoPlan = itemDane.getJsonString("Plan");
+                
                 JsonString jsonGodzZamDoS = itemDane.getJsonString("S");
                 JsonString jsonGodzZamDoIIS = itemDane.getJsonString("IIS");
                 JsonString jsonGodzZamDoO = itemDane.getJsonString("O");
@@ -375,7 +383,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 JsonString jsonGodzZamDoK = itemDane.getJsonString("K");
                 JsonString jsonGodzZamDoPN = itemDane.getJsonString("PN");
                 
-                godzDoPlan.setValue( jsonGodzZamDoPlan.toString() );
+                godzDoPlan.setValue("");
                 godzDoS.setValue( jsonGodzZamDoS.toString() );
                 godzDoIIS.setValue( jsonGodzZamDoIIS.toString() );
                 godzDoO.setValue( jsonGodzZamDoO.toString() );
@@ -383,7 +391,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 godzDoK.setValue( jsonGodzZamDoK.toString() );
                 godzDoPN.setValue( jsonGodzZamDoPN.toString() );
 
-                String d2plan = dt.format(d1);
+                
                 String d2s = dt.format(d1);
                 String d2IIs = dt.format(d1);
                 String d2o = dt.format(d1);
@@ -391,7 +399,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 String d2k = dt.format(d1);
                 String d2pn = dt.format(d1);
 
-                d2plan = d2plan.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
+                
                 d2s = d2s.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
                 d2IIs = d2IIs.substring(0, 11) + jsonGodzZamDoIIS.toString().replace("\"","");
                 d2o = d2o.substring(0, 11) + jsonGodzZamDoO.toString().replace("\"","");
@@ -399,7 +407,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 d2k = d2k.substring(0, 11) + jsonGodzZamDoK.toString().replace("\"","");
                 d2pn = d2pn.substring(0, 11) + jsonGodzZamDoPN.toString().replace("\"","");
 
-                Date dplan2= new Date();
+
                 Date ds2 = new Date();
                 Date dIIs2 = new Date();
                 Date do2 = new Date();
@@ -408,7 +416,6 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                 Date dpn2 = new Date();
 
                 try {
-                    dplan2 = dt.parse(d2plan);
                     ds2 = dt.parse(d2s);
                     dIIs2 = dt.parse(d2IIs);
                     do2 = dt.parse(d2o);
@@ -419,17 +426,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                     Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                if ( d1.after(dplan2) && !jsonGodzZamDoPlan.toString().equals("\"0:00\"")  )
-                {
-                    godzDoPlan.setStyle("color:red;");
-                    godzDoPlan_readOnly = true;
-                }
-                else 
-                {
-                    godzDoPlan.setStyle("color:black;");
-                    godzDoPlan_readOnly = false;
-                }
-
+                
+                godzDoPlan_readOnly = true; // nie mozna planowac na dzis, tylko na jutro
                 if ( d1.after(ds2) && !jsonGodzZamDoS.toString().equals("\"0:00\"")  )
                 {
                     godzDoS.setStyle("color:red;");
@@ -500,6 +498,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         } // end sprawdzania godzinowego
         else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
         {
+            labGodzOpis.setValue("");
             godzDoPlan_readOnly = true;
             godzDoS_readOnly = true;
             godzDoIIS_readOnly = true;
@@ -515,8 +514,69 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
             godzDoK.setValue("");
             godzDoPN.setValue("");
         }
-        else if ( d1.before( naDzien ) ) //jeżeli spr. daty później to wprowadzają zamówienia 
+        else if ( dt1.format(naDzien).equals(dt1.format(d1_tommorow)) ) // jezeli jutro to sprawdzam plan do ktorej moga
         {
+            
+            if ( uwagi!= null )
+            {
+                labGodzOpis.setValue(" Godz. do wprowadzania PLAN: ");
+                        
+                SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+
+
+                JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
+                JsonObject object = jsonReader.readObject();
+                jsonReader.close();
+
+                JsonArray dane1 = (JsonArray) object.getJsonArray("dane");
+
+                JsonObject itemDane = dane1.getJsonObject(0);
+
+                JsonString jsonGodzZamDoPlan = itemDane.getJsonString("Plan");
+
+                godzDoPlan.setValue( jsonGodzZamDoPlan.toString() );
+                godzDoS.setValue("");
+                godzDoIIS.setValue("");
+                godzDoO.setValue("");
+                godzDoP.setValue("");
+                godzDoK.setValue("");
+                godzDoPN.setValue("");
+
+                String d2plan = dt.format(d1);
+
+                d2plan = d2plan.substring(0, 11) + jsonGodzZamDoPlan.toString().replace("\"","");
+
+                Date dplan2= new Date();
+
+                try {
+                        dplan2 = dt.parse(d2plan);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                if ( d1.after(dplan2) && !jsonGodzZamDoPlan.toString().equals("\"0:00\"")  )
+                {
+                    godzDoPlan.setStyle("color:red;");
+                    godzDoPlan_readOnly = true;
+                }
+                else 
+                {
+                    godzDoPlan.setStyle("color:black;");
+                    godzDoPlan_readOnly = false;
+                }
+                
+                godzDoS_readOnly = false;
+                godzDoIIS_readOnly = false;
+                godzDoO_readOnly = false;
+                godzDoP_readOnly = false;
+                godzDoK_readOnly = false;
+                godzDoPN_readOnly = false;
+            
+            }
+        }
+        else if ( d1_tommorow.before( naDzien ) ) //jezeli spr. daty później niz dzis i jutro to wprowadzają wszystkie posilki zamówienia 
+        {
+            labGodzOpis.setValue("");
             godzDoPlan_readOnly = false;
             godzDoS_readOnly = false;
             godzDoIIS_readOnly = false;
