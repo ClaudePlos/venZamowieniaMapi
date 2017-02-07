@@ -1,0 +1,8 @@
+
+<window apply="org.zkoss.bind.BindComposer" 
+        viewModel="@id('vmD') @init('pl.modelsView.InfoKtoWprowadzilDaneVM')"
+        id="w01P"  title="Kto wprowadzil dane"  width="900px" height="500px"
+        position="center,center" closable="true" border="normal"
+        action="show: slideDown;hide: slideUp">    
+   
+</window>

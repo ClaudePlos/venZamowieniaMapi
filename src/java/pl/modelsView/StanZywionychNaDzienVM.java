@@ -839,7 +839,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
             uzupelnijSumeStanowNaDzien();
             BindUtils.postNotifyChange(null, null, stanyZywionychNaDzienSuma, "*");
     }
-    
+
     
     @Command
     @NotifyChange("cmd1")

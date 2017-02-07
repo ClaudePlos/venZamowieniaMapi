@@ -88,11 +88,22 @@
                        onClick="@command('stanZywionychGlobal',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.id)"/>
                 </window>
                 
-                <div style="background:#B8D335; border: solid green 2px">
+                <div style="background:#B8D335; border: 1px">
                 <button id="buttScale" image="img/scale16x16down.png" autodisable="self" visible="true"  
-                                onClick="@command('cmd1')"
+                                onClick="@command('cmd1')" tooltiptext="Pomniejszenie/Zwiększenie okna"
                          />
                 </div>
+                
+                <window apply="org.zkoss.bind.BindComposer" id="w04" renderdefer="100"
+                    viewModel="@id('vm4') @init('pl.modelsView.InfoKtoWprowadzilDaneVM')">
+                    <div style="background:#B8D335; border: 1px">
+                        <button id="buttInfo" image="img/info16x16.png" autodisable="self" visible="true"  tooltiptext="Logi kto wprowadził dane"
+                                        onClick="@command('infoKtoWprowadzilKiedy',naDzien=naDzien.value,kierKosztow=cmbKK.selectedItem.id,grupaZywionych=cmbGZ.selectedItem.label )"
+                                 />
+                    </div>
+                </window>
+                
+                
             </hlayout>  
             
             <hlayout>
@@ -345,7 +356,7 @@
            <template name="model" var="sz">    
 		<listitem>
                     
-                    <listcell label="@load(sz.lp)" />
+                    <listcell label="@load(sz.lp)"/>
                     <listcell label="@load(sz.dietaNazwa)" />
                     
                     <!-- Dane Stanow Zywionych ********************************** PLAN  -->

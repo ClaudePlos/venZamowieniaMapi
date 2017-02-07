@@ -39,6 +39,7 @@ import pl.models.StanZywionychMMRapRozDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
 import java.util.Date;
+import pl.models.reports.KtoWprowadzilDaneDTO;
 
 
 /**
@@ -996,6 +997,75 @@ public class ServiceFacade {
     
     
     
+            
+    public List<KtoWprowadzilDaneDTO> infoKtoWprowadzilKiedy( String naDzien, int kierunekKosztow, String grupaZywkonych  )
+    {  
+        //SprWartDzialalnosciKuchniDTO k = new SprWartDzialalnosciKuchniDTO();
+        List<Object[]> listKto = null;
+        List<KtoWprowadzilDaneDTO> listaDane = new ArrayList<KtoWprowadzilDaneDTO>();
+        
+        try {
+
+             Query query =  em.createNativeQuery("select operator, d_zmiany, GRUPA_ZYWIONYCH, d_obr, dieta_nazwa, posilek, ilosc  from (   \n" +
+"	   select (select kod from operatorzy o where o.id_operator = sz.id_operator) operator\n" +
+"	   ,  szp.d_zmiany\n" +
+"	   , gz.GRUPA_ZYWIONYCH\n" +
+"	   , sz.d_obr, \n" +
+"   dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc, d.lp lp, p.lp lp_posilku\n" +
+"  from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk\n" +
+"  where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
+"  and sz.id_dieta = d.id_dieta\n" +
+"  and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
+"  and p.id_posilek = szp.id_posilek\n" +
+"  and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
+"                    and sz.d_obr = '" + naDzien + "'\n" +
+"					and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
+"					and gz.GRUPA_ZYWIONYCH = '" + grupaZywkonych + "'\n" +
+"  and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
+"  and dgz.ID_DIETA = d.ID_DIETA \n" +
+"  and dk.ID_DIETA = d.ID_DIETA \n" +
+"  and dk.AKTYWNE = 1 \n" +
+"  and dgz.AKTYWNE = 1 \n" +
+"  and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
+"group by sz.d_obr, d.id_dieta, dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych, d.lp, sz.id_operator,  szp.d_zmiany, gz.GRUPA_ZYWIONYCH, p.lp\n" +
+")\n" +
+"where ilosc != 0\n" +
+"order by lp, lp_posilku" );
+             
+            //k =  (SprWartDzialalnosciKuchniDTO) query.getSingleResult();
+             
+             listKto =  query.getResultList();
+ 
+             for ( Object[] s : listKto)
+             {
+
+                 
+                 KtoWprowadzilDaneDTO kto = new KtoWprowadzilDaneDTO( 
+                           (String) s[0]
+                         , (Date) s[1] 
+                         , (String) s[2] 
+                         , (Date) s[3] 
+                         , (String) s[4]
+                         , (String) s[5]
+                         , (BigDecimal) s[6]
+                 );
+
+                 
+               listaDane.add(kto);
+
+             }
+                                                                                  
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        
+        return listaDane;
+    
+    }
+    
+    
+    // OTHERS ******************************
     public String dateToStringYYYMMDD( Date d )
     {
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
