@@ -7,6 +7,7 @@ package pl.models;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import javax.persistence.Transient;
 /**
  *
  * @author k.skowronski
@@ -36,7 +37,22 @@ public class StanZywionychNaDzienDTO {
     
     private BigDecimal lp;
     private String szUwagi;
-
+    
+    private Boolean sVisible = true; 
+    private Boolean s2Visible = true;
+    private Boolean oVisible = true;
+    private Boolean pVisible = true;
+    private Boolean kVisible = true;
+    private Boolean pnVisible = true;
+    
+    private Boolean ksVisible = true; 
+    private Boolean ks2Visible = true;
+    private Boolean koVisible = true;
+    private Boolean kpVisible = true;
+    private Boolean kkVisible = true;
+    private Boolean kpnVisible = true;
+    
+    
     public StanZywionychNaDzienDTO(Timestamp dObr, BigDecimal idGrupaZywionych, BigDecimal idDieta, String dietaNazwa
      , BigDecimal sniadaniePlanIl
      , BigDecimal drugieSniadaniePlanIl
@@ -215,6 +231,104 @@ public class StanZywionychNaDzienDTO {
     public void setSzUwagi(String szUwagi) {
         this.szUwagi = szUwagi;
     }
+
+    public Boolean getsVisible() {
+        return sVisible;
+    }
+
+    public void setsVisible(Boolean sVisible) {
+        this.sVisible = sVisible;
+    }
+
+    public Boolean getS2Visible() {
+        return s2Visible;
+    }
+
+    public void setS2Visible(Boolean s2Visible) {
+        this.s2Visible = s2Visible;
+    }
+
+    public Boolean getoVisible() {
+        return oVisible;
+    }
+
+    public void setoVisible(Boolean oVisible) {
+        this.oVisible = oVisible;
+    }
+
+    public Boolean getpVisible() {
+        return pVisible;
+    }
+
+    public void setpVisible(Boolean pVisible) {
+        this.pVisible = pVisible;
+    }
+
+    public Boolean getkVisible() {
+        return kVisible;
+    }
+
+    public void setkVisible(Boolean kVisible) {
+        this.kVisible = kVisible;
+    }
+
+    public Boolean getPnVisible() {
+        return pnVisible;
+    }
+
+    public void setPnVisible(Boolean pnVisible) {
+        this.pnVisible = pnVisible;
+    }
+
+    public Boolean getKsVisible() {
+        return ksVisible;
+    }
+
+    public void setKsVisible(Boolean ksVisible) {
+        this.ksVisible = ksVisible;
+    }
+
+    public Boolean getKs2Visible() {
+        return ks2Visible;
+    }
+
+    public void setKs2Visible(Boolean ks2Visible) {
+        this.ks2Visible = ks2Visible;
+    }
+
+    public Boolean getKoVisible() {
+        return koVisible;
+    }
+
+    public void setKoVisible(Boolean koVisible) {
+        this.koVisible = koVisible;
+    }
+
+    public Boolean getKpVisible() {
+        return kpVisible;
+    }
+
+    public void setKpVisible(Boolean kpVisible) {
+        this.kpVisible = kpVisible;
+    }
+
+    public Boolean getKkVisible() {
+        return kkVisible;
+    }
+
+    public void setKkVisible(Boolean kkVisible) {
+        this.kkVisible = kkVisible;
+    }
+
+    public Boolean getKpnVisible() {
+        return kpnVisible;
+    }
+
+    public void setKpnVisible(Boolean kpnVisible) {
+        this.kpnVisible = kpnVisible;
+    }
+    
+    
 
     
 

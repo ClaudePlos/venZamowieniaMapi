@@ -349,7 +349,23 @@ public class ServiceFacade {
                                , (BigDecimal) s[14]
                                , (BigDecimal) s[15]
                                , new BigDecimal( String.valueOf(i) ) 
-                               , (String) s[17] );
+                               , (String) s[17]  // uwagi 
+                            );
+               
+               if ( stan.getSniadaniePlanIl() == null ) stan.setsVisible(Boolean.FALSE);
+               if ( stan.getDrugieSniadaniePlanIl() == null ) stan.setS2Visible(Boolean.FALSE);
+               if ( stan.getObiadPlanIl() == null ) stan.setoVisible(Boolean.FALSE);
+               if ( stan.getPodwieczorekPlanIl() == null ) stan.setpVisible(Boolean.FALSE);
+               if ( stan.getKolacjaPlanIl() == null ) stan.setkVisible(Boolean.FALSE);
+               if ( stan.getPosilekNocnyPlanIl() == null ) stan.setPnVisible(Boolean.FALSE);
+               
+               if ( stan.getSniadanieKorIl() == null ) stan.setKsVisible(Boolean.FALSE);
+               if ( stan.getDrugieSniadanieKorIl() == null ) stan.setKs2Visible(Boolean.FALSE);
+               if ( stan.getObiadKorIl() == null ) stan.setKoVisible(Boolean.FALSE);
+               if ( stan.getPodwieczorekKorIl() == null ) stan.setKpVisible(Boolean.FALSE);
+               if ( stan.getKolacjaKorIl() == null ) stan.setKkVisible(Boolean.FALSE);
+               if ( stan.getPosilekNocnyKorIl() == null ) stan.setKpnVisible(Boolean.FALSE);
+               
                
                stanZywionych.add(stan);
                
