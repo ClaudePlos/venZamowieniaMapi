@@ -289,7 +289,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @Command
     @NotifyChange("stanyZywionychNaDzien")
     public void deleteAllMail() {
-        Messagebox.show("StanZywionychNaDzienVM-deleteAllMail");
+        Messagebox.show("StanZywionychNaDzienVM-delMesseteAllMail");
         stanyZywionychNaDzienSuma.clear();
     }
     

@@ -5,6 +5,22 @@
  */
 package pl.modelsView;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,18 +33,23 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Auxhead;
 import org.zkoss.zul.Auxheader;
+import org.zkoss.zul.Button;
+import org.zkoss.zul.Filedownload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 import pl.models.StanZywionychNaDzienDTO;
+import pl.reports.IlzywWgOddPodDiety;
 import pl.session.ServiceFacade;
 
 /**
@@ -41,7 +62,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
-    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien2 = serviceFacade.pobierzStanZywionychWdniuDlaKierunkuKosztow( null, 0 );
+    public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien2;
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -174,7 +195,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         
         
         
-        stanyZywionychNaDzien2.clear();
+        //stanyZywionychNaDzien2.clear();
         
         stanyZywionychNaDzien2 = serviceFacade.pobierzStanZywionychWdniuDlaKierunkuKosztowGlobal(formatter.format(naDzien), kierKosztow );
         
@@ -360,7 +381,140 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listBox.appendChild(ah);
         
         
+        
+        
+        Button buttPDF = new Button();
+        buttPDF.setLabel("Drukuj PDF");
+        window.appendChild(buttPDF);
+        
+        
+        buttPDF.addEventListener("onClick", new EventListener() {
+            @Override
+            public void onEvent(Event arg0) throws Exception {
+                
+                    zapiszPDF();  
+            }   
+        });
+        
+        
     }
+    
+    private void zapiszPDF() throws IOException, Exception
+    {
+         System.out.print("Tworze pdf podsumowanie KK");
+          File f = new File("Zest02" + ".pdf");
+          
+          OutputStream file = new FileOutputStream(f); //
+            // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
+	          Document document = new Document(PageSize.A4.rotate());
+	          PdfWriter.getInstance(document, file);
+                  
+                  Filedownload.save(f, "application/pdf");
+         
+          PdfPTable table=new PdfPTable( 14 ); // number of column
+          
+           table.setTotalWidth(790);
+           table.setLockedWidth(true);
+           
+           //BaseFont.CP1250
+                    BaseFont bf = BaseFont.createFont( BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED ); // na polskie zniaki
+
+                    //Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
+
+                    Font myFont_Naglowek = new Font(bf, 8); //rozmiar czcionki
+                    Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
+                    Font myFont = new Font(bf, 8);           //rozmiar czcionki
+
+
+                    Font regular = new Font(Font.FontFamily.HELVETICA, 8);
+                    Font bold = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
+                    
+                    
+                    PdfPCell cell0 = new PdfPCell (new Paragraph ("asd", myFont_Naglowek));
+                    
+                    cell0.setColspan( 14 ); // connect column to one 
+                    cell0.setHorizontalAlignment (Element.ALIGN_CENTER);
+                    cell0.setPadding (10.0f);
+                   // cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+                    table.addCell(cell0); 
+                    
+                    
+                    
+                    PdfPCell cell = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
+ 
+				      cell.setColspan( 14 ); // connect column to one 
+				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cell.setPadding (10.0f);
+				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+                    
+                    table.addCell(cell); 
+                    
+                    
+                    
+                    
+         for ( StanZywionychNaDzienDTO szDTO : stanyZywionychNaDzien2)
+        {
+            PdfPCell cellDane01 = new PdfPCell (new Paragraph (szDTO.getLp().toString(), myFont_Naglowek));
+ 
+				      cellDane01.setColspan( 1 ); // connect column to one 
+				      cellDane01.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cellDane01.setPadding (10.0f);
+				      cellDane01.setBackgroundColor (new BaseColor (140, 221, 8));	
+                    
+                    table.addCell(cellDane01); 
+                    
+            PdfPCell cellDane02 = new PdfPCell (new Paragraph (szDTO.getDietaNazwa(), myFont_Naglowek));
+
+                                         cellDane02.setColspan( 13 ); // connect column to one 
+                                         cellDane02.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                         cellDane02.setPadding (10.0f);
+                                         cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                       table.addCell(cellDane02);            
+        }     
+         
+                    
+                    
+                    
+                    
+                    
+                     document.open();//PDF document opened........			       
+ 
+        //document.add(image);
+
+        document.add(Chunk.NEWLINE);   //Something like in HTML :-)
+ 
+                    
+        document.add(new Paragraph("Vendi Servis Sp. z o.o. "  )); 
+
+
+          //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
+          
+        document.add(Chunk.NEWLINE);  
+ 
+        document.add(table);
+        
+        
+       
+        
+
+        //document.add(chunk);
+        //document.add(chunk1);
+ 
+        document.add(Chunk.NEWLINE);   //Something like in HTML :-)							    
+ 
+        document.newPage();            //Opened new page
+      
+ 
+        document.close();
+ 
+        file.close();
+ 
+        System.out.println("Raport created successfully...");
+         
+    }
+    
+    
     
     public void cc( Date naDzien, int kierKosztow ){
         
