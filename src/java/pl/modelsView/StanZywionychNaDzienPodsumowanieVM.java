@@ -413,6 +413,9 @@ public class StanZywionychNaDzienPodsumowanieVM  {
          
           PdfPTable table=new PdfPTable( 14 ); // number of column
           
+          table.setWidths(new int[]{40,200,50,50,50,50,50,50,50,50,50,50,50,50});
+				     
+          
            table.setTotalWidth(790);
            table.setLockedWidth(true);
            
@@ -421,8 +424,8 @@ public class StanZywionychNaDzienPodsumowanieVM  {
 
                     //Font fontbold = FontFactory.getFont("Times-Roman", 12, Font.BOLD);
 
-                    Font myFont_Naglowek = new Font(bf, 8); //rozmiar czcionki
-                    Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
+                    Font myFont_Naglowek = new Font(bf, 10, Font.BOLD); //rozmiar czcionki
+                    Font myFont_Tresc = new Font(bf, 8);  //rozmiar czcionki
                     Font myFont = new Font(bf, 8);           //rozmiar czcionki
 
 
@@ -430,49 +433,537 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     Font bold = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
                     
                     
-                    PdfPCell cell0 = new PdfPCell (new Paragraph ("asd", myFont_Naglowek));
+                    PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów", myFont_Naglowek));
                     
                     cell0.setColspan( 14 ); // connect column to one 
                     cell0.setHorizontalAlignment (Element.ALIGN_CENTER);
                     cell0.setPadding (10.0f);
-                   // cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+                    cell0.setBackgroundColor (new BaseColor (140, 221, 8));	
                     table.addCell(cell0); 
                     
                     
                     
-                    PdfPCell cell = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
- 
-				      cell.setColspan( 14 ); // connect column to one 
-				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell.setPadding (10.0f);
-				      cell.setBackgroundColor (new BaseColor (140, 221, 8));	
-                    
+                    PdfPCell cell = new PdfPCell (new Paragraph ("LP", bold));  
+
+                                      cell.setColspan( 1 ); // connect column to one 
+                                      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cell.setPadding (10.0f);
+                                      //cell.setBackgroundColor (new BaseColor (140, 221, 8));
+                                     
+
                     table.addCell(cell); 
                     
                     
+                    PdfPCell cel2 = new PdfPCell (new Paragraph ("Dieta", bold));  
+                    
+				      cel2.setColspan( 1 ); // connect column to one 
+				      cel2.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel2.setPadding (10.0f);
+				      //cel2.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel2);
                     
                     
+                    PdfPCell cel3 = new PdfPCell (new Paragraph ("Ś", bold));  
+                    
+				      cel3.setColspan( 1 ); // connect column to one 
+				      cel3.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel3.setPadding (10.0f);
+				      //cel3.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel3);
+                    
+                    
+                    PdfPCell cel4 = new PdfPCell (new Paragraph ("IIŚ", bold));  
+                    
+				      cel4.setColspan( 1 ); // connect column to one 
+				      cel4.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel4.setPadding (10.0f);
+				      //cel4.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel4);
+                    
+                    
+                    PdfPCell cel5 = new PdfPCell (new Paragraph ("O", bold));  
+                    
+				      cel5.setColspan( 1 ); // connect column to one 
+				      cel5.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel5.setPadding (10.0f);
+				      //cel5.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel5);
+                    
+                    
+                    PdfPCell cel6 = new PdfPCell (new Paragraph ("P", bold));  
+                    
+				      cel6.setColspan( 1 ); // connect column to one 
+				      cel6.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel6.setPadding (10.0f);
+				      //cel6.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel6);
+                    
+                    
+                    PdfPCell cel7 = new PdfPCell (new Paragraph ("K", bold));  
+                    
+				      cel7.setColspan( 1 ); // connect column to one 
+				      cel7.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel7.setPadding (10.0f);
+				      //cel7.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel7);
+                    
+                    
+                    PdfPCell cel8 = new PdfPCell (new Paragraph ("PN", bold));  
+                    
+				      cel8.setColspan( 1 ); // connect column to one 
+				      cel8.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel8.setPadding (10.0f);
+				      //cel8.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel8);
+                    
+                    
+                    ////KOREKTY////
+                    
+                    PdfPCell cel9 = new PdfPCell (new Paragraph ("K/Ś", bold));  
+                    
+				      cel9.setColspan( 1 ); // connect column to one 
+				      cel9.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel9.setPadding (10.0f);
+				      //cel9.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel9);
+                    
+                    
+                    PdfPCell cel10 = new PdfPCell (new Paragraph ("K/IIŚ", bold));  
+                    
+				      cel10.setColspan( 1 ); // connect column to one 
+				      cel10.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel10.setPadding (10.0f);
+				      //cel10.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel10);
+                    
+                    
+                    PdfPCell cel11 = new PdfPCell (new Paragraph ("K/O", bold));  
+                    
+				      cel11.setColspan( 1 ); // connect column to one 
+				      cel11.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel11.setPadding (10.0f);
+				      //cel11.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel11);
+                    
+                    
+                    PdfPCell cel12 = new PdfPCell (new Paragraph ("K/P", bold));  
+                    
+				      cel12.setColspan( 1 ); // connect column to one 
+				      cel12.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel12.setPadding (10.0f);
+				      //cel12.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel12);
+                    
+                    
+                    PdfPCell cel13 = new PdfPCell (new Paragraph ("K/K", bold));  
+                    
+				      cel13.setColspan( 1 ); // connect column to one 
+				      cel13.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel13.setPadding (10.0f);
+				      //cel13.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel13);
+                    
+                    
+                    PdfPCell cel14 = new PdfPCell (new Paragraph ("K/PN", bold));  
+                    
+				      cel14.setColspan( 1 ); // connect column to one 
+				      cel14.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel14.setPadding (10.0f);
+				      //cel14.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel14);
+                    
+                    
+                    
+                    
+         ////ZLICZANIE DANYCH DO PLANU////
+         
+         //deklaracje do sum//
+         BigDecimal sumaS = BigDecimal.ZERO;
+         BigDecimal sumaS2 = BigDecimal.ZERO;
+         BigDecimal sumaO = BigDecimal.ZERO;
+         BigDecimal sumaP = BigDecimal.ZERO;
+         BigDecimal sumaK = BigDecimal.ZERO;
+         BigDecimal sumaPN = BigDecimal.ZERO;
+         
+         BigDecimal sumaKorS = BigDecimal.ZERO;
+         BigDecimal sumaKorS2 = BigDecimal.ZERO;
+         BigDecimal sumaKorO = BigDecimal.ZERO;
+         BigDecimal sumaKorP = BigDecimal.ZERO;
+         BigDecimal sumaKorK = BigDecimal.ZERO;
+         BigDecimal sumaKorPN = BigDecimal.ZERO;
+         
+         
+         
+         
+         
+         
          for ( StanZywionychNaDzienDTO szDTO : stanyZywionychNaDzien2)
         {
-            PdfPCell cellDane01 = new PdfPCell (new Paragraph (szDTO.getLp().toString(), myFont_Naglowek));
- 
-				      cellDane01.setColspan( 1 ); // connect column to one 
-				      cellDane01.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cellDane01.setPadding (10.0f);
-				      cellDane01.setBackgroundColor (new BaseColor (140, 221, 8));	
-                    
-                    table.addCell(cellDane01); 
-                    
-            PdfPCell cellDane02 = new PdfPCell (new Paragraph (szDTO.getDietaNazwa(), myFont_Naglowek));
+                PdfPCell cellDane01 = new PdfPCell (new Paragraph (szDTO.getLp().toString(), myFont_Tresc));
 
-                                         cellDane02.setColspan( 13 ); // connect column to one 
-                                         cellDane02.setHorizontalAlignment (Element.ALIGN_CENTER);
-                                         cellDane02.setPadding (10.0f);
-                                         cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+                                          cellDane01.setColspan( 1 ); // connect column to one 
+                                          cellDane01.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                          cellDane01.setPadding (10.0f);
+                                          //cellDane01.setBackgroundColor (new BaseColor (140, 221, 8));	
 
-                       table.addCell(cellDane02);            
+                        table.addCell(cellDane01); 
+                    
+                    
+                PdfPCell cellDane02 = new PdfPCell (new Paragraph (szDTO.getDietaNazwa(), myFont_Tresc));
+
+                                             cellDane02.setColspan( 1 ); // connect column to one 
+                                             cellDane02.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane02.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane02);
+
+                       
+                String SNPlanIl="";           
+                    if(szDTO.getSniadaniePlanIl() != null )
+                    {
+                        SNPlanIl = szDTO.getSniadaniePlanIl().toString();
+                        sumaS = sumaS.add(szDTO.getSniadaniePlanIl());
+                    }
+                PdfPCell cellDane03 = new PdfPCell (new Paragraph (SNPlanIl, myFont_Tresc));
+
+                                         cellDane03.setColspan( 1 ); // connect column to one 
+                                         cellDane03.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                         cellDane03.setPadding (10.0f);
+                                         //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                       table.addCell(cellDane03); 
+                      
+                       
+                String IISNPlanIl="";           
+                    if(szDTO.getDrugieSniadaniePlanIl() != null )
+                    {
+                        IISNPlanIl = szDTO.getDrugieSniadaniePlanIl().toString();
+                        sumaS2 = sumaS2.add(szDTO.getDrugieSniadaniePlanIl());
+                    }           
+                PdfPCell cellDane04 = new PdfPCell (new Paragraph (IISNPlanIl, myFont_Tresc));
+
+                                             cellDane04.setColspan( 1 ); // connect column to one 
+                                             cellDane04.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane04.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane04); 
+               
+                       
+                String OPlanIl="";           
+                    if(szDTO.getObiadPlanIl() != null )
+                    {
+                        OPlanIl = szDTO.getObiadPlanIl().toString();
+                        sumaO = sumaO.add(szDTO.getObiadPlanIl());
+                    }           
+                PdfPCell cellDane05 = new PdfPCell (new Paragraph (OPlanIl, myFont_Tresc));
+
+                                             cellDane05.setColspan( 1 ); // connect column to one 
+                                             cellDane05.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane05.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane05); 
+              
+                           
+                String PPlanIl="";           
+                    if(szDTO.getPodwieczorekPlanIl() != null )
+                    {
+                        PPlanIl = szDTO.getPodwieczorekPlanIl().toString();
+                        sumaP = sumaP.add(szDTO.getPodwieczorekPlanIl());
+                    }        
+                PdfPCell cellDane06 = new PdfPCell (new Paragraph (PPlanIl, myFont_Tresc));
+
+                                             cellDane06.setColspan( 1 ); // connect column to one 
+                                             cellDane06.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane06.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane06); 
+               
+                           
+                String KPlanIl="";           
+                    if(szDTO.getKolacjaPlanIl() != null )
+                    {
+                        KPlanIl = szDTO.getKolacjaPlanIl().toString();
+                        sumaK = sumaK.add(szDTO.getKolacjaPlanIl());
+                    }       
+                PdfPCell cellDane07 = new PdfPCell (new Paragraph (KPlanIl, myFont_Tresc));
+
+                                             cellDane07.setColspan( 1 ); // connect column to one 
+                                             cellDane07.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane07.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane07); 
+              
+                           
+                String PNPlanIl="";           
+                    if(szDTO.getPosilekNocnyPlanIl() != null )
+                    {
+                        PNPlanIl = szDTO.getPosilekNocnyPlanIl().toString();
+                        sumaPN = sumaPN.add(szDTO.getPosilekNocnyPlanIl());
+                    }       
+                PdfPCell cellDane08 = new PdfPCell (new Paragraph (PNPlanIl, myFont_Tresc));
+
+                                             cellDane08.setColspan( 1 ); // connect column to one 
+                                             cellDane08.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane08.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane08); 
+
+               
+        
+         ////ZLICZANIE DANYCH DO KOREKT////                       
+         
+                      
+                String KorSNPlanIl="";           
+                    if(szDTO.getSniadanieKorIl() != null )
+                    {
+                        KorSNPlanIl = szDTO.getSniadanieKorIl().toString();
+                        sumaKorS = sumaKorS.add(szDTO.getSniadanieKorIl());
+                    }
+                PdfPCell cellDane09 = new PdfPCell (new Paragraph (KorSNPlanIl, myFont_Tresc));
+
+                                         cellDane09.setColspan( 1 ); // connect column to one 
+                                         cellDane09.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                         cellDane09.setPadding (10.0f);
+                                         //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                       table.addCell(cellDane09); 
+                      
+                       
+                String KorIISNPlanIl="";           
+                    if(szDTO.getDrugieSniadanieKorIl() != null )
+                    {
+                        KorIISNPlanIl = szDTO.getDrugieSniadanieKorIl().toString();
+                        sumaKorS2 = sumaKorS2.add(szDTO.getDrugieSniadanieKorIl());
+                    }           
+                PdfPCell cellDane10 = new PdfPCell (new Paragraph (KorIISNPlanIl, myFont_Tresc));
+
+                                             cellDane10.setColspan( 1 ); // connect column to one 
+                                             cellDane10.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane10.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane10); 
+               
+                       
+                String KorOPlanIl="";           
+                    if(szDTO.getObiadKorIl() != null )
+                    {
+                        KorOPlanIl = szDTO.getObiadKorIl().toString();
+                        sumaKorO = sumaKorO.add(szDTO.getObiadKorIl());
+                    }           
+                PdfPCell cellDane11 = new PdfPCell (new Paragraph (KorOPlanIl, myFont_Tresc));
+
+                                             cellDane11.setColspan( 1 ); // connect column to one 
+                                             cellDane11.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane11.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane11); 
+              
+                           
+                String KorPPlanIl="";           
+                    if(szDTO.getPodwieczorekKorIl() != null )
+                    {
+                        KorPPlanIl = szDTO.getPodwieczorekKorIl().toString();
+                        sumaKorP = sumaKorP.add(szDTO.getPodwieczorekKorIl());
+                    }        
+                PdfPCell cellDane12 = new PdfPCell (new Paragraph (KorPPlanIl, myFont_Tresc));
+
+                                             cellDane12.setColspan( 1 ); // connect column to one 
+                                             cellDane12.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane12.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane12); 
+               
+                           
+                String KorKPlanIl="";           
+                    if(szDTO.getKolacjaKorIl() != null )
+                    {
+                        KorKPlanIl = szDTO.getKolacjaKorIl().toString();
+                        sumaKorK = sumaKorK.add(szDTO.getKolacjaKorIl());
+                    }       
+                PdfPCell cellDane13 = new PdfPCell (new Paragraph (KorKPlanIl, myFont_Tresc));
+
+                                             cellDane13.setColspan( 1 ); // connect column to one 
+                                             cellDane13.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane13.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane13); 
+              
+                           
+                String KorPNPlanIl="";           
+                    if(szDTO.getPosilekNocnyKorIl() != null )
+                    {
+                        KorPNPlanIl = szDTO.getPosilekNocnyKorIl().toString();
+                        sumaKorPN = sumaKorPN.add(szDTO.getPosilekNocnyKorIl());
+                    }       
+                PdfPCell cellDane14 = new PdfPCell (new Paragraph (KorPNPlanIl, myFont_Tresc));
+
+                                             cellDane14.setColspan( 1 ); // connect column to one 
+                                             cellDane14.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane14.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane14); 
+
+          
+                       
         }     
          
+        ////SUMY////
+                
+                PdfPCell cellSum00 = new PdfPCell (new Paragraph ("SUMA:", bold));
+
+                                             cellSum00.setColspan( 2 ); // connect column to one 
+                                             cellSum00.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellSum00.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellSum00); 
+                           
+                           
+                PdfPCell cellSum01 = new PdfPCell (new Paragraph (sumaS.toString(), bold));
+
+                                      cellSum01.setColspan( 1 ); // connect column to one 
+                                      cellSum01.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum01.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum01);       
+                                            
+                    
+                PdfPCell cellSum02 = new PdfPCell (new Paragraph (sumaS2.toString(), bold));
+
+                                      cellSum02.setColspan( 1 ); // connect column to one 
+                                      cellSum02.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum02.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum02);          
+                    
+                                              
+                PdfPCell cellSum03 = new PdfPCell (new Paragraph (sumaO.toString(), bold));
+
+                                      cellSum03.setColspan( 1 ); // connect column to one 
+                                      cellSum03.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum03.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum03);          
+                    
+                                              
+                PdfPCell cellSum04 = new PdfPCell (new Paragraph (sumaP.toString(), bold));
+
+                                      cellSum04.setColspan( 1 ); // connect column to one 
+                                      cellSum04.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum04.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum04);          
+                    
+                                              
+                PdfPCell cellSum05 = new PdfPCell (new Paragraph (sumaK.toString(), bold));
+
+                                      cellSum05.setColspan( 1 ); // connect column to one 
+                                      cellSum05.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum05.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum05);          
+                    
+                                              
+                PdfPCell cellSum06 = new PdfPCell (new Paragraph (sumaPN.toString(), bold));
+
+                                      cellSum06.setColspan( 1 ); // connect column to one 
+                                      cellSum06.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum06.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum06);          
+                    
+                                              
+                PdfPCell cellSum07 = new PdfPCell (new Paragraph (sumaKorS.toString(), bold));
+
+                                      cellSum07.setColspan( 1 ); // connect column to one 
+                                      cellSum07.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum07.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum07);          
+                    
+                                              
+                PdfPCell cellSum08 = new PdfPCell (new Paragraph (sumaKorS2.toString(), bold));
+
+                                      cellSum08.setColspan( 1 ); // connect column to one 
+                                      cellSum08.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum08.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum08);          
+                    
+                                              
+                PdfPCell cellSum09 = new PdfPCell (new Paragraph (sumaKorO.toString(), bold));
+
+                                      cellSum09.setColspan( 1 ); // connect column to one 
+                                      cellSum09.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum09.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum09);          
+                    
+                                              
+                PdfPCell cellSum10 = new PdfPCell (new Paragraph (sumaKorP.toString(), bold));
+
+                                      cellSum10.setColspan( 1 ); // connect column to one 
+                                      cellSum10.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum10.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum10);          
+                    
+                                              
+                PdfPCell cellSum11 = new PdfPCell (new Paragraph (sumaKorK.toString(), bold));
+
+                                      cellSum11.setColspan( 1 ); // connect column to one 
+                                      cellSum11.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum11.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum11);          
+                    
+                                              
+                PdfPCell cellSum12 = new PdfPCell (new Paragraph (sumaKorPN.toString(), bold));
+
+                                      cellSum12.setColspan( 1 ); // connect column to one 
+                                      cellSum12.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum12.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                    table.addCell(cellSum12);          
+                    
+                                              
+                         
                     
                     
                     
