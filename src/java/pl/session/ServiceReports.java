@@ -70,6 +70,7 @@ public class ServiceReports {
 "  and dk.ID_DIETA = d.ID_DIETA \n" +
 "  and dk.AKTYWNE = 1 \n" +
 "  and dgz.AKTYWNE = 1 \n" +
+"  and szp.ilosc != 0 \n" +
 "  and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
 "group by sz.d_obr, d.id_dieta, dieta_kod, dieta_nazwa, d.lp, sz.uwagi, grupa_zywionych\n" +
 "order by 1,2" );
