@@ -1,6 +1,12 @@
 <div hflex="1" vflex="1" sclass="footer">
+    <html><center>
+        <font sieze="1" color="red"></font>
+    </center>
+    </html>
     <!-- 07.02.2017 -->
 	<vbox hflex="1" vflex="1" align="center">
+            <label style="color: red;font-size:22pt;font-weight:bold" 
+                   value="Dziś przerwa w dostępie do strony od godz 17.00 do 2.00"/>
 		#zamowieniavendi v11 - ZK ${desktop.webApp.version}
 		<a href="http://www.vendiservis.pl/">http://www.vendiservis.pl/</a>
 	</vbox>
