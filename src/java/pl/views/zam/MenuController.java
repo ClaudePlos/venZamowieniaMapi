@@ -11,11 +11,9 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -24,16 +22,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Init;
-import org.apache.poi.poifs.property.Child;
-import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.DependsOn;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -41,12 +36,8 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.SimpleListModel;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
 import pl.authentication.AuthenticationServiceChapter8Impl;
@@ -54,12 +45,11 @@ import pl.models.GrupaZywionychVO;
 import pl.services.AuthenticationService;
 import pl.session.ServiceFacade;
 import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zul.Comboitem;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueue;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Filedownload;
-import org.zkoss.zul.Grid;
-import org.zkoss.zul.Label;
-import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.modelsView.StanZywionychNaDzienVM;
 
@@ -74,11 +64,21 @@ public class MenuController extends SelectorComposer<Component> {
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
 
+    
+
     List<GrupaZywionychVO> grupyZywionych;
     
     /*ListModel<String> grupaZywionychModel = new ListModelList<String>( serviceFacade.getGrupaZywionych(null) );*/
     
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    
+    private EventQueue eventGZ;
+    private EventQueue eventNaDzien;
+    private EventQueue eventStanZywNaDzien;
+    
+    // dal raportow
+    public Date naDzienRaport;
+    public String gzRaprot;
     
     @Wire
     private Window win;
@@ -98,8 +98,8 @@ public class MenuController extends SelectorComposer<Component> {
     private String wybranaGrupaZywionych;
     
     Combobox cmbGrupaZywionych;
-    
-    
+
+
     public MenuController()
     {
       //  serviceFacade.listaGrupyZywionych();
@@ -121,6 +121,8 @@ public class MenuController extends SelectorComposer<Component> {
     public void setWybranaGrupaZywionych(String wybranaGrupaZywionych) {
         this.wybranaGrupaZywionych = wybranaGrupaZywionych;
     }
+
+  
     
     
     
@@ -132,6 +134,22 @@ public class MenuController extends SelectorComposer<Component> {
     }
     
     
+    
+    //event 
+    public void doAfterCompose(Component comp) throws Exception {
+        super.doAfterCompose(comp);
+        eventGZ = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
+        eventGZ.subscribe(new EventListener() {
+            public void onEvent(Event event) throws Exception {
+                String value = (String)event.getData();
+               // lbl.setValue(value);
+               gzRaprot = value;
+            }
+        });
+    }
+    
+    
+    
    
     
     
@@ -141,7 +159,6 @@ public class MenuController extends SelectorComposer<Component> {
     }
     
 
-    
     
     @Listen("onClick = button#pobierzStan")
     public void pobierzStan(Event event){
@@ -193,7 +210,11 @@ public class MenuController extends SelectorComposer<Component> {
           SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
 
           // 02. Generation raport 
-            File f = new File("SZ" + serviceFacade.gzRaprot + "_" + dtf1.format( serviceFacade.naDzienRaport ) + ".pdf");
+          
+   
+          
+            File f = new File("SZ" + gzRaprot + "_" + 
+                    dtf1.format( naDzienRaport ) + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -224,7 +245,8 @@ public class MenuController extends SelectorComposer<Component> {
 
                             
                              
-	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + serviceFacade.gzRaprot + " na dzien: " + dtf.format( serviceFacade.naDzienRaport ), myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + gzRaprot + 
+                                     " na dzien: " + dtf.format( naDzienRaport ), myFont));
  
 				      cell.setColspan(9); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);

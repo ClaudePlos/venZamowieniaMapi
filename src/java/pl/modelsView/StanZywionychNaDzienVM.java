@@ -32,7 +32,10 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.EventQueue;
+import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
@@ -49,6 +52,7 @@ import pl.models.KierunekKosztowVO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
 import pl.session.ServiceFacade;
+import pl.views.zam.MenuController;
 
 /**
  *
@@ -59,6 +63,11 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
+    
+    private EventQueue eventGZ;
+    private EventQueue eventNaDzien;
+    private EventQueue eventStanZywNaDzien;
+    
     
     private static volatile StanZywionychNaDzienVM instance = null;
 
@@ -91,6 +100,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     public List<StanZywionychNaDzienDTO> stanyZywionychDoKopiowania;
     
     public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma;
+    
+    
     
     public String width;
     
@@ -323,8 +334,13 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         Clients.showNotification("Dane zostały pobrane","info",null, null,300);
         
         //serviceFacade.stanyZywionychNaDzien.clear();
-        serviceFacade.naDzienRaport =   naDzien;
-        serviceFacade.gzRaprot = grupaZywionych;
+        //MenuController.getServiceSideBar().naDzienRaport =   naDzien;
+        //MenuController.getServiceSideBar().gzRaprot = grupaZywionych;
+        
+        eventGZ= EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
+        eventGZ.publish(new Event("onButtonClick", null, grupaZywionych));
+        
+        
         serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
         
         
