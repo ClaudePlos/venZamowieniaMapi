@@ -51,6 +51,7 @@ import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
+import pl.models.reports.GzEventDTO;
 import pl.session.ServiceFacade;
 import pl.views.zam.MenuController;
 
@@ -64,10 +65,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
-    private EventQueue eventGZ;
-    private EventQueue eventNaDzien;
-    private EventQueue eventStanZywNaDzien;
-    
+    private EventQueue eventGZnaDzien;
     
     private static volatile StanZywionychNaDzienVM instance = null;
 
@@ -337,11 +335,16 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         //MenuController.getServiceSideBar().naDzienRaport =   naDzien;
         //MenuController.getServiceSideBar().gzRaprot = grupaZywionych;
         
-        eventGZ= EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
-        eventGZ.publish(new Event("onButtonClick", null, grupaZywionych));
+        GzEventDTO g = new GzEventDTO();
+        g.setGzRaprot(grupaZywionych );
+        g.setNaDzienRaport(naDzien);
+        g.setStanyZywionychNaDzien(stanyZywionychNaDzien);
+        
+        eventGZnaDzien = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
+        eventGZnaDzien.publish(new Event("onButtonClick", null, g ));
         
         
-        serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
+        //serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
         
         
         

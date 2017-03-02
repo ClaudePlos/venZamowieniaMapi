@@ -51,6 +51,7 @@ import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Filedownload;
 import pl.models.StanZywionychNaDzienDTO;
+import pl.models.reports.GzEventDTO;
 import pl.modelsView.StanZywionychNaDzienVM;
 
 /**
@@ -72,13 +73,11 @@ public class MenuController extends SelectorComposer<Component> {
     
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
-    private EventQueue eventGZ;
-    private EventQueue eventNaDzien;
-    private EventQueue eventStanZywNaDzien;
+    private EventQueue eventGZnaDzien;
     
     // dal raportow
-    public Date naDzienRaport;
-    public String gzRaprot;
+    public GzEventDTO gzEve;
+
     
     @Wire
     private Window win;
@@ -138,12 +137,12 @@ public class MenuController extends SelectorComposer<Component> {
     //event 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-        eventGZ = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
-        eventGZ.subscribe(new EventListener() {
+        eventGZnaDzien = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
+        eventGZnaDzien.subscribe(new EventListener() {
             public void onEvent(Event event) throws Exception {
-                String value = (String)event.getData();
+                GzEventDTO value = (GzEventDTO)event.getData();
                // lbl.setValue(value);
-               gzRaprot = value;
+               gzEve = value;
             }
         });
     }
@@ -213,8 +212,8 @@ public class MenuController extends SelectorComposer<Component> {
           
    
           
-            File f = new File("SZ" + gzRaprot + "_" + 
-                    dtf1.format( naDzienRaport ) + ".pdf");
+            File f = new File("SZ" + gzEve.getGzRaprot() + "_" + 
+                    dtf1.format( gzEve.getNaDzienRaport() ) + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -245,8 +244,8 @@ public class MenuController extends SelectorComposer<Component> {
 
                             
                              
-	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + gzRaprot + 
-                                     " na dzien: " + dtf.format( naDzienRaport ), myFont));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + gzEve.getGzRaprot() + 
+                                     " na dzien: " + dtf.format( gzEve.getNaDzienRaport() ), myFont));
  
 				      cell.setColspan(9); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -274,7 +273,7 @@ public class MenuController extends SelectorComposer<Component> {
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
                                       
                                       // row -> wiersze loop 
-                                      for ( StanZywionychNaDzienDTO s : serviceFacade.stanyZywionychNaDzien  )
+                                      for ( StanZywionychNaDzienDTO s : gzEve.getStanyZywionychNaDzien()  )
                                       {
     
                                          table.addCell( new PdfPCell (new Paragraph (s.getLp().toString() , myFont)) );
@@ -383,7 +382,7 @@ public class MenuController extends SelectorComposer<Component> {
                         //document.add(new Paragraph("Dear Java4s.com"));
                         //document.add(new Paragraph("k.skowronski"));
                         // document.add(new Paragraph(naDzienRap.toString()));
-	                document.add(new Paragraph("SZ w dniu dla GZ. Document Generated On - "+ dtf.format( new Date() ).toString()));	
+	                document.add(new Paragraph("SZ w dniu dla GZ. Document Generated On - "+ dtf.format( gzEve.getNaDzienRaport() ).toString()));	
  
 					document.add(table);
  
