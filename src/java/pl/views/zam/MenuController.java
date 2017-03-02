@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -275,6 +276,32 @@ public class MenuController extends SelectorComposer<Component> {
                                       // row -> wiersze loop 
                                       for ( StanZywionychNaDzienDTO s : gzEve.getStanyZywionychNaDzien()  )
                                       {
+                                         
+                                        BigDecimal sumRow = BigDecimal.ZERO;
+                                         
+                                        sumRow = sumRow.add( changeNullOnZero(s.getSniadaniePlanIl()) )
+                                                .add( changeNullOnZero(s.getDrugieSniadaniePlanIl()) )
+                                                .add( changeNullOnZero(s.getObiadPlanIl()) )
+                                                .add( changeNullOnZero(s.getPodwieczorekPlanIl()) )
+                                                .add( changeNullOnZero(s.getKolacjaPlanIl()) )
+                                                .add( changeNullOnZero(s.getPosilekNocnyPlanIl()) )
+                                                .add( changeNullOnZero(s.getSniadanieKorIl()) )
+                                                .add( changeNullOnZero(s.getDrugieSniadanieKorIl()) )
+                                                .add( changeNullOnZero(s.getObiadKorIl()) )
+                                                .add( changeNullOnZero(s.getPodwieczorekKorIl()) )
+                                                .add( changeNullOnZero(s.getKolacjaKorIl()) )
+                                                .add( changeNullOnZero(s.getPosilekNocnyKorIl()) )
+                                                ;
+                                        
+                                        if ( sumRow == BigDecimal.ZERO )
+                                        {
+                                           continue;
+                                        }
+                                                 
+                                          
+                                        
+                                          
+                       
     
                                          table.addCell( new PdfPCell (new Paragraph (s.getLp().toString() , myFont)) );
                                          table.addCell( new PdfPCell (new Paragraph (s.getDietaNazwa() , myFont)) );
@@ -402,6 +429,14 @@ public class MenuController extends SelectorComposer<Component> {
  
         
           
+    }
+    
+    private BigDecimal changeNullOnZero( BigDecimal val )
+    {
+        if ( val == null )
+            return BigDecimal.ZERO;
+        else
+            return val;
     }
     
     
