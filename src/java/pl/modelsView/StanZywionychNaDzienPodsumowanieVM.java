@@ -169,6 +169,10 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listHeader12.setStyle("color: red;");
         listHeader12.setWidth("10%");
         
+        Listheader listHeader13 = new Listheader();
+        listHeader13.setLabel("Uwagi");
+        listHeader13.setWidth("15%");
+        
         
         
         Listhead listHead = new Listhead();
@@ -186,6 +190,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listHead.appendChild(listHeader10);
         listHead.appendChild(listHeader11);
         listHead.appendChild(listHeader12);
+        listHead.appendChild(listHeader13);
         listBox.appendChild(listHead);
 
        
@@ -226,6 +231,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
             listCell11.setStyle("background-color: #BBC2DB;color: red;");
             Listcell listCell12 = new Listcell();
             listCell12.setStyle("background-color: #BBC2DB;color: red;");
+            Listcell listCell13 = new Listcell();
             
             listCell.setLabel( szDTO.getLp().toString() );
             listCell0.setLabel( szDTO.getDietaNazwa() );
@@ -312,6 +318,11 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                 listCell12.setLabel( szDTO.getPosilekNocnyKorIl().toString() );
                 Kpn = Kpn + szDTO.getPosilekNocnyKorIl().intValue();
             }
+            
+            if ( szDTO.getSzUwagi()!= null )
+            {
+                listCell13.setLabel( szDTO.getSzUwagi() );
+            }
                 
             
             listItem1.appendChild(listCell);
@@ -328,6 +339,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
             listItem1.appendChild(listCell10);
             listItem1.appendChild(listCell11);
             listItem1.appendChild(listCell12);
+            listItem1.appendChild(listCell13);
             listBox.appendChild(listItem1);
             listBox.setVisible(true);
 

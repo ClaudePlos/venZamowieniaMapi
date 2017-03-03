@@ -13,7 +13,9 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -295,7 +297,8 @@ public class MenuController extends SelectorComposer<Component> {
                                         
                                         if ( sumRow == BigDecimal.ZERO )
                                         {
-                                           continue;
+                                        //   continue; 
+                                           
                                         }
                                                  
                                           
@@ -411,7 +414,22 @@ public class MenuController extends SelectorComposer<Component> {
                         // document.add(new Paragraph(naDzienRap.toString()));
 	                document.add(new Paragraph("SZ w dniu dla GZ. Document Generated On - "+ dtf.format( gzEve.getNaDzienRaport() ).toString()));	
  
+                        
+                                   /* int num = document.getPageNumber();
+                                    
+                                    final PdfPCell pageCountCell = new PdfPCell(new Phrase(
+                                        "numer strony: " + num +"/ ", myFont));
+                                    pageCountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                    pageCountCell.setBorder(0);
+                                    pageCountCell.setBorderWidthTop(1f);
+                                    table.addCell(pageCountCell);
+                        
+                        
 					document.add(table);
+                                        
+                                        
+                                        
+                                        document.add(new Paragraph("numer strony:  " + Integer.toString(num) + "/"));*/
  
 					//document.add(chunk);
 					//document.add(chunk1);
@@ -420,6 +438,11 @@ public class MenuController extends SelectorComposer<Component> {
  
        				document.newPage();            //Opened new page
 					document.add(list);            //In the new page we are going to add list
+                                        
+                                        
+                          
+                                    
+                                        
  
 		         document.close();
  

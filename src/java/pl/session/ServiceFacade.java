@@ -607,10 +607,10 @@ public class ServiceFacade {
              // TODO - zobacz jak Piotrek robi duże zapytania 
              Query query =  em.createNativeQuery("select d_obr, id_dieta, dieta_nazwa\n" +
 "                  , SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il,\n" +
-"                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp  from \n" +
+"                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp, uwagi  from \n" +
 "					(\n" +
 "                    select sz.d_obr, d.id_dieta, \n" +
-"                    dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc, d.lp lp \n" +
+"                    dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc, d.lp lp, LISTAGG(sz.uwagi, ';') WITHIN  GROUP (ORDER BY sz.uwagi) uwagi \n" +
 "                    from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk\n" +
 "                    where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
 "                    and sz.id_dieta = d.id_dieta\n" +
@@ -659,7 +659,7 @@ public class ServiceFacade {
                                , (BigDecimal) s[13]
                                , (BigDecimal) s[14]
                                , new BigDecimal( String.valueOf(i) ) 
-                               , null);
+                               , (String) s[16]);
                
                stanZywionych.add(stan);
                
