@@ -423,9 +423,9 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                   
                   Filedownload.save(f, "application/pdf");
          
-          PdfPTable table=new PdfPTable( 14 ); // number of column
+          PdfPTable table=new PdfPTable( 15 ); // number of column
           
-          table.setWidths(new int[]{40,200,50,50,50,50,50,50,50,50,50,50,50,50});
+          table.setWidths(new int[]{40,200,50,50,50,50,50,50,50,50,50,50,50,50,100});
 				     
           
            table.setTotalWidth(790);
@@ -447,7 +447,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     
                     PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów", myFont_Naglowek));
                     
-                    cell0.setColspan( 14 ); // connect column to one 
+                    cell0.setColspan( 15 ); // connect column to one 
                     cell0.setHorizontalAlignment (Element.ALIGN_CENTER);
                     cell0.setPadding (10.0f);
                     cell0.setBackgroundColor (new BaseColor (140, 221, 8));	
@@ -596,6 +596,16 @@ public class StanZywionychNaDzienPodsumowanieVM  {
 				      //cel14.setBackgroundColor (new BaseColor (140, 221, 8));
                                       
                     table.addCell(cel14);
+                    
+                    
+                    PdfPCell cel15 = new PdfPCell (new Paragraph ("Uwagi", bold));  
+                    
+				      cel15.setColspan( 1 ); // connect column to one 
+				      cel15.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cel15.setPadding (10.0f);
+				      //cel14.setBackgroundColor (new BaseColor (140, 221, 8));
+                                      
+                    table.addCell(cel15);
                     
                     
                     
@@ -838,6 +848,16 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                                              //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
 
                            table.addCell(cellDane14); 
+                           
+                           
+                PdfPCell cellDane15 = new PdfPCell (new Paragraph (szDTO.getSzUwagi() , myFont_Tresc));
+
+                                             cellDane15.setColspan( 1 ); // connect column to one 
+                                             cellDane15.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellDane15.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellDane15);           
 
           
                        
