@@ -64,9 +64,7 @@ public class ServiceFacade {
     
     public static List<GrupaZywionychVO> grupyZywionych;
     
-    public static OperatorVO user;
-    
-    
+ 
 
     
     public ServiceFacade() {
@@ -96,7 +94,8 @@ public class ServiceFacade {
     
     public synchronized OperatorVO getUserAndKK(String account)
     { 
-        Object[] usersOb = null;     
+        Object[] usersOb = null;  
+        OperatorVO user = new OperatorVO();
         try {
              
              Query query =  em.createNativeQuery("select * from OPERATORZY where KOD = '" + account + "'" );
@@ -283,13 +282,7 @@ public class ServiceFacade {
     
     }
     
-    
-    public static List<KierunekKosztowVO> getKierunkiKosztowUzytkownika() {
-        return user.getKierunkiKosztow();
-    }
-    
-    
-    
+
     public  List<GrupaZywionychVO> getGrupaZywionych( KierunekKosztowVO selectedKierunekKosztow ) {
      
         if ( selectedKierunekKosztow != null )
@@ -424,7 +417,7 @@ public class ServiceFacade {
 
 
     
-    public String zapiszStanZywionychWDniu2( List<StanZywionychNaDzienDTO> stany, KierunekKosztowVO kierKosztow, String czyKorekta )
+    public String zapiszStanZywionychWDniu2( List<StanZywionychNaDzienDTO> stany, KierunekKosztowVO kierKosztow, String czyKorekta, OperatorVO user )
     {
         int ileWierszy = stany.size();
         int i = 1;
@@ -480,7 +473,7 @@ public class ServiceFacade {
                   
                   if ( i == ileWierszy )
                   {
-                      aktualizujStanZywionychPoWgraniu( kierKosztow, s.getIdGrupaZywionych(), s.getdObr().toString().substring(0, 10) );
+                      aktualizujStanZywionychPoWgraniu( kierKosztow, s.getIdGrupaZywionych(), s.getdObr().toString().substring(0, 10), user );
                   }
                  
 
@@ -498,7 +491,7 @@ public class ServiceFacade {
     }
     
     
-    public String aktualizujStanZywionychPoWgraniu(KierunekKosztowVO kierKosztow, BigDecimal idGrupaZywionch, String data)
+    public String aktualizujStanZywionychPoWgraniu(KierunekKosztowVO kierKosztow, BigDecimal idGrupaZywionch, String data, OperatorVO user)
     {
         EntityTransaction tx = em.getTransaction();
         

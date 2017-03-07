@@ -297,7 +297,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         user = serviceFacade.getUserAndKK( u.getName() );
         
         width = "1283";
-        kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
+        kierunkiKosztow = user.getKierunkiKosztow();
         
         if ( stanyZywionychNaDzien != null )
         {
@@ -654,7 +654,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     @NotifyChange("stanyZywionychNaDzien")
     public void zapiszStanZyw() {
       //  Messagebox.show("StanZywionychNaDzienVM-pobInne"+naDzien+grupaZywionych);
-        String ret = serviceFacade.zapiszStanZywionychWDniu2( stanyZywionychNaDzien, selectedKierunekKosztow, czyKorekta );
+        String ret = serviceFacade.zapiszStanZywionychWDniu2( stanyZywionychNaDzien, selectedKierunekKosztow, czyKorekta, user );
         
         if ( ret.equals("OK") )
         {
