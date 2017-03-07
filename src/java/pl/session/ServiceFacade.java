@@ -94,13 +94,10 @@ public class ServiceFacade {
     }
     
     
-    public synchronized OperatorVO findUser(String account)
+    public synchronized OperatorVO getUserAndKK(String account)
     { 
-       
-        Object[] usersOb = null;
-        
+        Object[] usersOb = null;     
         try {
-             //user = em.createQuery("SELECT u FROM OperatorVO u where u.kod = '" + account + "'", OperatorVO.class).getSingleResult();
              
              Query query =  em.createNativeQuery("select * from OPERATORZY where KOD = '" + account + "'" );
         
@@ -113,13 +110,34 @@ public class ServiceFacade {
               user.setHaslo((String) usersOb[4]);      
               List<KierunekKosztowVO> kierunkiKosztow = pobierzKierunkiKosztowUzytkownikaZBazy( (String) usersOb[6] );
               user.setKierunkiKosztow( kierunkiKosztow );
+              
         } catch ( Exception e) {
             e.printStackTrace();
             Messagebox.show(e.toString());
         }
-        
-
         return user;
+    }
+    
+    
+    public synchronized OperatorVO findUserLogowanie(String account)
+    {      
+        Object[] usersOb = null;
+        OperatorVO userLog = new OperatorVO();
+        
+        try {
+             
+             Query query =  em.createNativeQuery("select * from OPERATORZY where KOD = '" + account + "'" );
+        
+              usersOb = (Object[]) query.getSingleResult();
+
+              userLog.setIdOperator( (BigDecimal) usersOb[0] );
+              userLog.setKod((String) usersOb[3]);
+              userLog.setHaslo((String) usersOb[4]);        
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        return userLog;
     }
     
     
@@ -185,9 +203,7 @@ public class ServiceFacade {
       
       
         for( KierunekKosztowVO kierKosz : jsonKierunkiKosztow ){
-     
-          
-          
+  
           try {
                 //user = em.createQuery("SELECT u FROM OperatorVO u where u.kod = '" + account + "'", OperatorVO.class).getSingleResult();
 

@@ -34,7 +34,7 @@ public class AuthenticationServiceChapter8Impl extends AuthenticationServiceChap
 	@Override
 	public boolean login(String nm, String pd) {
             try {
-                 user = serviceFacade.findUser(nm);
+                 user = serviceFacade.findUserLogowanie(nm);
                  serviceFacade.user = user;
             } catch (Exception e) {
                 // TODO Auto-generated catch block

@@ -43,10 +43,14 @@
             <!-- <vlayout id="result"/>  -->
              <zscript>
                    <![CDATA[ 
-                        import pl.session.ServiceFacade;
-                         
-                        ServiceFacade serviceFacade = ServiceFacade.getInstance();
-                        l1.value = "Zalogowany: " + serviceFacade.user.getKod() ;
+                        import javax.servlet.http.HttpSession;
+                        import org.zkoss.zk.ui.Executions;
+                        import pl.services.UserCredential;
+                        
+                        HttpSession session = (HttpSession)(Executions.getCurrent()).getDesktop().getSession().getNativeSession();
+                        UserCredential u =  (UserCredential) session.getAttribute("userCredential");
+
+                        l1.value = "Zalogowany: " + u.getName();
                                     
                     ]]>
             </zscript>

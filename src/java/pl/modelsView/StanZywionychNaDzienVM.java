@@ -24,6 +24,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonString;
+import javax.servlet.http.HttpSession;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -32,6 +33,7 @@ import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.EventQueue;
@@ -49,9 +51,11 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
+import pl.models.OperatorVO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
 import pl.models.reports.GzEventDTO;
+import pl.services.UserCredential;
 import pl.session.ServiceFacade;
 import pl.views.zam.MenuController;
 
@@ -98,6 +102,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     public List<StanZywionychNaDzienDTO> stanyZywionychDoKopiowania;
     
     public List<StanZywionychNaDzienSumaDTO> stanyZywionychNaDzienSuma;
+    
+    public OperatorVO user;
     
     
     
@@ -283,7 +289,13 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
 
     public StanZywionychNaDzienVM()
-    {  
+    { 
+        HttpSession session = (HttpSession)(Executions.getCurrent()).getDesktop().getSession().getNativeSession();
+        
+        UserCredential u =  (UserCredential) session.getAttribute("userCredential");
+        
+        user = serviceFacade.getUserAndKK( u.getName() );
+        
         width = "1283";
         kierunkiKosztow = new ArrayList<KierunekKosztowVO>( serviceFacade.getKierunkiKosztowUzytkownika() );
         
