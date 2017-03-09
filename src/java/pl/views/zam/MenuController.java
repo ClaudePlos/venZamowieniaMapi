@@ -297,8 +297,7 @@ public class MenuController extends SelectorComposer<Component> {
                                         
                                         if ( sumRow == BigDecimal.ZERO )
                                         {
-                                        //   continue; 
-                                           
+                                           continue; 
                                         }
                                                  
                                           
@@ -424,12 +423,14 @@ public class MenuController extends SelectorComposer<Component> {
                                     pageCountCell.setBorderWidthTop(1f);
                                     table.addCell(pageCountCell);
                         
+                                    document.add(new Paragraph("numer strony:  " + Integer.toString(num) + "/"));
+                                    */
                         
 					document.add(table);
                                         
                                         
                                         
-                                        document.add(new Paragraph("numer strony:  " + Integer.toString(num) + "/"));*/
+                                        
  
 					//document.add(chunk);
 					//document.add(chunk1);
