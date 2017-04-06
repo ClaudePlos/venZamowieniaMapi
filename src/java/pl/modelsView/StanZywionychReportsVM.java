@@ -62,7 +62,7 @@ import pl.session.ServiceFacade;
  */
 public class StanZywionychReportsVM {
 
-   
+    private static String rap3 = "Zestawienie - Onkologia";
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
@@ -83,8 +83,12 @@ public class StanZywionychReportsVM {
         
         
         ArrayList listZest = new ArrayList();
-        listZest.add("Ilość żywionych wg oddziałów z podziałem na diety");
-        listZest.add("Wydanie posiłków wg oddziałów w miesiącu");
+        listZest.add("IloĹ›Ä‡ ĹĽywionych wg oddziaĹ‚Ăłw z podziaĹ‚em na diety");
+        listZest.add("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu");
+        
+        //tymczasowo dla onkologi
+        if ( kierKosztowId == 1322 || kierKosztowId == 1321 )
+            listZest.add(rap3);
         
         ListModelList lmZest = new ListModelList(listZest);
         
@@ -105,7 +109,7 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue(" Raport dla kierunku kosztów: " + kierKosztowNazwa  ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
+        test.setValue(" Raport dla kierunku kosztĂłw: " + kierKosztowNazwa  ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
         Hbox hb02 = new Hbox();
         Label l02 = new Label();
@@ -133,18 +137,18 @@ public class StanZywionychReportsVM {
         
         
         ArrayList listPosilki = new ArrayList();
-        listPosilki.add("Śniadanie");
-        listPosilki.add("2. śniadanie");
+        listPosilki.add("Ĺšniadanie");
+        listPosilki.add("2. Ĺ›niadanie");
         listPosilki.add("Obiad");
         listPosilki.add("Podwieczorek");
         listPosilki.add("Kolacja");
-        listPosilki.add("Posiłek nocny");
+        listPosilki.add("PosiĹ‚ek nocny");
         
         ListModelList lmPosiliki = new ListModelList(listPosilki);
         
         Hbox hb03 = new Hbox();
         Label l03 = new Label();
-        l03.setValue("Posiłek:");
+        l03.setValue("PosiĹ‚ek:");
         Combobox cmbPosilek = new Combobox();
         cmbPosilek.setWidth("250px");
         cmbPosilek.setId("cmbPosilek");
@@ -158,7 +162,7 @@ public class StanZywionychReportsVM {
         cmbZestawienia.addEventListener("onChange", new EventListener() {
             public void onEvent(Event event) throws Exception {
                 
-                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu") )
                 { 
                    System.out.println("2");
                    l022.setVisible(true);
@@ -181,7 +185,7 @@ public class StanZywionychReportsVM {
                 
          
                 
-                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("IloĹ›Ä‡ ĹĽywionych wg oddziaĹ‚Ăłw z podziaĹ‚em na diety") )
                 {
                     l022.setVisible(false);
                     tbOkresDo.setVisible(false);
@@ -191,20 +195,26 @@ public class StanZywionychReportsVM {
                             , cmbPosilek.getSelectedItem().getValue().toString()
                             , kierKosztowNazwa );
                 }
-                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
+                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu") )
                 { 
                    System.out.println("2");
                  
                 }
+                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals(rap3) )
+                { 
+                    // raport Fin Onkologia
+                  try {
+                        String okres = tbOkres.getValue().substring(0, 7);
+                        System.out.println( okres + " " + kierKosztowId);
+                        zapiszPDF( okres, kierKosztowId );
+                    } catch (Exception e) {
+                        //alert();
+                    }
+
+                }
                 
                 
-                /* TODO dla onkologi 
-                try {
-                    zapiszPDF( tbOkres.getText(), kierKosztowId );
-                } catch (Exception e) {
-                    //alert();
-                }*/
-    
+             
                 
             }   
         });
@@ -356,69 +366,69 @@ public class StanZywionychReportsVM {
                                       
                                       //pobieram ceny
                                         BigDecimal cS3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         
                                         BigDecimal cS5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         
                                         BigDecimal cS6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         //
                                         BigDecimal cDS5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie() ;
                                         
                                         BigDecimal cDS6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie();
                                         
                                         //
                                         BigDecimal cO3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcObiad();
                                         
                                         BigDecimal cO5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcObiad() ;
                                         
                                         BigDecimal cO6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcObiad() ;
                                         
                                         //
                                         BigDecimal cPO5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek() ;
                                         
                                         BigDecimal cPO6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek();
                                         
                                         //
                                         BigDecimal cK3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcKolacja();
                                         
                                         BigDecimal cK5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcKolacja() ;
                                         
                                         BigDecimal cK6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
                                                                 .findFirst().get().getMapcKolacja() ;
                                         
                                         
-                                        //dieta 3 posiłkowa + nocny
+                                        //dieta 3 posiĹ‚kowa + nocny
                                         BigDecimal cPN = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa + nocny" ))
                                                                 .findFirst().get().getMapcPosilekNocny() ;
                                         
-                                        //dieta 3 posiłkowa + nocny
+                                        //dieta 3 posiĹ‚kowa + nocny
                                         BigDecimal cKompot = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa + nocny" ))
                                                                 .findFirst().get().getMapcZupaKompot() ;
                                         
                                        
@@ -464,6 +474,7 @@ public class StanZywionychReportsVM {
                                       BigDecimal allSumS5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSum2S5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSum2S6 = new BigDecimal(BigInteger.ZERO);
                                       //TODO Marcin
                                       
                                       // ROW
@@ -490,7 +501,7 @@ public class StanZywionychReportsVM {
                                                 table.addCell( r04 );
                                                 
                                                 //TODO Marcin
-                                                PdfPCell r05 = new PdfPCell (new Paragraph ( sumS6.toString(), bold ));
+                                                PdfPCell r05 = new PdfPCell (new Paragraph ( sum2S5.toString(), bold ));
                                                 r05.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r05 );
                                                 
@@ -516,12 +527,14 @@ public class StanZywionychReportsVM {
                                                 allSumS5 = allSumS5.add(sumS5);
                                                 allSumS6 = allSumS6.add(sumS6);
                                                 allSum2S5 = allSum2S5.add(sum2S5);
+                                                allSum2S6 = allSum2S6.add(sum2S6);
                                                 //TODO Marcin
                                                 
                                                 sumS3 = new BigDecimal(BigInteger.ZERO);
                                                 sumS5 = new BigDecimal(BigInteger.ZERO);
                                                 sumS6 = new BigDecimal(BigInteger.ZERO);
                                                 sum2S5 = new BigDecimal(BigInteger.ZERO);
+                                                sum2S6 = new BigDecimal(BigInteger.ZERO);
                                                 //TODO Marcin
 
                                                 PdfPCell cellNewLine = new PdfPCell (new Paragraph ("", bold ));

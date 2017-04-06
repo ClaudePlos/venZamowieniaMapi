@@ -303,7 +303,7 @@ public class ServiceFacade {
         List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
         
         try {
-             // TODO - zobacz jak Piotrek robi duże zapytania 
+             // TODO - zobacz jak Piotrek robi duĹĽe zapytania 
              Query query =  em.createNativeQuery("select d_obr, id_grupa_zywionych, id_dieta, \n" +
                     "dieta_nazwa, SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il, \n" +
                     "SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp, uwagi  from \n" +
@@ -329,8 +329,8 @@ public class ServiceFacade {
                     "PIVOT( \n" +
                     "        SUM(ilosc) il \n" +
                     "	   FOR posilek \n" +
-                    "	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
-                    "      '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
+                    "	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
+                    "      '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
                     "	   ) order by lp" );
         
              stanyOb =  query.getResultList();
@@ -431,8 +431,8 @@ public class ServiceFacade {
             
             
              try {
-                // TODO w wolnej chwili można napisać ile procent danych jest już wgrane :) 
-                //System.out.print("Zapisuje dane, wgrałem już " + i * 100 / ileWierszy); 
+                // TODO w wolnej chwili moĹĽna napisaÄ‡ ile procent danych jest juĹĽ wgrane :) 
+                //System.out.print("Zapisuje dane, wgraĹ‚em juĹĽ " + i * 100 / ileWierszy); 
                  
                 tx.begin();
                 
@@ -535,7 +535,7 @@ public class ServiceFacade {
         List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
         
         try {
-             // TODO - zobacz jak Piotrek robi duże zapytania 
+             // TODO - zobacz jak Piotrek robi duĹĽe zapytania 
              Query query =  em.createNativeQuery("select d_obr, id_dieta, dieta_nazwa\n" +
 "                  , SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il,\n" +
 "                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp, uwagi  from \n" +
@@ -561,8 +561,8 @@ public class ServiceFacade {
 "                    PIVOT( \n" +
 "                            SUM(ilosc) il \n" +
 "                    	   FOR posilek \n" +
-"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
-"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
+"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
+"                          '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
 "                    	   ) order by lp" );
 
         
@@ -613,7 +613,7 @@ public class ServiceFacade {
         List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
         
         try {
-             // TODO - zobacz jak Piotrek robi duże zapytania 
+             // TODO - zobacz jak Piotrek robi duĹĽe zapytania 
              Query query =  em.createNativeQuery("select d_obr, id_dieta, dieta_nazwa\n" +
 "                  , SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il,\n" +
 "                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp, uwagi  from \n" +
@@ -639,8 +639,8 @@ public class ServiceFacade {
 "                    PIVOT( \n" +
 "                            SUM(ilosc) il \n" +
 "                    	   FOR posilek \n" +
-"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
-"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
+"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
+"                          '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
 "                    	   ) order by lp" );
 
         
@@ -740,7 +740,7 @@ public class ServiceFacade {
         List<NapMapowaniaCenyVO> napMapowaniaCenyList = new ArrayList<NapMapowaniaCenyVO>();
         
         try {
-             // TODO - zobacz jak Piotrek robi duże zapytania 
+             // TODO - zobacz jak Piotrek robi duĹĽe zapytania 
              Query query =  em.createNativeQuery("select * from nap_mapowania_ceny" );
 
         
@@ -829,14 +829,14 @@ public class ServiceFacade {
 "						   ,'Obiad planowany' as OP\n" +
 "						   ,'Kolacja korekta I' as KK1\n" +
 "						   ,'Kolacja planowany' as KP\n" +
-"						   ,'Śniadanie korekta I' as SK1\n" +
-"						   ,'Śniadanie planowany' as SP\n" +
-"						   ,'2. śniadanie korekta I' as DSK1\n" +
-"						   ,'2. śniadanie planowany' as DSP\n" +
+"						   ,'Ĺšniadanie korekta I' as SK1\n" +
+"						   ,'Ĺšniadanie planowany' as SP\n" +
+"						   ,'2. Ĺ›niadanie korekta I' as DSK1\n" +
+"						   ,'2. Ĺ›niadanie planowany' as DSP\n" +
 "						   , 'Podwieczorek korekta I' as PK1\n" +
 "						   , 'Podwieczorek planowany' as PP\n" +
-"						   , 'Posiłek nocny korekta I' as PNK1\n" +
-"						   , 'Posiłek nocny planowany' as PNP)\n" +
+"						   , 'PosiĹ‚ek nocny korekta I' as PNK1\n" +
+"						   , 'PosiĹ‚ek nocny planowany' as PNP)\n" +
 "                    	   ) order by KIERUNEK_KOSZTOW, grupa_zywionych		" );
              
              stanyOb =  query.getResultList();
@@ -972,25 +972,41 @@ public class ServiceFacade {
              
              for ( StanZywionychMMRapRozDTO rr : stanZywionychRapRoz )
                {
-                  if( stanZywionychRapRoz2.stream().anyMatch( p -> p.getGz().equals(rr.getGz())) )
+                  if ( rr != null ) 
                   {
-                      StanZywionychMMRapRozDTO firstMatchedName = stanZywionychRapRoz2.stream()
-                            .filter((s) -> s.getGz().equals(rr.getGz() ))
-                            .findFirst().get();
-                      
-                      firstMatchedName.setSn3( firstMatchedName.getSn3().add(rr.getSn3()) ) ;
-                      firstMatchedName.setSn5( firstMatchedName.getSn5().add(rr.getSn5()) ) ;
-                      firstMatchedName.setSn6( firstMatchedName.getSn6().add(rr.getSn6()) ) ;
-                      
-                      firstMatchedName.setDsn5( firstMatchedName.getDsn5().add(rr.getDsn5()) ) ;
-                      firstMatchedName.setDsn6( firstMatchedName.getDsn6().add(rr.getDsn6()) ) ;
-                      
-                      
+                        if( stanZywionychRapRoz2.stream().anyMatch( p -> p.getGz().equals(rr.getGz())) )
+                        {
+                            StanZywionychMMRapRozDTO firstMatchedName = stanZywionychRapRoz2.stream()
+                                  .filter((s) -> s.getGz().equals(rr.getGz() ))
+                                  .findFirst().get();
+
+                            //System.out.print(rr);
+
+                            if ( rr.getSn3() != null )
+                            firstMatchedName.setSn3( firstMatchedName.getSn3().add(rr.getSn3()) ) ;
+
+                            if ( rr.getSn5() != null )
+                            firstMatchedName.setSn5( firstMatchedName.getSn5().add(rr.getSn5()) ) ;
+
+                            if ( rr.getSn6() != null )
+                            firstMatchedName.setSn6( firstMatchedName.getSn6().add(rr.getSn6()) ) ;
+
+
+
+                            if ( rr.getDsn5() != null )
+                            firstMatchedName.setDsn5( firstMatchedName.getDsn5().add(rr.getDsn5()) ) ;
+
+                            if ( rr.getDsn6() != null )
+                            firstMatchedName.setDsn6( firstMatchedName.getDsn6().add(rr.getDsn6()) ) ;
+
+
+                        }
+                        else
+                        {
+                           stanZywionychRapRoz2.add(rr);
+                        }
                   }
-                  else
-                  {
-                     stanZywionychRapRoz2.add(rr);
-                  }
+                  
                }
                                                                                   
         } catch ( Exception e) {
@@ -1001,6 +1017,8 @@ public class ServiceFacade {
         return stanZywionychRapRoz2;
     
     }
+    
+    
     
     
     
