@@ -329,8 +329,8 @@ public class ServiceFacade {
                     "PIVOT( \n" +
                     "        SUM(ilosc) il \n" +
                     "	   FOR posilek \n" +
-                    "	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
-                    "      '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
+                    "	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
+                    "      '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
                     "	   ) order by lp" );
         
              stanyOb =  query.getResultList();
@@ -432,7 +432,7 @@ public class ServiceFacade {
             
              try {
                 // TODO w wolnej chwili moĹĽna napisaÄ‡ ile procent danych jest juĹĽ wgrane :) 
-                //System.out.print("Zapisuje dane, wgraĹ‚em juĹĽ " + i * 100 / ileWierszy); 
+                //System.out.print("Zapisuje dane, wgrałem juĹĽ " + i * 100 / ileWierszy); 
                  
                 tx.begin();
                 
@@ -561,8 +561,8 @@ public class ServiceFacade {
 "                    PIVOT( \n" +
 "                            SUM(ilosc) il \n" +
 "                    	   FOR posilek \n" +
-"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
-"                          '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
+"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
+"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
 "                    	   ) order by lp" );
 
         
@@ -639,8 +639,8 @@ public class ServiceFacade {
 "                    PIVOT( \n" +
 "                            SUM(ilosc) il \n" +
 "                    	   FOR posilek \n" +
-"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Ĺšniadanie korekta I' as SK1,'Ĺšniadanie planowany' as SP, \n" +
-"                          '2. Ĺ›niadanie korekta I' as DSK1, '2. Ĺ›niadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'PosiĹ‚ek nocny korekta I' as PNK1, 'PosiĹ‚ek nocny planowany' as PNP)\n" +
+"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
+"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
 "                    	   ) order by lp" );
 
         
@@ -829,14 +829,14 @@ public class ServiceFacade {
 "						   ,'Obiad planowany' as OP\n" +
 "						   ,'Kolacja korekta I' as KK1\n" +
 "						   ,'Kolacja planowany' as KP\n" +
-"						   ,'Ĺšniadanie korekta I' as SK1\n" +
-"						   ,'Ĺšniadanie planowany' as SP\n" +
-"						   ,'2. Ĺ›niadanie korekta I' as DSK1\n" +
-"						   ,'2. Ĺ›niadanie planowany' as DSP\n" +
+"						   ,'Śniadanie korekta I' as SK1\n" +
+"						   ,'Śniadanie planowany' as SP\n" +
+"						   ,'2. śniadanie korekta I' as DSK1\n" +
+"						   ,'2. śniadanie planowany' as DSP\n" +
 "						   , 'Podwieczorek korekta I' as PK1\n" +
 "						   , 'Podwieczorek planowany' as PP\n" +
-"						   , 'PosiĹ‚ek nocny korekta I' as PNK1\n" +
-"						   , 'PosiĹ‚ek nocny planowany' as PNP)\n" +
+"						   , 'Posiłek nocny korekta I' as PNK1\n" +
+"						   , 'Posiłek nocny planowany' as PNP)\n" +
 "                    	   ) order by KIERUNEK_KOSZTOW, grupa_zywionych		" );
              
              stanyOb =  query.getResultList();

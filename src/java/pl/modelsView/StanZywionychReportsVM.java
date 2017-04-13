@@ -83,8 +83,8 @@ public class StanZywionychReportsVM {
         
         
         ArrayList listZest = new ArrayList();
-        listZest.add("IloĹ›Ä‡ ĹĽywionych wg oddziaĹ‚Ăłw z podziaĹ‚em na diety");
-        listZest.add("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu");
+        listZest.add("Ilość żywionych wg oddziałów z podziałem na diety");
+        listZest.add("Wydanie posiłków wg oddziałów w miesiącu");
         
         //tymczasowo dla onkologi
         if ( kierKosztowId == 1322 || kierKosztowId == 1321 )
@@ -109,7 +109,7 @@ public class StanZywionychReportsVM {
         listBoxR.setHeight("450px");
         
         Label test = new Label();
-        test.setValue(" Raport dla kierunku kosztĂłw: " + kierKosztowNazwa  ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
+        test.setValue(" Raport dla kierunku kosztów: " + kierKosztowNazwa  ); // id mi tutaj nie potrzebne //+ " " + serviceFacade.kkRaport.getIdKierunekKosztow() );
         
         Hbox hb02 = new Hbox();
         Label l02 = new Label();
@@ -137,18 +137,18 @@ public class StanZywionychReportsVM {
         
         
         ArrayList listPosilki = new ArrayList();
-        listPosilki.add("Ĺšniadanie");
-        listPosilki.add("2. Ĺ›niadanie");
+        listPosilki.add("Śniadanie");
+        listPosilki.add("2. śniadanie");
         listPosilki.add("Obiad");
         listPosilki.add("Podwieczorek");
         listPosilki.add("Kolacja");
-        listPosilki.add("PosiĹ‚ek nocny");
+        listPosilki.add("Posiłek nocny");
         
         ListModelList lmPosiliki = new ListModelList(listPosilki);
         
         Hbox hb03 = new Hbox();
         Label l03 = new Label();
-        l03.setValue("PosiĹ‚ek:");
+        l03.setValue("Posiłek:");
         Combobox cmbPosilek = new Combobox();
         cmbPosilek.setWidth("250px");
         cmbPosilek.setId("cmbPosilek");
@@ -162,7 +162,7 @@ public class StanZywionychReportsVM {
         cmbZestawienia.addEventListener("onChange", new EventListener() {
             public void onEvent(Event event) throws Exception {
                 
-                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu") )
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
                 { 
                    System.out.println("2");
                    l022.setVisible(true);
@@ -185,7 +185,7 @@ public class StanZywionychReportsVM {
                 
          
                 
-                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("IloĹ›Ä‡ ĹĽywionych wg oddziaĹ‚Ăłw z podziaĹ‚em na diety") )
+                if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Ilość żywionych wg oddziałów z podziałem na diety") )
                 {
                     l022.setVisible(false);
                     tbOkresDo.setVisible(false);
@@ -195,7 +195,7 @@ public class StanZywionychReportsVM {
                             , cmbPosilek.getSelectedItem().getValue().toString()
                             , kierKosztowNazwa );
                 }
-                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiĹ‚kĂłw wg oddziaĹ‚Ăłw w miesiÄ…cu") )
+                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
                 { 
                    System.out.println("2");
                  
@@ -366,69 +366,69 @@ public class StanZywionychReportsVM {
                                       
                                       //pobieram ceny
                                         BigDecimal cS3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         
                                         BigDecimal cS5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         
                                         BigDecimal cS6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
                                         //
                                         BigDecimal cDS5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie() ;
                                         
                                         BigDecimal cDS6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie();
                                         
                                         //
                                         BigDecimal cO3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcObiad();
                                         
                                         BigDecimal cO5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapcObiad() ;
                                         
                                         BigDecimal cO6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcObiad() ;
                                         
                                         //
                                         BigDecimal cPO5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek() ;
                                         
                                         BigDecimal cPO6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek();
                                         
                                         //
                                         BigDecimal cK3 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcKolacja();
                                         
                                         BigDecimal cK5 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapcKolacja() ;
                                         
                                         BigDecimal cK6 = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiĹ‚kowa" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcKolacja() ;
                                         
                                         
-                                        //dieta 3 posiĹ‚kowa + nocny
+                                        //dieta 3 posiłkowa + nocny
                                         BigDecimal cPN = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
                                                                 .findFirst().get().getMapcPosilekNocny() ;
                                         
-                                        //dieta 3 posiĹ‚kowa + nocny
+                                        //dieta 3 posiłkowa + nocny
                                         BigDecimal cKompot = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiĹ‚kowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
                                                                 .findFirst().get().getMapcZupaKompot() ;
                                         
                                        
@@ -458,6 +458,8 @@ public class StanZywionychReportsVM {
                                       int numberOfRow = stanZywionych.size();
                                       String kkName = "Start";
                                       
+                                      
+                                      //TODO Marcin
                                       // suma razem kk
                                       //deklaracja
                                       BigDecimal sumS3 = new BigDecimal(BigInteger.ZERO);
@@ -465,9 +467,19 @@ public class StanZywionychReportsVM {
                                       BigDecimal sumS6 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sum2S5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal sum2S6 = new BigDecimal(BigInteger.ZERO);
-                                      //TODO Marcin
-                                     
+                                      BigDecimal sumO3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumO5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumO6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumP5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumP6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumK3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumK5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumK6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumPN = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal sumD = new BigDecimal(BigInteger.ZERO);
                                       
+                                                                            
+                                      //TODO Marcin
                                       //suma razem
                                       //deklaracja
                                       BigDecimal allSumS3 = new BigDecimal(BigInteger.ZERO);
@@ -475,8 +487,21 @@ public class StanZywionychReportsVM {
                                       BigDecimal allSumS6 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSum2S5 = new BigDecimal(BigInteger.ZERO);
                                       BigDecimal allSum2S6 = new BigDecimal(BigInteger.ZERO);
-                                      //TODO Marcin
+                                      BigDecimal allSumO3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumO5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumO6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumP5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumP6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumK3 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumK5 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumK6 = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumPN = new BigDecimal(BigInteger.ZERO);
+                                      BigDecimal allSumD = new BigDecimal(BigInteger.ZERO);
                                       
+                                      
+                                      
+                                      
+                                      //TODO Marcin                                      
                                       // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
@@ -488,6 +513,7 @@ public class StanZywionychReportsVM {
                                             {
                                                 table.addCell( new PdfPCell (new Paragraph ( "Razem " + kkName, bold )) );
                                                 
+                                                //TODO Marcin
                                                 PdfPCell r02 = new PdfPCell (new Paragraph ( sumS3.toString(), bold ));
                                                 r02.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r02 ); 
@@ -499,23 +525,56 @@ public class StanZywionychReportsVM {
                                                 PdfPCell r04 = new PdfPCell (new Paragraph ( sumS6.toString(), bold ));
                                                 r04.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r04 );
-                                                
-                                                //TODO Marcin
+                                                                                                
                                                 PdfPCell r05 = new PdfPCell (new Paragraph ( sum2S5.toString(), bold ));
                                                 r05.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r05 );
                                                 
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
+                                                PdfPCell r06 = new PdfPCell (new Paragraph ( sum2S6.toString(), bold ));
+                                                r06.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r06 );
+                                                
+                                                PdfPCell r07 = new PdfPCell (new Paragraph ( sumO3.toString(), bold ));
+                                                r07.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r07 );
+                                                
+                                                PdfPCell r08 = new PdfPCell (new Paragraph ( sumO5.toString(), bold ));
+                                                r08.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r08 );
+                                                
+                                                PdfPCell r09 = new PdfPCell (new Paragraph ( sumO6.toString(), bold ));
+                                                r09.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r09 );
+                                                
+                                                PdfPCell r10 = new PdfPCell (new Paragraph ( sumP5.toString(), bold ));
+                                                r10.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r10 );
+                                                
+                                                PdfPCell r11 = new PdfPCell (new Paragraph ( sumP6.toString(), bold ));
+                                                r11.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r11 );
+                                                
+                                                PdfPCell r12 = new PdfPCell (new Paragraph ( sumK3.toString(), bold ));
+                                                r12.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r12 );
+                                                
+                                                PdfPCell r13 = new PdfPCell (new Paragraph ( sumK5.toString(), bold ));
+                                                r13.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r13 );
+                                                
+                                                PdfPCell r14 = new PdfPCell (new Paragraph ( sumK6.toString(), bold ));
+                                                r14.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r14 );
+                                                
+                                                PdfPCell r15 = new PdfPCell (new Paragraph ( sumPN.toString(), bold ));
+                                                r15.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r15 );
+                                                
+                                                PdfPCell r16 = new PdfPCell (new Paragraph ( sumD.toString(), bold ));
+                                                r16.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r16 );
+                                                
+                                                
                                                 
                                                 PdfPCell r17 = new PdfPCell (new Paragraph ( 
                                                     sumS3.add( sumS5.add( sumS6 ) ).toString()
@@ -523,19 +582,39 @@ public class StanZywionychReportsVM {
                                                 r17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r17 );
                                                 
+                                                //TODO Marcin
                                                 allSumS3 = allSumS3.add(sumS3);
                                                 allSumS5 = allSumS5.add(sumS5);
                                                 allSumS6 = allSumS6.add(sumS6);
                                                 allSum2S5 = allSum2S5.add(sum2S5);
-                                                allSum2S6 = allSum2S6.add(sum2S6);
-                                                //TODO Marcin
+                                                allSum2S6 = allSum2S6.add(sum2S6);                                                
+                                                allSumO3 = allSumO3.add(sumO3);                                              
+                                                allSumO5 = allSumO5.add(sumO5);
+                                                allSumO6 = allSumO6.add(sumO6);
+                                                allSumP5 = allSumP5.add(sumP5);
+                                                allSumP6 = allSumP6.add(sumP6);
+                                                allSumK3 = allSumK3.add(sumK3);
+                                                allSumK5 = allSumK5.add(sumK5);
+                                                allSumK6 = allSumK6.add(sumK6);
+                                                allSumPN = allSumPN.add(sumPN);
+                                                allSumD = allSumD.add(sumD);
                                                 
+                                                //TODO Marcin
                                                 sumS3 = new BigDecimal(BigInteger.ZERO);
                                                 sumS5 = new BigDecimal(BigInteger.ZERO);
                                                 sumS6 = new BigDecimal(BigInteger.ZERO);
                                                 sum2S5 = new BigDecimal(BigInteger.ZERO);
                                                 sum2S6 = new BigDecimal(BigInteger.ZERO);
-                                                //TODO Marcin
+                                                sumO3 = new BigDecimal(BigInteger.ZERO);
+                                                sumO5 = new BigDecimal(BigInteger.ZERO);
+                                                sumO6 = new BigDecimal(BigInteger.ZERO);
+                                                sumP5 = new BigDecimal(BigInteger.ZERO);
+                                                sumP6 = new BigDecimal(BigInteger.ZERO);
+                                                sumK3 = new BigDecimal(BigInteger.ZERO);
+                                                sumK5 = new BigDecimal(BigInteger.ZERO);
+                                                sumK6 = new BigDecimal(BigInteger.ZERO);
+                                                sumPN = new BigDecimal(BigInteger.ZERO);
+                                                sumD = new BigDecimal(BigInteger.ZERO);
 
                                                 PdfPCell cellNewLine = new PdfPCell (new Paragraph ("", bold ));
                                                 cellNewLine.setColspan(17);
@@ -556,102 +635,183 @@ public class StanZywionychReportsVM {
                                          PdfPCell cell01 = new PdfPCell( new Paragraph( stanZywionychOkres.getGz(), myFont ));
                                          table.addCell( cell01 );
                                          
-                                         BigDecimal sn3m = stanZywionychOkres.getSn3().multiply(cS3);
-                                         BigDecimal sn5m = stanZywionychOkres.getSn5().multiply(cS5);
-                                         BigDecimal sn6m = stanZywionychOkres.getSn6().multiply(cS6);
-                                         BigDecimal dsn5m = stanZywionychOkres.getDsn5().multiply(cDS5);
-                                         //TODO Marcin
                                          
                                          
                                          
                                          
+                                        //TODO Marcin
+                                        //ceny
+                                        BigDecimal sn3m = BigDecimal.ZERO;
+                                        BigDecimal sn5m  = BigDecimal.ZERO;
+                                        BigDecimal sn6m  = BigDecimal.ZERO;
+                                        BigDecimal dsn5m  = BigDecimal.ZERO;
+                                        BigDecimal dsn6m  = BigDecimal.ZERO;
+                                        BigDecimal ob3m = BigDecimal.ZERO;
+                                        BigDecimal ob5m = BigDecimal.ZERO;
+                                        BigDecimal ob6m = BigDecimal.ZERO;
+                                        BigDecimal pod5m = BigDecimal.ZERO;
+                                        BigDecimal pod6m = BigDecimal.ZERO;
+                                        BigDecimal kol3m = BigDecimal.ZERO;
+                                        BigDecimal kol5m = BigDecimal.ZERO;
+                                        BigDecimal kol6m = BigDecimal.ZERO;
+                                        BigDecimal pnm = BigDecimal.ZERO;
+                                        BigDecimal dodm = BigDecimal.ZERO;  
+                                        
+                                                                                
+                                        if ( stanZywionychOkres.getSn3() != null )
+                                           sn3m = stanZywionychOkres.getSn3().multiply(cS3);
+
+                                        if ( stanZywionychOkres.getSn5() != null )
+                                           sn5m = stanZywionychOkres.getSn5().multiply(cS5);
+
+                                        if ( stanZywionychOkres.getSn6() != null )
+                                           sn6m = stanZywionychOkres.getSn6().multiply(cS6);
+
+                                        if ( stanZywionychOkres.getDsn5() != null )
+                                           dsn5m = stanZywionychOkres.getDsn5().multiply(cDS5);
+
+                                        if ( stanZywionychOkres.getDsn6() != null )
+                                           dsn6m = stanZywionychOkres.getDsn6().multiply(cDS6);
+                     
+                                        if ( stanZywionychOkres.getOb3() != null )
+                                           ob3m = stanZywionychOkres.getOb3().multiply(cO3);
+
+                                        if ( stanZywionychOkres.getOb5() != null )
+                                           ob5m = stanZywionychOkres.getOb5().multiply(cO5);
+
+                                        if ( stanZywionychOkres.getOb6() != null )
+                                           ob6m = stanZywionychOkres.getOb6().multiply(cO6); 
                                          
+                                        if ( stanZywionychOkres.getPod5() != null )
+                                           pod5m = stanZywionychOkres.getPod5().multiply(cPO5);
+
+                                        if ( stanZywionychOkres.getPod6() != null )
+                                           pod6m = stanZywionychOkres.getPod6().multiply(cPO6);
+                                        
+                                        if ( stanZywionychOkres.getKol3() != null )
+                                           kol3m = stanZywionychOkres.getKol3().multiply(cK3);
+
+                                        if ( stanZywionychOkres.getKol5() != null )
+                                           kol5m = stanZywionychOkres.getKol5().multiply(cK5);
+
+                                        if ( stanZywionychOkres.getKol6() != null )
+                                           kol6m = stanZywionychOkres.getKol6().multiply(cK6); 
+                                        
+                                        if ( stanZywionychOkres.getPn() != null )
+                                           pnm = stanZywionychOkres.getPn().multiply(cPN);
+
+                                        if ( stanZywionychOkres.getKompot() != null )
+                                           dodm = stanZywionychOkres.getKompot().multiply(cKompot);
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
                                          
                                          //**********************************************
                                          //// wiersze gz
-                                         PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
+                                         //TODO Marcin
+                                         PdfPCell cell02 = new PdfPCell( new Paragraph(sn3m.toString(), myFont)); // pierwotna wersja nie odporna na nulle // PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
                                          cell02.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell02 );
                                          
-                                         PdfPCell cell03 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn5().toString() + "/" + sn5m , myFont));
+                                         PdfPCell cell03 = new PdfPCell( new Paragraph(sn5m.toString(), myFont));
                                          cell03.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell03 );
-                                         
-                                         
-                                         PdfPCell cell04 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn6().toString() + "/" + sn6m , myFont));
+                                                                                  
+                                         PdfPCell cell04 = new PdfPCell( new Paragraph(sn6m.toString(), myFont));
                                          cell04.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell04 );
-                                         
-                                         //TODO Marcin
+                                                                                  
                                          PdfPCell cell05 = new PdfPCell( new Paragraph(dsn5m.toString(), myFont));
                                          cell05.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell05 );
                                          
-                                         PdfPCell cell06 = new PdfPCell( new Paragraph(stanZywionychOkres.getDsn6().toString(), myFont));
+                                         PdfPCell cell06 = new PdfPCell( new Paragraph(dsn6m.toString(), myFont));
                                          cell06.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell06 );
                                          
                                          //
-                                         PdfPCell cell07 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb3().toString(), myFont));
+                                         PdfPCell cell07 = new PdfPCell( new Paragraph(ob3m.toString(), myFont));
                                          cell07.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell07 );
                                          
-                                         PdfPCell cell08 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb5().toString(), myFont));
+                                         PdfPCell cell08 = new PdfPCell( new Paragraph(ob5m.toString(), myFont));
                                          cell08.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell08 );
                                          
-                                         PdfPCell cell09 = new PdfPCell( new Paragraph(stanZywionychOkres.getOb6().toString(), myFont));
+                                         PdfPCell cell09 = new PdfPCell( new Paragraph(ob6m.toString(), myFont));
                                          cell09.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell09 );
                                          
                                          //
-                                         PdfPCell cell10 = new PdfPCell( new Paragraph(stanZywionychOkres.getPod5().toString(), myFont));
+                                         PdfPCell cell10 = new PdfPCell( new Paragraph(pod5m.toString(), myFont));
                                          cell10.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell10 );
                                          
-                                         PdfPCell cell11 = new PdfPCell( new Paragraph(stanZywionychOkres.getPod6().toString(), myFont));
+                                         PdfPCell cell11 = new PdfPCell( new Paragraph(pod6m.toString(), myFont));
                                          cell11.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell11 );
-                                         
-                                         
+                                                                                  
                                          //
-                                         PdfPCell cell12 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol3().toString(), myFont));
+                                         PdfPCell cell12 = new PdfPCell( new Paragraph(kol3m.toString(), myFont));
                                          cell12.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell12 );
                                          
-                                         PdfPCell cell13 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol5().toString(), myFont));
+                                         PdfPCell cell13 = new PdfPCell( new Paragraph(kol5m.toString(), myFont));
                                          cell13.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell13 );
                                          
-                                         PdfPCell cell14 = new PdfPCell( new Paragraph(stanZywionychOkres.getKol6().toString(), myFont));
+                                         PdfPCell cell14 = new PdfPCell( new Paragraph(kol6m.toString(), myFont));
                                          cell14.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell14 );
                                          
-                                        //
-                                         PdfPCell cell15 = new PdfPCell( new Paragraph(stanZywionychOkres.getPn().toString(), myFont));
+                                         //
+                                         PdfPCell cell15 = new PdfPCell( new Paragraph(pnm.toString(), myFont));
                                          cell15.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell15 );
                                          
-                                         PdfPCell cell16 = new PdfPCell( new Paragraph("", myFont));
+                                         PdfPCell cell16 = new PdfPCell( new Paragraph(dodm.toString(), myFont));
                                          cell16.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell16 );
                                          
-                                         PdfPCell cell17 = new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m)).toString(), bold ));
+                                         //suma danych z poszczegolnych kolumn w danym wierszu do ostatniej kolumny SUMA (suma z z poszczegolnych oddzialow)
+                                         PdfPCell cell17 = new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m.add(dsn5m.add(dsn6m.add(ob3m.add(ob5m.add(ob6m.add(pod5m.add(pod6m.add(kol3m.add(kol5m.add(kol6m.add(pnm.add(dodm)))))))))))))).toString(), bold )); //PdfPCell cell17 = new PdfPCell( new Paragraph( sn3m.add(sn5m.add(sn6m)).toString(), bold ));
                                          cell17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell17 );
                                         
                                    
+                                        //podsumowanie
+                                        //TODO Marcin
+                                        sumS3 = sumS3.add(sn3m);
+                                        sumS5 = sumS5.add(sn5m);
+                                        sumS6 = sumS6.add(sn6m);
+                                        sum2S5 = sum2S5.add(dsn5m);
+                                        sum2S6 = sum2S6.add(dsn6m);
+                                        sumO3 = sumO3.add(ob3m);
+                                        sumO5 = sumO5.add(ob5m);
+                                        sumO6 = sumO6.add(ob6m);
+                                        sumP5 = sumP5.add(pod5m);
+                                        sumP6 = sumP6.add(pod6m);
+                                        sumK3 = sumK3.add(kol3m);
+                                        sumK5 = sumK5.add(kol5m);
+                                        sumK6 = sumK6.add(kol6m);
+                                        sumPN = sumPN.add(pnm);
+                                        sumD = sumD.add(dodm);
+                                                                                  
                                          
-                                         sumS3 = sumS3.add(sn3m);
-                                         sumS5 = sumS5.add(sn5m);
-                                         sumS6 = sumS6.add(sn6m);
                                          kkName =  stanZywionychOkres.getKk();
                                          
-                                         //****************************************8
                                          
                                          
+                                         //****************************************
                                          
-                                         // LAST ROW
+                                         
+                                         //TODO Marcin
+                                         // ostatni wiersz dla danego kierunku kosztow
+                                         // RAZEM - posdumowanie
                                          i++;
                                          
                                          if ( i == numberOfRow)
@@ -670,30 +830,88 @@ public class StanZywionychReportsVM {
                                                 r03.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r03 ); 
                                                 
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
+                                                //
+                                                PdfPCell r04 = new PdfPCell (new Paragraph ( sum2S5.toString(), bold ));
+                                                r04.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r04 );
+                                                
+                                                PdfPCell r05 = new PdfPCell (new Paragraph ( sum2S6.toString(), bold ));
+                                                r05.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r05 );
+                                                
+                                                //
+                                                PdfPCell r06 = new PdfPCell (new Paragraph ( sumO3.toString(), bold ));
+                                                r06.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r06 ); 
+                                                
+                                                PdfPCell r07 = new PdfPCell (new Paragraph ( sumO5.toString(), bold ));
+                                                r07.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r07 ); 
+                                                
+                                                PdfPCell r08 = new PdfPCell (new Paragraph ( sumO6.toString(), bold ));
+                                                r08.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r08 );
+                                                
+                                                //
+                                                PdfPCell r09 = new PdfPCell (new Paragraph ( sumP5.toString(), bold ));
+                                                r09.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r09 );
+                                                
+                                                PdfPCell r10 = new PdfPCell (new Paragraph ( sumP6.toString(), bold ));
+                                                r10.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r10 );
+                                                
+                                                //
+                                                PdfPCell r11 = new PdfPCell (new Paragraph ( sumK3.toString(), bold ));
+                                                r11.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r11 ); 
+                                                
+                                                PdfPCell r12 = new PdfPCell (new Paragraph ( sumK5.toString(), bold ));
+                                                r12.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r12 ); 
+                                                
+                                                PdfPCell r13 = new PdfPCell (new Paragraph ( sumK6.toString(), bold ));
+                                                r13.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r13 );
+                                                
+                                                //
+                                                PdfPCell r14 = new PdfPCell (new Paragraph ( sumPN.toString(), bold ));
+                                                r14.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r14 );
+                                                
+                                                PdfPCell r15 = new PdfPCell (new Paragraph ( sumD.toString(), bold ));
+                                                r15.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( r15 );
                                                 
                                                 
-                                                PdfPCell r17 = new PdfPCell (new Paragraph ( 
-                                                    sumS3.add( sumS5.add( sumS6 ) ).toString()
-                                                        , bold )); 
+                                                
+                                                //suma danych z poszczegolnych kolumn w danym wierszu do ostatniej kolumny SUMA (suma z danego kierunku kosztow)
+                                                PdfPCell r17 = new PdfPCell( new Paragraph ( sumS3.add(sumS5.add(sumS6.add(sum2S5.add(sum2S6.add(sumO3.add(sumO5.add(sumO6.add(sumP5.add(sumP6.add(sumK3.add(sumK5.add(sumK6.add(sumPN.add(sumD)))))))))))))).toString(), bold ));                                              
                                                 r17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r17 );
                                                 
+                                                
+                                                //TODO Marcin
+                                                // ostatni wiersz dla wszystkich kierunkow kosztow
+                                                // RAZEM - posdumowanie
                                                 allSumS3 = allSumS3.add(sumS3);
                                                 allSumS5 = allSumS5.add(sumS5);
                                                 allSumS6 = allSumS6.add(sumS6);
-                                                
+                                                allSum2S5 = allSum2S5.add(sum2S5);
+                                                allSum2S6 = allSum2S6.add(sum2S6);
+                                                allSumO3 = allSumO3.add(sumO3);                                              
+                                                allSumO5 = allSumO5.add(sumO5);
+                                                allSumO6 = allSumO6.add(sumO6);
+                                                allSumP5 = allSumP5.add(sumP5);
+                                                allSumP6 = allSumP6.add(sumP6);
+                                                allSumK3 = allSumK3.add(sumK3);
+                                                allSumK5 = allSumK5.add(sumK5);
+                                                allSumK6 = allSumK6.add(sumK6);
+                                                allSumPN = allSumPN.add(sumPN);
+                                                allSumD = allSumD.add(sumD);        
+                                                        
+                                                        
+                                                        
                                                 table.addCell( new PdfPCell (new Paragraph ( "Razem ", bold )) );
                                                 
                                                 PdfPCell ar01 = new PdfPCell (new Paragraph ( allSumS3.toString(), bold ));
@@ -708,25 +926,66 @@ public class StanZywionychReportsVM {
                                                 ar03.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( ar03 ); 
                                                 
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
-                                                table.addCell( "" );
+                                                //
+                                                PdfPCell ar04 = new PdfPCell (new Paragraph ( allSum2S5.toString(), bold ));
+                                                ar04.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar04 );
                                                 
-                                                PdfPCell ar17 = new PdfPCell (new Paragraph ( 
-                                                        allSumS3.add( allSumS5.add( allSumS6 ) ).toString()
-                                                        , bold ));
+                                                PdfPCell ar05 = new PdfPCell (new Paragraph ( allSum2S6.toString(), bold ));
+                                                ar05.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar05 );
+                                                
+                                                //
+                                                PdfPCell ar06 = new PdfPCell (new Paragraph ( allSumO3.toString(), bold ));
+                                                ar06.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar06 );
+
+                                                PdfPCell ar07 = new PdfPCell (new Paragraph ( allSumO5.toString(), bold ));
+                                                ar07.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar07 );
+
+                                                PdfPCell ar08 = new PdfPCell (new Paragraph ( allSumO6.toString(), bold ));
+                                                ar08.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar08 );
+
+                                                //
+                                                PdfPCell ar09 = new PdfPCell (new Paragraph ( allSumP5.toString(), bold ));
+                                                ar09.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar09 );
+
+                                                PdfPCell ar10 = new PdfPCell (new Paragraph ( allSumP6.toString(), bold ));
+                                                ar10.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar10 );
+
+                                                //
+                                                PdfPCell ar11 = new PdfPCell (new Paragraph ( allSumK3.toString(), bold ));
+                                                ar11.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar11 );
+
+                                                PdfPCell ar12 = new PdfPCell (new Paragraph ( allSumK5.toString(), bold ));
+                                                ar12.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar12 );
+
+                                                PdfPCell ar13 = new PdfPCell (new Paragraph ( allSumK6.toString(), bold ));
+                                                ar13.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar13 );
+
+                                                //
+                                                PdfPCell ar14 = new PdfPCell (new Paragraph ( allSumPN.toString(), bold ));
+                                                ar14.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar14 );
+
+                                                PdfPCell ar15 = new PdfPCell (new Paragraph ( allSumD.toString(), bold ));
+                                                ar15.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                                table.addCell( ar15 );
+                                                
+                                                
+                                                //table.addCell( "" );
+                                                
+                                                //suma danych z poszczegolnych kolumn w danym wierszu do ostatniej kolumny SUMA (suma wszsytkich kierunkow kosztow)                                               
+                                                PdfPCell ar17 = new PdfPCell( new Paragraph ( allSumS3.add(allSumS5.add(allSumS6.add(allSum2S5.add(allSum2S6.add(allSumO3.add(allSumO5.add(allSumO6.add(allSumP5.add(allSumP6.add(allSumK3.add(allSumK5.add(allSumK6.add(allSumPN.add(allSumD)))))))))))))).toString(), bold ));                                              
                                                 ar17.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( ar17 );
-                                                
                                                 
                                          }
                                       }
