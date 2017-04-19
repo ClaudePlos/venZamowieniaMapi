@@ -1139,6 +1139,37 @@ public class ServiceFacade {
         return dt1.format(d);
     }
     
+    // add KS 2017-04-19
+    public KierunekKosztowVO getKierunekKosztow( int idKierunkiKosztow) // pobierna jak json
+    { 
+        KierunekKosztowVO kk = new KierunekKosztowVO();
+
+          try {
+              //
+                Query query =  em.createQuery("select k.idKierunekKosztow, k.kierunekKosztowNazwa, k.kierunekKosztowKod, k.uwagi "
+                        + "from KierunekKosztowVO k where k.idKierunekKosztow = :kk ")
+                        .setParameter("kk", idKierunkiKosztow);
+
+                  Object[] dane  =  (Object[]) query.getSingleResult();
+
+ 
+                 
+                 kk.setIdKierunekKosztow( (BigDecimal) dane[0] );
+                 kk.setKierunekKosztowNazwa((String) dane[1]);
+                 kk.setKierunekKosztowKod( (String) dane[2]); 
+                 kk.setUwagi( (String) dane[3] );
+                 
+                 //ret.add(kk);
+                 
+           } catch ( Exception e) {
+               e.printStackTrace();
+               Messagebox.show(e.toString());
+           }
+
+        return kk;
+    }
+    
+    
     
 
 }

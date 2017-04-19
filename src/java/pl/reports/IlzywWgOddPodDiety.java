@@ -91,7 +91,7 @@ public class IlzywWgOddPodDiety {
         
         
         // 02. Generation raport 
-            File f = new File("Zest01_" + kkNazwa + ".pdf");
+            File f = new File("Ilosc zywionych " + kkNazwa + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -161,27 +161,29 @@ public class IlzywWgOddPodDiety {
                                       // name of column
                                       
                                       
-                                      PdfPCell cell_1 = new PdfPCell (new Paragraph ( "Diety" , myFont_Posilek));
+                                      PdfPCell cell_1 = new PdfPCell (new Paragraph ( "Diety" , bold));
                                          cell_1.setColspan(1); // connect column to one 
                                          cell_1.setHorizontalAlignment (Element.ALIGN_CENTER);
-                                         cell_1.setVerticalAlignment( Element.ALIGN_MIDDLE );
+                                         cell_1.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w kolumnie
                                          //cell_1.setBorderWidth(5f);
                                          table.addCell(cell_1); 
                                       
                                       // rysujemuy 1 wiersz -> KK   
                                       for ( GzDTO gz : gzList )
                                       {
-                                         PdfPCell cell_01 = new PdfPCell (new Paragraph ( gz.getGzNazwa() , myFont_Posilek));
+                                         PdfPCell cell_01 = new PdfPCell (new Paragraph ( gz.getGzNazwa() , bold));
                                          cell_01.setColspan(1); // connect column to one 
                                          cell_01.setHorizontalAlignment (Element.ALIGN_CENTER);
-                                         cell_01.setRotation(90);
+                                         cell_1.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w kolumnie
+                                        // cell_01.setRotation(90); //obrot w kolumnie
                                          table.addCell(cell_01); 
                                       }
                                       
                                         PdfPCell cell_011 = new PdfPCell (new Paragraph ( "SUMA" , bold));
                                         cell_011.setColspan(1); // connect column to one 
                                         cell_011.setHorizontalAlignment (Element.ALIGN_CENTER);
-                                        cell_011.setRotation(90);
+                                        cell_1.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w kolumnie
+                                       // cell_011.setRotation(90); //obrot w kolumnie
                                         table.addCell(cell_011); 
                                       
                                       

@@ -48,6 +48,7 @@ import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
+import pl.models.KierunekKosztowVO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.reports.IlzywWgOddPodDiety;
 import pl.session.ServiceFacade;
@@ -404,17 +405,23 @@ public class StanZywionychNaDzienPodsumowanieVM  {
             @Override
             public void onEvent(Event arg0) throws Exception {
                 
-                    zapiszPDF();  
+                    zapiszPDF( naDzien, kierKosztow );  
             }   
         });
         
         
     }
     
-    private void zapiszPDF() throws IOException, Exception
+    private void zapiszPDF( Date naDzien, int kierKosztow  ) throws IOException, Exception
     {
+        SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
+        KierunekKosztowVO kk = serviceFacade.getKierunekKosztow(kierKosztow);
+        
          System.out.print("Tworze pdf podsumowanie KK");
-          File f = new File("Podsumowanie KK" + ".pdf");
+          File f = new File("Podsumowanie " 
+                  + kk.getKierunekKosztowNazwa() + " "
+                  + dtf1.format(naDzien)
+                  + ".pdf");
           
           OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -445,7 +452,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     Font bold = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
                     
                     
-                    PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów", myFont_Naglowek));
+                    PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów: " + kk.getKierunekKosztowNazwa() , myFont_Naglowek));
                     
                     cell0.setColspan( 15 ); // connect column to one 
                     cell0.setHorizontalAlignment (Element.ALIGN_CENTER);

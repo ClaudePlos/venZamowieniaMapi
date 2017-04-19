@@ -27,6 +27,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import org.zkoss.bind.annotation.BindingParam;
@@ -167,11 +168,23 @@ public class StanZywionychReportsVM {
                    System.out.println("2");
                    l022.setVisible(true);
                    tbOkresDo.setVisible(true);
+                   
+                   cmbPosilek.setVisible(true);
+                   l03.setVisible(true);
+                }
+                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals(rap3) )
+                { 
+                   System.out.println(rap3);
+                   cmbPosilek.setVisible(false);
+                   l03.setVisible(false);
                 }
                 else
                 {
                    l022.setVisible(false);
                    tbOkresDo.setVisible(false);
+                   
+                   cmbPosilek.setVisible(true);
+                   l03.setVisible(true);
                 }
             }
         });
@@ -206,7 +219,7 @@ public class StanZywionychReportsVM {
                   try {
                         String okres = tbOkres.getValue().substring(0, 7);
                         System.out.println( okres + " " + kierKosztowId);
-                        zapiszPDF( okres, kierKosztowId );
+                        zapiszPDF( okres, kierKosztowId, kierKosztowNazwa );
                     } catch (Exception e) {
                         //alert();
                     }
@@ -244,7 +257,7 @@ public class StanZywionychReportsVM {
         
     //@Command
     //@NotifyChange("zapiszPDF")
-    public void zapiszPDF( String okres, int kkId ) throws IOException, Exception{
+    public void zapiszPDF( String okres, int kkId, String kierKosztowNazwa ) throws IOException, Exception{
        
          java.util.List<StanZywionychMMRapRozDTO> stanZywionych = new ArrayList<StanZywionychMMRapRozDTO>();
         
@@ -255,7 +268,10 @@ public class StanZywionychReportsVM {
             
             
             // 02. Generation raport 
-            File f = new File("raport_finansowy.pdf");
+            File f = new File("Raport finansowy "
+                    + kierKosztowNazwa + " "
+                    + okres + " "                   
+                    + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
@@ -286,7 +302,7 @@ public class StanZywionychReportsVM {
 
                             
  
-	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe z dzialalnosci kuchni", myFont_Naglowek));
+	                     PdfPCell cell = new PdfPCell (new Paragraph ("Sprawozdanie wartosciowe z dzialalnosci kuchni: "  + kierKosztowNazwa, myFont_Naglowek));
  
 				      cell.setColspan(17); // connect column to one 
 				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);

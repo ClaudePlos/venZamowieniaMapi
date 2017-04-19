@@ -13,7 +13,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,8 +42,11 @@ public class KierunekKosztowVO implements Serializable {
     @Column(name = "UWAGI")
     private String uwagi;
     
+    
+    @Transient
     private List<GrupaZywionychVO> grupyZywionych;
     
+    @XmlTransient
     private String sqlGrupyZywionych;
     
     
