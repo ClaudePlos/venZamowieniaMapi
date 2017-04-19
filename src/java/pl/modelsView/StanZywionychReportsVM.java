@@ -176,7 +176,9 @@ public class StanZywionychReportsVM {
                 { 
                    System.out.println(rap3);
                    cmbPosilek.setVisible(false);
-                   l03.setVisible(false);
+                   l03.setVisible(false);  
+                   l022.setVisible(false);
+                   tbOkresDo.setVisible(false);
                 }
                 else
                 {
