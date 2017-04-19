@@ -18,6 +18,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonObject;
+
 import javax.json.JsonReader;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -789,7 +790,14 @@ public class ServiceFacade {
         
         try {
 
-             Query query =  em.createNativeQuery("select KIERUNEK_KOSZTOW, grupa_zywionych\n" +
+             Query query =  em.createNativeQuery("SELECT KIERUNEK_KOSZTOW, grupa_zywionych\n" +
+",SUM(SN) SN\n" +
+",SUM(DSN) DSN\n" +
+",SUM(OB) OB\n" +
+",SUM(POD) POD\n" +
+",SUM(KOL) KOL\n" +
+",SUM(PN) PN\n" +
+",ilo_posilkowa FROM (select KIERUNEK_KOSZTOW, grupa_zywionych\n" +
 "                  , SP_il + SK1_il SN\n" +
 "				  , DSP_il + DSK1_il DSN\n" +
 "				  , OP_il + OK1_il OB\n" +
@@ -837,7 +845,7 @@ public class ServiceFacade {
 "						   , 'Podwieczorek planowany' as PP\n" +
 "						   , 'Posiłek nocny korekta I' as PNK1\n" +
 "						   , 'Posiłek nocny planowany' as PNP)\n" +
-"                    	   ) order by KIERUNEK_KOSZTOW, grupa_zywionych		" );
+"                    	   )) GROUP BY KIERUNEK_KOSZTOW, grupa_zywionych, ilo_posilkowa order by KIERUNEK_KOSZTOW, grupa_zywionych		" );
              
              stanyOb =  query.getResultList();
              
@@ -998,7 +1006,41 @@ public class ServiceFacade {
 
                             if ( rr.getDsn6() != null )
                             firstMatchedName.setDsn6( firstMatchedName.getDsn6().add(rr.getDsn6()) ) ;
-
+                            
+                            
+                            
+                            if ( rr.getOb3() != null )
+                            firstMatchedName.setOb3( firstMatchedName.getOb3().add(rr.getOb3()) ) ;
+                            
+                            if ( rr.getOb5() != null )
+                            firstMatchedName.setOb5( firstMatchedName.getOb5().add(rr.getOb5()) ) ;
+                            
+                            if ( rr.getOb6() != null )
+                            firstMatchedName.setOb6( firstMatchedName.getOb6().add(rr.getOb6()) ) ;
+                            
+                            
+                            if ( rr.getPod5() != null )
+                            firstMatchedName.setPod5( firstMatchedName.getPod5().add(rr.getPod5()) ) ;
+                            
+                            if ( rr.getPod6() != null )
+                            firstMatchedName.setPod6( firstMatchedName.getPod6().add(rr.getPod6()) ) ;
+                            
+                            
+                            if ( rr.getKol3() != null )
+                            firstMatchedName.setKol3( firstMatchedName.getKol3().add(rr.getKol3()) ) ;
+                            
+                            if ( rr.getKol5() != null )
+                            firstMatchedName.setKol5( firstMatchedName.getKol5().add(rr.getKol5()) ) ;
+                            
+                            if ( rr.getKol6() != null )
+                            firstMatchedName.setKol6( firstMatchedName.getKol6().add(rr.getKol6()) ) ;
+                            
+                            
+                            if ( rr.getPn() != null )
+                            firstMatchedName.setPn( firstMatchedName.getPn().add(rr.getPn()) ) ;
+                            
+                            if ( rr.getKompot() != null )
+                            firstMatchedName.setKompot( firstMatchedName.getKompot().add(rr.getKompot()) ) ;
 
                         }
                         else

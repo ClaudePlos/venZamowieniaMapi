@@ -215,7 +215,7 @@ public class MenuController extends SelectorComposer<Component> {
           
    
           
-            File f = new File("SZ" + gzEve.getGzRaprot() + "_" + 
+            File f = new File("SZ " + gzEve.getGzRaprot() + "_" + 
                     dtf1.format( gzEve.getNaDzienRaport() ) + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //

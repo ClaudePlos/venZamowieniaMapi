@@ -62,7 +62,7 @@ import pl.session.ServiceFacade;
  */
 public class StanZywionychReportsVM {
 
-    private static String rap3 = "Zestawienie - Onkologia";
+    private static String rap3 = "Zestawienie finansowe";
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
@@ -679,7 +679,7 @@ public class StanZywionychReportsVM {
                                         if ( stanZywionychOkres.getOb5() != null )
                                            ob5m = stanZywionychOkres.getOb5().multiply(cO5);
 
-                                        if ( stanZywionychOkres.getOb6() != null )
+                                        if ( stanZywionychOkres.getOb6() != null && !stanZywionychOkres.getOb6().equals( BigDecimal.ZERO) )
                                            ob6m = stanZywionychOkres.getOb6().multiply(cO6); 
                                          
                                         if ( stanZywionychOkres.getPod5() != null )

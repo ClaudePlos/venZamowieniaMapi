@@ -414,7 +414,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
     private void zapiszPDF() throws IOException, Exception
     {
          System.out.print("Tworze pdf podsumowanie KK");
-          File f = new File("Zest02" + ".pdf");
+          File f = new File("Podsumowanie KK" + ".pdf");
           
           OutputStream file = new FileOutputStream(f); //
             // OutputStream file = new FileOutputStream(new File("//Users//Claude//Desktop//PDF_Java4s.pdf"));
