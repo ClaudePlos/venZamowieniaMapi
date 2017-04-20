@@ -226,8 +226,8 @@ public class MenuController extends SelectorComposer<Component> {
                   Filedownload.save(f, "application/pdf");
  
 			//Inserting Image in PDF
-			    // Image image = Image.getInstance ("src/pdf/java4s.png");
-			    // image.scaleAbsolute(120f, 60f);//image width,height	
+                                // Image image = Image.getInstance ("src/pdf/java4s.png");
+                                // image.scaleAbsolute(120f, 60f);//image width,height	
  
 			//Inserting Table in PDF
 			     PdfPTable table = new PdfPTable(9); // number of column
