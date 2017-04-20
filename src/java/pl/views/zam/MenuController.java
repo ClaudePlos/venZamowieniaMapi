@@ -215,7 +215,7 @@ public class MenuController extends SelectorComposer<Component> {
           
    
           
-            File f = new File("SZ " + gzEve.getGzRaprot() + "_" + 
+            File f = new File("Stan zywionych " + gzEve.getGzRaprot() + " " + 
                     dtf1.format( gzEve.getNaDzienRaport() ) + ".pdf");
             
               OutputStream file = new FileOutputStream(f); //
@@ -247,7 +247,7 @@ public class MenuController extends SelectorComposer<Component> {
 
                             
                              
-	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa: " + gzEve.getGzRaprot() + 
+	                     PdfPCell cell = new PdfPCell (new Paragraph ( "Grupa zywionych: " + gzEve.getGzRaprot() + 
                                      " na dzien: " + dtf.format( gzEve.getNaDzienRaport() ), myFont));
  
 				      cell.setColspan(9); // connect column to one 
@@ -411,7 +411,7 @@ public class MenuController extends SelectorComposer<Component> {
                         //document.add(new Paragraph("Dear Java4s.com"));
                         //document.add(new Paragraph("k.skowronski"));
                         // document.add(new Paragraph(naDzienRap.toString()));
-	                document.add(new Paragraph("SZ w dniu dla GZ. Document Generated On - "+ dtf.format( gzEve.getNaDzienRaport() ).toString()));	
+	                document.add(new Paragraph("Stan zywionych na dzien: "+ dtf.format( gzEve.getNaDzienRaport() ).toString()));	
  
                         
                                    /* int num = document.getPageNumber();
