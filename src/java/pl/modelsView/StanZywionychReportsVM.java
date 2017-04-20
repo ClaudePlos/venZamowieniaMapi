@@ -55,6 +55,7 @@ import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychMMRapRozDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.reports.IlzywWgOddPodDiety;
+import pl.reports.McZestawienieKK;
 import pl.session.ServiceFacade;
 
 /**
@@ -211,9 +212,14 @@ public class StanZywionychReportsVM {
                             , kierKosztowNazwa );
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
-                { 
-                   System.out.println("2");
-                 
+                {
+                    
+                    McZestawienieKK rap02 = new McZestawienieKK();
+                    rap02.zapiszPDF( tbOkres.getValue(), tbOkresDo.getValue()
+                            , BigDecimal.valueOf(kierKosztowId)
+                            , cmbPosilek.getSelectedItem().getValue().toString()
+                            , kierKosztowNazwa);
+
                 }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals(rap3) )
                 { 
