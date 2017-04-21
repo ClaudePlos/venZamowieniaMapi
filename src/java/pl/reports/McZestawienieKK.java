@@ -94,7 +94,7 @@ public class McZestawienieKK {
                             
                             Font myFont_Naglowek = new Font(bf, 10); //rozmiar czcionki
                             Font myFont_Posilek = new Font(bf, 8);  //rozmiar czcionki
-                            Font myFont = new Font(bf, 8);           //rozmiar czcionki
+                            Font myFont = new Font(bf, 7);           //rozmiar czcionki
                             
                             
                             Font regular = new Font(Font.FontFamily.HELVETICA, 8);
@@ -105,9 +105,10 @@ public class McZestawienieKK {
                             PdfPCell cell_Oddzialy = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
  
 				      cell_Oddzialy.setColspan( 1 ); // connect column to one 
-				      cell_Oddzialy.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell_Oddzialy.setPadding (10.0f); //wysokosc
-				      // cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+				      cell_Oddzialy.setHorizontalAlignment (Element.ALIGN_CENTER); //wysrodkowanie w poziomie
+				      //cell_Oddzialy.setPadding (10.0f); //wysokosc
+                                      cell_Oddzialy.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w pionie
+				      cell_Oddzialy.setBackgroundColor (new BaseColor (140, 221, 8));	
 				      table.addCell(cell_Oddzialy); 
                                       
 
@@ -116,8 +117,9 @@ public class McZestawienieKK {
 	                              PdfPCell cell_Dni = new PdfPCell (new Paragraph ("Dni", myFont_Naglowek));
  
 				      cell_Dni.setColspan( 31 ); // connect column to one 
-				      cell_Dni.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell_Dni.setPadding (10.0f); //wysokosc
+				      cell_Dni.setHorizontalAlignment (Element.ALIGN_CENTER); //wysrodkowanie w poziomie
+				      //cell_Dni.setPadding (10.0f); //wysokosc
+                                      cell_Dni.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w pionie
 				      cell_Dni.setBackgroundColor (new BaseColor (140, 221, 8));
                                       
                                       
@@ -130,11 +132,14 @@ public class McZestawienieKK {
                                       for (int i = 0; i < size.length; i++) {
                                           if ( i == 0 )
                                           {
-                                            size[i] = 250;  
+                                            size[i] = 200;  //szerokosc pierwszej kolumny
+                                          }
+                                          else if(i == size.length-1){ //szerokosc ostatniej kolumny
+                                              size[i] = 60;
                                           }
                                           else
                                           {
-                                             size[i] = 30; 
+                                             size[i] = 40; //szerokosc pozostalych kolumn
                                           }    
                                       }
                                       
@@ -147,18 +152,43 @@ public class McZestawienieKK {
                                       PdfPCell cell_Suma = new PdfPCell (new Paragraph ("Suma", myFont_Naglowek));
 
                                       cell_Suma.setColspan( 1 ); // connect column to one 
-                                      cell_Suma.setHorizontalAlignment (Element.ALIGN_CENTER);
-                                      cell_Suma.setPadding (10.0f); //wysokosc
+                                      cell_Suma.setHorizontalAlignment (Element.ALIGN_CENTER); //wysrodkowanie w poziomie
+                                      //cell_Suma.setPadding (10.0f); //wysokosc
+                                      cell_Suma.setVerticalAlignment( Element.ALIGN_MIDDLE ); //wysrodkowanie w pionie
+                                      cell_Suma.setRotation(90); //obrot w kolumnie
                                       cell_Suma.setBackgroundColor (new BaseColor (140, 221, 8));	
                                       table.addCell(cell_Suma);
+                                      
+                                      
+                                      
+                                     //drugi wiersz 
+                                     //pusta pod Oddzialy
+                                    PdfPCell cell001 = new PdfPCell( new Paragraph( "" , myFont));
+                                    cell001.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                    table.addCell( cell001 );
+                                      
+                                    
+                                    //generowane dni miesiaca
+                                    for (int i = 0; i < 31; i++) {
+                                        
+                                        PdfPCell cell002 = new PdfPCell( new Paragraph( Integer.toString( i + 1 ) , myFont));                                        
+                                        cell002.setHorizontalAlignment (Element.ALIGN_CENTER); //wysrodkowanie w poziomie                                     
+                                        cell002.setVerticalAlignment (Element.ALIGN_MIDDLE ); //wysrodkowanie w pionie
+                                        table.addCell( cell002 );   
+                                    }
+                                    
+                                    //pusta pod Suma
+                                    PdfPCell cell003 = new PdfPCell( new Paragraph( " " , myFont));
+                                    cell003.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                    table.addCell( cell003 );
                                          
                                       
                                       
                                     for ( RapMcZestawienieKkDTO s : stanyKK )
                                     {
                                          
-                                        PdfPCell cell00 = new PdfPCell( new Paragraph( s.getGz() , myFont)); // pierwotna wersja nie odporna na nulle // PdfPCell cell02 = new PdfPCell( new Paragraph(stanZywionychOkres.getSn3().toString() + "/" + sn3m , myFont));
-                                        cell00.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                                        PdfPCell cell00 = new PdfPCell( new Paragraph( s.getGz() , myFont));
+                                        cell00.setHorizontalAlignment(Element.ALIGN_LEFT);
                                         table.addCell( cell00 );
                                         
                                         PdfPCell cell01 = new PdfPCell( new Paragraph( s.getD01().toString() , myFont));
@@ -285,7 +315,12 @@ public class McZestawienieKK {
                                         cell31.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                         table.addCell( cell31 );
                                         
-                                        
+                                        //do sumy
+                                        BigDecimal sum = s.getD01().add(s.getD02().add(s.getD03().add(s.getD04().add(s.getD05().add(s.getD06().add(s.getD07().add(s.getD08().add(s.getD09().add(s.getD10().add(s.getD11().add(s.getD12().add(s.getD13().add(s.getD14().add(s.getD15().add(s.getD16().add(s.getD17().add(s.getD18().add(s.getD19().add(s.getD20().add(s.getD21().add(s.getD22().add(s.getD23().add(s.getD24().add(s.getD25().add(s.getD26().add(s.getD27().add(s.getD28().add(s.getD29().add(s.getD30().add(s.getD31()))))))))))))))))))))))))))))));
+                                                
+                                        PdfPCell cell32 = new PdfPCell( new Paragraph( sum.toString() , myFont));
+                                        cell32.setHorizontalAlignment(Element.ALIGN_LEFT);
+                                        table.addCell( cell32 );
                                     }
                                       
                                       
@@ -312,7 +347,7 @@ public class McZestawienieKK {
  
                     
         document.add(new Paragraph("Vendi Servis Sp. z o.o. " , myFont_Posilek )); 
-        document.add(new Paragraph( kkNazwa + " Na okres od " + dzienOd.toString() + " do " + dzienDo.toString() + " " + posilek, myFont_Posilek ));
+        document.add(new Paragraph( kkNazwa + " Na okres od: " + dzienOd.toString() + " do: " + dzienDo.toString() + " Posilek: " + posilek, myFont_Posilek ));
 
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
           
