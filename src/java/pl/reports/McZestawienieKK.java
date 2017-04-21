@@ -102,36 +102,23 @@ public class McZestawienieKK {
 
                             
                             
-                            PdfPCell cell0 = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
+                            PdfPCell cell_Oddzialy = new PdfPCell (new Paragraph ("Oddziały", myFont_Naglowek));
  
-				      cell0.setColspan( 1 ); // connect column to one 
-				      cell0.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell0.setPadding (10.0f);
-				     // cell.setBackgroundColor (new BaseColor (140, 221, 8));	
-				      table.addCell(cell0); 
+				      cell_Oddzialy.setColspan( 1 ); // connect column to one 
+				      cell_Oddzialy.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cell_Oddzialy.setPadding (10.0f); //wysokosc
+				      // cell.setBackgroundColor (new BaseColor (140, 221, 8));	
+				      table.addCell(cell_Oddzialy); 
                                       
-                                      
-                                      
-                                      
-	                              PdfPCell cell = new PdfPCell (new Paragraph ("Dni", myFont_Naglowek));
- 
-				      cell.setColspan( 31 ); // connect column to one 
-				      cell.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell.setPadding (10.0f);
-				      cell.setBackgroundColor (new BaseColor (140, 221, 8));
-                                      
-                                      
-                                      
-                                      PdfPCell cell2 = new PdfPCell (new Paragraph ("Suma", myFont_Naglowek));
- 
-				      cell2.setColspan( 1 ); // connect column to one 
-				      cell2.setHorizontalAlignment (Element.ALIGN_CENTER);
-				      cell2.setPadding (10.0f);
-				      cell2.setBackgroundColor (new BaseColor (140, 221, 8));	
-                                      
-                            
 
                                       
+                                      
+	                              PdfPCell cell_Dni = new PdfPCell (new Paragraph ("Dni", myFont_Naglowek));
+ 
+				      cell_Dni.setColspan( 31 ); // connect column to one 
+				      cell_Dni.setHorizontalAlignment (Element.ALIGN_CENTER);
+				      cell_Dni.setPadding (10.0f); //wysokosc
+				      cell_Dni.setBackgroundColor (new BaseColor (140, 221, 8));
                                       
                                       
                                       
@@ -152,12 +139,18 @@ public class McZestawienieKK {
                                       }
                                       
                                       table.setWidths( size );
-				      table.addCell(cell);						               
+				      table.addCell(cell_Dni);						               
                                       // name of column
                                       
                                       
                                       
-                            
+                                      PdfPCell cell_Suma = new PdfPCell (new Paragraph ("Suma", myFont_Naglowek));
+
+                                      cell_Suma.setColspan( 1 ); // connect column to one 
+                                      cell_Suma.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cell_Suma.setPadding (10.0f); //wysokosc
+                                      cell_Suma.setBackgroundColor (new BaseColor (140, 221, 8));	
+                                      table.addCell(cell_Suma);
                                          
                                       
                                       
@@ -318,7 +311,7 @@ public class McZestawienieKK {
         document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
                     
-        document.add(new Paragraph("Vendi Servis Sp. z o.o. " + dzienOd.toString(), myFont_Posilek )); 
+        document.add(new Paragraph("Vendi Servis Sp. z o.o. " , myFont_Posilek )); 
         document.add(new Paragraph( kkNazwa + " Na okres od " + dzienOd.toString() + " do " + dzienDo.toString() + " " + posilek, myFont_Posilek ));
 
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	

@@ -191,41 +191,155 @@ public class ServiceReports {
                else
                 stan.setD01( BigDecimal.ZERO );
                
-               stan.setD02( (BigDecimal) s[2] );
-               stan.setD03( (BigDecimal) s[3] );
-               stan.setD04( (BigDecimal) s[4] );
-               stan.setD05( (BigDecimal) s[5] );
-               stan.setD06( (BigDecimal) s[6] );
-               stan.setD07( (BigDecimal) s[7] );
-               stan.setD08( (BigDecimal) s[8] );
-               stan.setD09( (BigDecimal) s[9] );
-               stan.setD10( (BigDecimal) s[10] );
-               stan.setD11( (BigDecimal) s[11] );
-               stan.setD12( (BigDecimal) s[12] );
-               stan.setD13( (BigDecimal) s[13] );
-               stan.setD14( (BigDecimal) s[14] );
-               stan.setD15( (BigDecimal) s[15] );
-               stan.setD16( (BigDecimal) s[16] );
-               stan.setD17( (BigDecimal) s[17] );
-               stan.setD18( (BigDecimal) s[18] );
-               stan.setD19( (BigDecimal) s[19] );
-               stan.setD20( (BigDecimal) s[20] );
-               
+               if ( s[2] != null )
+                stan.setD02( (BigDecimal) s[2] );
+               else
+                stan.setD02( BigDecimal.ZERO );
+
+               if ( s[3] != null )
+                stan.setD03( (BigDecimal) s[3] );
+               else
+                stan.setD03( BigDecimal.ZERO );
+
+               if ( s[4] != null )
+                stan.setD04( (BigDecimal) s[4] );
+               else
+                stan.setD04( BigDecimal.ZERO );
+
+               if ( s[5] != null )
+                stan.setD05( (BigDecimal) s[5] );
+               else
+                stan.setD05( BigDecimal.ZERO );
+
+               if ( s[6] != null )
+                stan.setD06( (BigDecimal) s[6] );
+               else
+                stan.setD06( BigDecimal.ZERO );
+
+               if ( s[7] != null )
+                stan.setD07( (BigDecimal) s[7] );
+               else
+                stan.setD07( BigDecimal.ZERO );
+
+               if ( s[8] != null )
+                stan.setD08( (BigDecimal) s[8] );
+               else
+                stan.setD08( BigDecimal.ZERO );
+
+               if ( s[9] != null )
+                stan.setD09( (BigDecimal) s[9] );
+               else
+                stan.setD09( BigDecimal.ZERO );
+
+               if ( s[10] != null )
+                stan.setD10( (BigDecimal) s[10] );
+               else
+                stan.setD10( BigDecimal.ZERO );
+
+               if ( s[11] != null )
+                stan.setD11( (BigDecimal) s[11] );
+               else
+                stan.setD11( BigDecimal.ZERO );
+
+               if ( s[12] != null )
+                stan.setD12( (BigDecimal) s[12] );
+               else
+                stan.setD12( BigDecimal.ZERO );
+
+               if ( s[13] != null )
+                stan.setD13( (BigDecimal) s[13] );
+               else
+                stan.setD13( BigDecimal.ZERO );
+
+               if ( s[14] != null )
+                stan.setD14( (BigDecimal) s[14] );
+               else
+                stan.setD14( BigDecimal.ZERO );
+
+               if ( s[15] != null )
+                stan.setD15( (BigDecimal) s[15] );
+               else
+                stan.setD15( BigDecimal.ZERO );
+
+               if ( s[16] != null )
+                stan.setD16( (BigDecimal) s[16] );
+               else
+                stan.setD16( BigDecimal.ZERO );
+
+               if ( s[17] != null )
+                stan.setD17( (BigDecimal) s[17] );
+               else
+                stan.setD17( BigDecimal.ZERO );
+
+               if ( s[18] != null )
+                stan.setD18( (BigDecimal) s[18] );
+               else
+                stan.setD18( BigDecimal.ZERO );
+
+               if ( s[19] != null )
+                stan.setD19( (BigDecimal) s[19] );
+               else
+                stan.setD19( BigDecimal.ZERO );
+
+               if ( s[20] != null )
+                stan.setD20( (BigDecimal) s[20] );
+               else
+                stan.setD20( BigDecimal.ZERO );		
+
                if ( s[21] != null )
                 stan.setD21( (BigDecimal) s[21] );
                else
-                stan.setD21( BigDecimal.ZERO );
-               
-               stan.setD22( (BigDecimal) s[22] );
-               stan.setD23( (BigDecimal) s[23] );
-               stan.setD24( (BigDecimal) s[24] );
-               stan.setD25( (BigDecimal) s[25] );
-               stan.setD26( (BigDecimal) s[26] );
-               stan.setD27( (BigDecimal) s[27] );
-               stan.setD28( (BigDecimal) s[28] );
-               stan.setD29( (BigDecimal) s[29] );
-               stan.setD30( (BigDecimal) s[30] );
-               stan.setD31( (BigDecimal) s[31] );
+                stan.setD21( BigDecimal.ZERO );	
+
+               if ( s[22] != null )
+                stan.setD22( (BigDecimal) s[22] );
+               else
+                stan.setD22( BigDecimal.ZERO );	
+
+               if ( s[23] != null )
+                stan.setD23( (BigDecimal) s[23] );
+               else
+                stan.setD23( BigDecimal.ZERO );	
+
+               if ( s[24] != null )
+                stan.setD24( (BigDecimal) s[24] );
+               else
+                stan.setD24( BigDecimal.ZERO );	
+
+               if ( s[25] != null )
+                stan.setD25( (BigDecimal) s[25] );
+               else
+                stan.setD25( BigDecimal.ZERO );	
+
+               if ( s[26] != null )
+                stan.setD26( (BigDecimal) s[26] );
+               else
+                stan.setD26( BigDecimal.ZERO );	
+
+               if ( s[27] != null )
+                stan.setD27( (BigDecimal) s[27] );
+               else
+                stan.setD27( BigDecimal.ZERO );	
+
+               if ( s[28] != null )
+                stan.setD28( (BigDecimal) s[28] );
+               else
+                stan.setD28( BigDecimal.ZERO );	
+
+               if ( s[29] != null )
+                stan.setD29( (BigDecimal) s[29] );
+               else
+                stan.setD29( BigDecimal.ZERO );				
+
+               if ( s[30] != null )
+                stan.setD30( (BigDecimal) s[30] );
+               else
+                stan.setD30( BigDecimal.ZERO );	
+			
+               if ( s[31] != null )
+                stan.setD31( (BigDecimal) s[31] );
+               else
+                stan.setD31( BigDecimal.ZERO );
 
                     
                

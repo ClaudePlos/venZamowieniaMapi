@@ -414,7 +414,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
     
     private void zapiszPDF( Date naDzien, int kierKosztow  ) throws IOException, Exception
     {
-        SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
+        SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy-MM-dd");
         KierunekKosztowVO kk = serviceFacade.getKierunekKosztow(kierKosztow);
         
          System.out.print("Tworze pdf podsumowanie KK");
@@ -452,7 +452,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     Font bold = new Font(Font.FontFamily.HELVETICA, 8, Font.BOLD);
                     
                     
-                    PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów: " + kk.getKierunekKosztowNazwa() , myFont_Naglowek));
+                    PdfPCell cell0 = new PdfPCell (new Paragraph ("Podsumowanie Kierunku Kosztów: " + kk.getKierunekKosztowNazwa(), myFont_Naglowek));
                     
                     cell0.setColspan( 15 ); // connect column to one 
                     cell0.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -1015,8 +1015,8 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
                     
-        document.add(new Paragraph("Vendi Servis Sp. z o.o. "  )); 
-
+        document.add(new Paragraph("Vendi Servis Sp. z o.o." )); 
+        document.add(new Paragraph("Zestawienie na dzien: " + dtf1.format(naDzien) )); 
 
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	
           
