@@ -125,19 +125,17 @@ public class ServiceReports {
 "                    and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
 "                    and p.id_posilek = szp.id_posilek\n" +
 "                    and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
-"                    --and to_char(sz.d_obr,'YYYY-MM') = '2017-04' --' + okres + '\n" +
-"					AND D_OBR BETWEEN '" + naDzienOd + "' AND '" + naDzienDo + "'\n" +
-"					--AND GRUPA_ZYWIONYCH IN ('Rehabilitacja Oddz. I parter')--, 'CHIRURGIA A III PIĘTRO')\n" +
+"					AND D_OBR BETWEEN to_date('" + naDzienOd + "','YYYY-MM-DD') AND to_date('" + naDzienDo + "','YYYY-MM-DD')\n" +
 "					and posilek = '" + posilek + "'\n" +
 "					and gz.id_kierunek_kosztow = kk.ID_KIERUNEK_KOSZTOW\n" +
-"					and gz.id_kierunek_kosztow = " + kierunekKosztow + 
+"					and gz.id_kierunek_kosztow = '" + kierunekKosztow + "'\n" +
 "                    and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
 "                    and dgz.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.AKTYWNE = 1 \n" +
 "                    and dgz.AKTYWNE = 1 \n" +
 "                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
-"					group by kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych, /*dieta_nazwa, */ posilek /*||' '||typ_stan_zywionych */ , D_OBR	\n" +
+"					group by kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych , D_OBR \n" +
 "					order by dzien	\n" +
 "					)\n" +
 "                    PIVOT( \n" +
