@@ -1000,8 +1000,16 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                                       //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
 
                     table.addCell(cellSum12);          
+                   
                     
-                                              
+                PdfPCell cellSum13 = new PdfPCell (new Paragraph (" ", bold));
+
+                                             cellSum13.setColspan( 1 ); // connect column to one 
+                                             cellSum13.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellSum13.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellSum13);                                               
                          
                     
                     
