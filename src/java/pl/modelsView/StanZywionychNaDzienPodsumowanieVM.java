@@ -113,15 +113,15 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listHeader.setWidth("7%");
         
         Listheader listHeader0 = new Listheader();
-        listHeader0.setLabel("Dieta");
+        listHeader0.setLabel("DIETA");
         listHeader0.setWidth("30%");
         
         Listheader listHeader1 = new Listheader();
-        listHeader1.setLabel("Ś");
+        listHeader1.setLabel("S");
         listHeader1.setWidth("10%");
         
         Listheader listHeader2 = new Listheader();
-        listHeader2.setLabel("IIŚ");
+        listHeader2.setLabel("IIS");
         listHeader2.setWidth("10%");
         
         Listheader listHeader3 = new Listheader();
@@ -141,12 +141,12 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listHeader6.setWidth("10%");
         
         Listheader listHeader7 = new Listheader();
-        listHeader7.setLabel("K/Ś");
+        listHeader7.setLabel("K/S");
         listHeader7.setStyle("color: red;");
         listHeader7.setWidth("10%");
         
         Listheader listHeader8 = new Listheader();
-        listHeader8.setLabel("K/IIŚ");
+        listHeader8.setLabel("K/IIS");
         listHeader8.setStyle("color: red;");
         listHeader8.setWidth("10%");
         
@@ -171,7 +171,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
         listHeader12.setWidth("10%");
         
         Listheader listHeader13 = new Listheader();
-        listHeader13.setLabel("Uwagi");
+        listHeader13.setLabel("UWAGI");
         listHeader13.setWidth("15%");
         
         
@@ -473,7 +473,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     table.addCell(cell); 
                     
                     
-                    PdfPCell cel2 = new PdfPCell (new Paragraph ("Dieta", bold));  
+                    PdfPCell cel2 = new PdfPCell (new Paragraph ("DIETA", bold));  
                     
 				      cel2.setColspan( 1 ); // connect column to one 
 				      cel2.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -483,7 +483,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     table.addCell(cel2);
                     
                     
-                    PdfPCell cel3 = new PdfPCell (new Paragraph ("Ś", bold));  
+                    PdfPCell cel3 = new PdfPCell (new Paragraph ("S", bold));  
                     
 				      cel3.setColspan( 1 ); // connect column to one 
 				      cel3.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -493,7 +493,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     table.addCell(cel3);
                     
                     
-                    PdfPCell cel4 = new PdfPCell (new Paragraph ("IIŚ", bold));  
+                    PdfPCell cel4 = new PdfPCell (new Paragraph ("IIS", bold));  
                     
 				      cel4.setColspan( 1 ); // connect column to one 
 				      cel4.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -545,7 +545,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     
                     ////KOREKTY////
                     
-                    PdfPCell cel9 = new PdfPCell (new Paragraph ("K/Ś", bold));  
+                    PdfPCell cel9 = new PdfPCell (new Paragraph ("K/S", bold));  
                     
 				      cel9.setColspan( 1 ); // connect column to one 
 				      cel9.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -555,7 +555,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     table.addCell(cel9);
                     
                     
-                    PdfPCell cel10 = new PdfPCell (new Paragraph ("K/IIŚ", bold));  
+                    PdfPCell cel10 = new PdfPCell (new Paragraph ("K/IIS", bold));  
                     
 				      cel10.setColspan( 1 ); // connect column to one 
 				      cel10.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -605,7 +605,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                     table.addCell(cel14);
                     
                     
-                    PdfPCell cel15 = new PdfPCell (new Paragraph ("Uwagi", bold));  
+                    PdfPCell cel15 = new PdfPCell (new Paragraph ("UWAGI", bold));  
                     
 				      cel15.setColspan( 1 ); // connect column to one 
 				      cel15.setHorizontalAlignment (Element.ALIGN_CENTER);
@@ -1000,8 +1000,16 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                                       //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
 
                     table.addCell(cellSum12);          
+                   
                     
-                                              
+                PdfPCell cellSum13 = new PdfPCell (new Paragraph (" ", bold));
+
+                                             cellSum13.setColspan( 1 ); // connect column to one 
+                                             cellSum13.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellSum13.setPadding (10.0f);
+                                             //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+
+                           table.addCell(cellSum13);                                               
                          
                     
                     
