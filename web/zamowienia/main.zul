@@ -151,7 +151,7 @@
         <grid id="grid01" height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)" viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')" >
             <template name="model" > <!-- var="StanZywionychNaDzienDTO" -->
                 <row renderdefer="200">
-                    <cell id="cell01" width="123px"><label value="Razem: / " /><label value=" Korekta+Plan: " style="color:red"/></cell>
+                    <cell width="123px"><label value="Razem: / " /><label value=" Korekta+Plan: " style="color:red"/></cell>
                     <cell width="50px" align="center"><label value="@bind(each.sPilSum)" /></cell>
                     <cell width="50px" align="center"><label value="@bind(each.dsPilSum)"/></cell>
                     <cell width="50px" align="center"><label value="@bind(each.oPilSum)"/></cell>

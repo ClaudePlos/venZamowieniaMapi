@@ -43,6 +43,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zk.ui.util.Template;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Cell;
 import org.zkoss.zul.Grid;
@@ -153,9 +154,6 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Wire
     Grid grid01;
-    
-    @Wire
-    Cell cell01;
     
     @Wire
     Listheader labS;
@@ -924,7 +922,8 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
        
            grid01.setWidth("975px");
            //cell01.setWidth("500px");
-        
+           
+         
         
            labS.setWidth("60px"); 
            labS2.setWidth("60px"); 
