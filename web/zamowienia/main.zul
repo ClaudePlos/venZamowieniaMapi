@@ -146,12 +146,12 @@
         
         <div width="1283px">
         <!-- podsumowanie -->
-        <div width="1260px">
+        <div  width="1260px">
  
-        <grid height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)" >
+        <grid id="grid01" height="35px" model="@bind(vm.stanyZywionychNaDzienSuma)" viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')" >
             <template name="model" > <!-- var="StanZywionychNaDzienDTO" -->
                 <row renderdefer="200">
-                    <cell width="123px"><label value="Razem: / " /><label value=" Korekta + Plan: " style="color:red"/></cell>
+                    <cell id="cell01" width="123px"><label value="Razem: / " /><label value=" Korekta+Plan: " style="color:red"/></cell>
                     <cell width="50px" align="center"><label value="@bind(each.sPilSum)" /></cell>
                     <cell width="50px" align="center"><label value="@bind(each.dsPilSum)"/></cell>
                     <cell width="50px" align="center"><label value="@bind(each.oPilSum)"/></cell>
@@ -170,136 +170,7 @@
             </template>
         </grid>
         </div>
-        
-        <!-- grid stan zywionych autopaging="true" mold="paging"--><!--
-        <grid id = "gridStanZywionych"  model="@load(vm.stanyZywionychNaDzien)"  
-              emptyMessage="Wybierz dzień, Kierunek Kosztów, Grupe żywionych i pobierz dane" 
-               height="550px" mold="paging" pageSize="6"
-              onAfterRender="@command('uzupelnijSumeStanowNaDzien')">   
-            
-            <auxhead>
-                <auxheader label="LP" rowspan="2" align="center" width="30px"/>
-                <auxheader label="Nazwa Diety" rowspan="2" align="center" width="150px"/>
-                <auxheader label="Planowanie" colspan="6" align="center"/>
-                <auxheader label="Korekta +/- różnica między planem a stanem faktycznym" colspan="6" align="center" style="color: red;"/>
-            </auxhead>
-            <auxhead>
 
-                <auxheader label="Ś" align="center" />
-                <auxheader label="II Ś" align="center" />
-                <auxheader label="O"    align="center"  />
-                <auxheader label="P" align="center"  />
-                <auxheader label="K"  align="center" />
-                <auxheader label="PN" align="center" />
-                
-                <auxheader label="Śniad." align="center" style="color: red;"/>
-                <auxheader label="II śniad." align="center" style="color: red;"/>
-                <auxheader label="Obiad"  align="center" style="color: red;"/>
-                <auxheader label="Podw." align="center"  style="color: red;"/>
-                <auxheader label="Kolacja" align="center"  style="color: red;"/>
-                <auxheader label="P.Nocy" align="center"  style="color: red;"/>    
-        
-                
-            </auxhead>
-            
-            
-            <columns visible="false">
-                <column width="30px"/>
-                <column width="150px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-                <column width="90px"/>
-            </columns>
-            
-            <template name="model"> 
-                <row>
-                    
-                    <cell>
-                    <label value="@load(each.lp)" width="30px"/>
-                    </cell>
-                    
-                    <cell>
-                    <label value="@load(each.dietaNazwa)" width="150px"/>
-                    </cell>
-                    
-                    <cell>
-                    <spinner value="@bind(each.sniadaniePlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell>
-                    <spinner value="@bind(each.drugieSniadaniePlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell>
-                    <spinner value="@bind(each.obiadPlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell>
-                    <spinner value="@bind(each.podwieczorekPlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell>
-                    <spinner value="@bind(each.kolacjaPlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell>
-                    <spinner value="@bind(each.posilekNocnyPlanIl)" inplace="true" 
-                             onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                
-                    
-                    
-                    
-                    <cell style="background-color: #BBC2DB; color: red;" align="right">
-                        <spinner value="@bind(each.sniadanieKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell style="background-color: #BBC2DB; color: red;">
-                        <spinner value="@bind(each.drugieSniadanieKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell style="background-color: #BBC2DB; color: red;">
-                        <spinner value="@bind(each.obiadKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell style="background-color: #BBC2DB; color: red;">
-                        <spinner value="@bind(each.podwieczorekKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell style="background-color: #BBC2DB; color: red;">
-                        <spinner value="@bind(each.kolacjaKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                    <cell style="background-color: #BBC2DB; color: red;">
-                        <spinner value="@bind(each.posilekNocnyKorIl)" inplace="true" 
-                                 onChange="@command('uzupelnijSumeStanowNaDzien')"  style="text-align: right"/>
-                    </cell>
-                </row>
-            </template>
-        </grid> 
-       -->
-      
-       
-      
-        
- 
- 
-       <!-- mold="paging" pagingPosition="top" pageSize="3"  -->
-     
-           
-           
-            
-           
-     
            <listbox id="listBoxSZ" width="1283px"  mold="paging"  pageSize="150" rows = "@bind(vm.ilWierszy)" 
 		model="@bind(vm.stanyZywionychNaDzien)" 
            onAfterRender="@command('uzupelnijSumeStanowNaDzien')"
@@ -314,7 +185,7 @@
             </auxhead>
             <auxhead>
 
-                <auxheader label="Ś" align="center" />
+                <auxheader label="Ś" align="center"/>
                 <auxheader label="II Ś" align="center" />
                 <auxheader label="O"    align="center"  />
                 <auxheader label="P" align="center"  />
@@ -335,19 +206,21 @@
             <listhead visible="false">
                 <listheader  width="32px"/>
                 <listheader  width="150px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
-                <listheader  width="83px"/>
+                <listheader  width="83px" id="labS"/>
+                <listheader  width="83px" id="labS2"/>
+                <listheader  width="83px" id="labO"/>
+                <listheader  width="83px" id="labP"/>
+                <listheader  width="83px" id="labK"/>
+                <listheader  width="83px" id="labPN"/>
+                
+                <listheader  width="83px" id="labUW"/>
+                
+                <listheader  width="83px" id="labSK"/>
+                <listheader  width="83px" id="labS2K"/>
+                <listheader  width="83px" id="labOK"/>
+                <listheader  width="83px" id="labPK"/>
+                <listheader  width="83px" id="labKK"/>
+                <listheader  width="83px" id="labPNK"/>
             </listhead> 
             
                 

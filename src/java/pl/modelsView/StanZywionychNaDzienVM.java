@@ -44,9 +44,11 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Intbox;
+import org.zkoss.zul.Cell;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import pl.models.GrupaZywionychVO;
@@ -148,6 +150,41 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Wire 
     Label godzDoPN;
+    
+    @Wire
+    Grid grid01;
+    
+    @Wire
+    Cell cell01;
+    
+    @Wire
+    Listheader labS;
+    @Wire
+    Listheader labS2;
+    @Wire
+    Listheader labO;
+    @Wire
+    Listheader labP;
+    @Wire
+    Listheader labK;
+    @Wire
+    Listheader labPN;
+    @Wire
+    Listheader labUW;
+    @Wire
+    Listheader labSK;
+    @Wire
+    Listheader labS2K;
+    @Wire
+    Listheader labOK;
+    @Wire
+    Listheader labPK;
+    @Wire
+    Listheader labKK;
+    @Wire
+    Listheader labPNK;
+
+    
 
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
@@ -883,12 +920,47 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
            buttScale.setImage("img/scale16x16.png");
            listBoxSZ.setRows(7);
            listBoxSZ.setWidth("975px"); 
+           
+       
+           grid01.setWidth("975px");
+           //cell01.setWidth("500px");
+        
+        
+           labS.setWidth("60px"); 
+           labS2.setWidth("60px"); 
+           labO.setWidth("60px");
+           labP.setWidth("60px");
+           labK.setWidth("60px");
+           labPN.setWidth("60px");
+           labUW.setWidth("60px");
+           labSK.setWidth("60px");
+           labS2K.setWidth("60px");
+           labOK.setWidth("60px");
+           labPK.setWidth("60px");
+           labKK.setWidth("60px");
+           labPNK.setWidth("60px");
         }
         else
         {
            buttScale.setImage("img/scale16x16down.png");
            listBoxSZ.setRows(15);
-           listBoxSZ.setWidth("1283px");  
+           listBoxSZ.setWidth("1283px"); 
+           
+           grid01.setWidth("1283px");
+       
+           labS.setWidth("83px");
+           labS2.setWidth("83px");
+           labO.setWidth("83px");
+           labP.setWidth("83px");
+           labK.setWidth("83px");
+           labPN.setWidth("83px");
+           labUW.setWidth("83px");
+           labSK.setWidth("83px");
+           labS2K.setWidth("83px");
+           labOK.setWidth("83px");
+           labPK.setWidth("83px");
+           labKK.setWidth("83px");
+           labPNK.setWidth("83px");
         }
             
     }
