@@ -616,38 +616,36 @@ public class ServiceFacade {
         try {
              // TODO - zobacz jak Piotrek robi duĹĽe zapytania 
              Query query =  em.createNativeQuery(
-                   "select d_obr, id_dieta, dieta_nazwa \n" +
-"                  , SUM(SP_il)SP_il, SUM(DSP_il)DSP_il, SUM(OP_il)OP_il, SUM(PP_il)PP_il, SUM(KP_il)KP_il, SUM(PNP_il)PNP_il, \n" +
-"                    SUM(SK1_il)SK1_il, SUM(DSK1_il)DSK1_il, SUM(OK1_il)OK1_il, SUM(PK1_il)PK1_il, SUM(KK1_il)KK1_il, SUM(PNK1_il)PNK1_il, lp, max(uwagi)uwagi from \n" +
-"					( \n" +
+"                     select d_obr, id_dieta, dieta_nazwa \n" +
+"                    , SP_il, DSP_il, OP_il, PP_il, KP_il, PNP_il, \n" +
+"                    SK1_il, DSK1_il, OK1_il, PK1_il, KK1_il, PNK1_il, lp, uwagi from \n" +
+"                    ( \n" +
 "                    select sz.d_obr, d.id_dieta, \n" +
 "                    dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc, d.lp lp \n" +
-"                     --, LISTAGG(sz.uwagi, ';') WITHIN  GROUP (ORDER BY sz.uwagi) uwagi \n" +
-"                     , count(sz.uwagi) ile \n" +
-"                     ,case when count(sz.uwagi) >0 then LISTAGG(sz.uwagi||' '|| gz.grupa_zywionych_kod ,';') WITHIN GROUP (order BY sz.uwagi) when count(sz.uwagi) =0 then ' ' end uwagi  \n" +
+"                    --,  uwagi \n" +
+"                    , LISTAGG( case when sz.uwagi is not null then sz.uwagi||' '|| gz.grupa_zywionych_kod ||' || ' else null end  ) WITHIN  GROUP (ORDER BY sz.uwagi) uwagi \n" +
 "                    from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk \n" +
-"                    where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
+"                    where sz.id_grupa_zywionych = gz.id_grupa_zywionych \n" +
 "                    and sz.id_dieta = d.id_dieta \n" +
 "                    and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH \n" +
 "                    and p.id_posilek = szp.id_posilek \n" +
 "                    and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych \n" +
-                    "and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
-"					and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
+"                    and sz.d_obr = to_Date('" + naDzien + "','YYYY-MM-DD')\n" +
+"                    and id_kierunek_kosztow = " + kierunekKosztow + "\n" +
 "                    and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
 "                    and dgz.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.AKTYWNE = 1 \n" +
 "                    and dgz.AKTYWNE = 1 \n" +
 "                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
-"					group by sz.d_obr, d.id_dieta, dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych, d.lp ,sz.uwagi||sz.ID_GRUPA_ZYWIONYCH \n" +
-"					)\n" +
+"                    group by sz.d_obr, d.id_dieta, dieta_kod, dieta_nazwa, posilek||' '||typ_stan_zywionych, d.lp \n" +
+"                    ) \n" +
 "                    PIVOT( \n" +
-"                            SUM(ilosc) il \n" +
-"                    	   FOR posilek \n" +
-"                    	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
-"                          '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP) \n" +
-"                    	   ) GROUP BY d_obr, id_dieta, dieta_nazwa, lp \n" +
-"                    	   order by lp" );
+"                    SUM(ilosc) il \n" +
+"                    FOR posilek \n" +
+"                    IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
+"                    '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP) \n" +
+"                    ) order by lp" );
         
              stanyOb =  query.getResultList();
              
