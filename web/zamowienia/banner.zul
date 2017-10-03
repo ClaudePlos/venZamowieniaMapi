@@ -38,6 +38,7 @@
             
             
             <label value="STAN ŻYWIONYCH NA DZIEŃ " sclass="banner-head" style="font-weight: bold;font-size:20px" />
+            <label value=" v1710 " sclass="banner-head" style="font-weight: bold;font-size:10px" /> <!--info o wersji-->
             <label id="l1" value=""></label><separator bar="true" />
             <label id="l2" value=""></label>
             <!-- <vlayout id="result"/>  -->

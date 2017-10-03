@@ -907,6 +907,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     }
 
     
+    
     @Command
     @NotifyChange("cmd1")
     public void cmd1() {
@@ -972,7 +973,80 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
     }
  
-   
+    /**
+     *
+     * @param naDzien
+     * @param naDzienCopy
+     * @param grupaZywionych
+     */
+    @Command
+    @NotifyChange("stanyZywionychNaDzienSuma")
+    public void copyStanZywDlaDniaAll(@BindingParam("naDzien") Date naDzien,@BindingParam("naDzienCopy") Date naDzienCopy, @BindingParam("grupaZywionych") String grupaZywionych)
+    {
+        dC = naDzienCopy;
+        gzC = grupaZywionych;
+        
+        
+        
+        EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
+            
+            public void onEvent(ClickEvent event) throws Exception {
+                if(Messagebox.Button.YES.equals(event.getButton())) {
+                    
+                    copyStanZywDlaDniaAll();
+                }
+            }
+        };
+        
+        Messagebox.show("Czy na pewno chcesz skopiować stany?", "Cancel Order", new Messagebox.Button[]{
+                Messagebox.Button.YES, Messagebox.Button.NO }, Messagebox.QUESTION, clickListener);
+
+        
+    }
+    
+
+    private void copyStanZywDlaDniaAll()
+    {
+        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC);
+        
+            for ( StanZywionychNaDzienDTO szCopy : stanyZywionychDoKopiowania )
+            {
+
+                for ( StanZywionychNaDzienDTO sz : stanyZywionychNaDzien )
+                {
+                    if ( sz.getIdGrupaZywionych().equals(szCopy.getIdGrupaZywionych())
+                            && sz.getIdDieta().equals(szCopy.getIdDieta()) )
+                    {
+                       sz.setSniadaniePlanIl(szCopy.getSniadaniePlanIl());
+                       sz.setDrugieSniadaniePlanIl(szCopy.getDrugieSniadaniePlanIl());
+                       sz.setObiadPlanIl(szCopy.getObiadPlanIl()); 
+                       sz.setPodwieczorekPlanIl(szCopy.getPodwieczorekPlanIl());
+                       sz.setKolacjaPlanIl(szCopy.getKolacjaPlanIl());
+                       sz.setPosilekNocnyPlanIl(szCopy.getPosilekNocnyPlanIl());
+                       sz.setSzUwagi(szCopy.getSzUwagi());
+                       
+                       //bindowanie odniesienie do pliku main.zul 241 linijka
+                       BindUtils.postNotifyChange(null, null, sz, "sniadaniePlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "drugieSniadaniePlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "obiadPlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "podwieczorekPlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "kolacjaPlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "posilekNocnyPlanIl");
+                       BindUtils.postNotifyChange(null, null, sz, "szUwagi");
+                       
+                    }
+                }
+
+               /* int INDEX = stanyZywionychNaDzien.indexOf(szCopy);
+                stanyZywionychNaDzien.get(INDEX).setObiadPlanIl(szCopy.getSniadaniePlanIl());
+                stanyZywionychNaDzien.get(INDEX).setKolacjaPlanIl(szCopy.getSniadaniePlanIl());*/
+
+
+            }
+
+            uzupelnijSumeStanowNaDzien();
+            BindUtils.postNotifyChange(null, null, stanyZywionychNaDzienSuma, "*");
+    }
    
 
     }

@@ -75,8 +75,11 @@
              <div style="background:#B8D335; border: solid green 3px">     
                 <label value='Kopiuj stan z dnia: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
                 <datebox  id="dateCopyFromDay" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"/>
-                <button id="buttCopyState" width="115px" label="Kopiuj Stan"
+                <button id="buttCopyState" width="115px" label="Stan Podstawa"
                     onClick="@command('copyStanZywDlaDnia',naDzien=naDzien.value,naDzienCopy=dateCopyFromDay.value,grupaZywionych=cmbGZ.selectedItem.label)" >
+                </button>
+                <button id="buttCopyStateAll" width="115px" label="Stan Całość"
+                    onClick="@command('copyStanZywDlaDniaAll',naDzien=naDzien.value,naDzienCopy=dateCopyFromDay.value,grupaZywionych=cmbGZ.selectedItem.label)" >
                 </button>
              </div> 
             </hlayout>
