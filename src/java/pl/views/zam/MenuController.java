@@ -268,13 +268,26 @@ public class MenuController extends SelectorComposer<Component> {
                                       table.addCell("P");
                                       table.addCell("K");
                                       table.addCell("PN");
-                                      table.addCell("Uwagi");
+                                      table.addCell("Uwagi");                                      
                                       
                                       
-
+                                      
 				      table.setSpacingBefore(30.0f);       // Space Before table starts, like margin-top in CSS
 				      table.setSpacingAfter(30.0f);        // Space After table starts, like margin-Bottom in CSS	
+ 
                                       
+         //deklaracje do sum//
+         BigDecimal sumaSniadanie = BigDecimal.ZERO;
+         BigDecimal sumaDrugieSniadanie = BigDecimal.ZERO;
+         BigDecimal sumaObiad = BigDecimal.ZERO;
+         BigDecimal sumaPodwieczorek = BigDecimal.ZERO;
+         BigDecimal sumaKolacja = BigDecimal.ZERO;
+         BigDecimal sumaPosilekNocny = BigDecimal.ZERO;
+
+         
+         
+         
+         
                                       // row -> wiersze loop 
                                       for ( StanZywionychNaDzienDTO s : gzEve.getStanyZywionychNaDzien()  )
                                       {
@@ -307,11 +320,11 @@ public class MenuController extends SelectorComposer<Component> {
     
                                          table.addCell( new PdfPCell (new Paragraph (s.getLp().toString() , myFont)) );
                                          table.addCell( new PdfPCell (new Paragraph (s.getDietaNazwa() , myFont)) );
-                                         
+                                                                                  
                                          //S
                                          if ( s.getSniadaniePlanIl() != null )
                                          {
-                                            table.addCell( new PdfPCell (new Paragraph ( s.getSniadaniePlanIl().add(s.getSniadanieKorIl()).toString() , myFont)) ); //S 
+                                            table.addCell( new PdfPCell (new Paragraph ( s.getSniadaniePlanIl().add(s.getSniadanieKorIl()).toString() , myFont)) ); //S                                          
                                          }
                                          else 
                                          {
@@ -381,10 +394,116 @@ public class MenuController extends SelectorComposer<Component> {
                                          
                                          
                                          
-                                         
-                                         
-                                      }
+                            //do zliczenia sum             
+                          
+                            // sumaSniadanie = sumaSniadanie.add(s.getSniadaniePlanIl()); //tak nie poniewaz wywali sie na pustych pozycjach i zamiast tego robimy petle if
+                            if(s.getSniadaniePlanIl() != null )
+                            {
+                            sumaSniadanie = sumaSniadanie.add(s.getSniadaniePlanIl().add(s.getSniadanieKorIl()));
+                            }                           
+                            
+                            if(s.getDrugieSniadaniePlanIl() != null )
+                            {
+                            sumaDrugieSniadanie = sumaDrugieSniadanie.add(s.getDrugieSniadaniePlanIl().add(s.getDrugieSniadanieKorIl()));
+                            } 
+                            
+                            if(s.getObiadPlanIl() != null )
+                            {
+                            sumaObiad = sumaObiad.add(s.getObiadPlanIl().add(s.getObiadKorIl()));
+                            } 
+							
+                            if(s.getPodwieczorekPlanIl() != null )
+                            {
+                            sumaPodwieczorek = sumaPodwieczorek.add(s.getPodwieczorekPlanIl().add(s.getPodwieczorekKorIl()));
+                            } 
+
+                            if(s.getKolacjaPlanIl() != null )
+                            {
+                            sumaKolacja = sumaKolacja.add(s.getKolacjaPlanIl().add(s.getKolacjaKorIl()));
+                            } 
+
+                            if(s.getPosilekNocnyPlanIl() != null )
+                            {
+                            sumaPosilekNocny = sumaPosilekNocny.add(s.getPosilekNocnyPlanIl().add(s.getPosilekNocnyKorIl()));
+                            }                               
+                            
+                            
+                                      } 
                                       
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+         ////SUMY////        
+              
+
+              
+              
+              PdfPCell cellSum00 = new PdfPCell (new Paragraph ("SUMA:", bold));
+                                             cellSum00.setColspan( 2 ); // connect column to one 
+                                             cellSum00.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellSum00.setPadding (10.0f);
+                                             //cellDane00.setBackgroundColor (new BaseColor (140, 221, 8));	
+              table.addCell(cellSum00);                       
+                           
+                           
+               PdfPCell cellSum01 = new PdfPCell (new Paragraph (sumaSniadanie.toString(), bold));
+                                      cellSum01.setColspan( 1 ); // connect column to one 
+                                     // cellSum01.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum01.setPadding (10.0f);
+                                      //cellDane01.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum01); 
+
+               PdfPCell cellSum02 = new PdfPCell (new Paragraph (sumaDrugieSniadanie.toString(), bold));
+                                      cellSum02.setColspan( 1 ); // connect column to one 
+                                      //cellSum02.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum02.setPadding (10.0f);
+                                      //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum02); 
+
+               PdfPCell cellSum03 = new PdfPCell (new Paragraph (sumaObiad.toString(), bold));
+                                      cellSum03.setColspan( 1 ); // connect column to one 
+                                      //cellSum03.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum03.setPadding (10.0f);
+                                      //cellDane03.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum03);
+
+               PdfPCell cellSum04 = new PdfPCell (new Paragraph (sumaPodwieczorek.toString(), bold));
+                                      cellSum04.setColspan( 1 ); // connect column to one 
+                                      //cellSum04.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum04.setPadding (10.0f);
+                                      //cellDane04.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum04);
+
+               PdfPCell cellSum05 = new PdfPCell (new Paragraph (sumaKolacja.toString(), bold));
+                                      cellSum05.setColspan( 1 ); // connect column to one 
+                                      //cellSum05.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum05.setPadding (10.0f);
+                                      //cellDane05.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum05);
+
+               PdfPCell cellSum06 = new PdfPCell (new Paragraph (sumaPosilekNocny.toString(), bold));
+                                      cellSum06.setColspan( 1 ); // connect column to one 
+                                      //cellSum06.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                      cellSum06.setPadding (10.0f);
+                                      //cellDane06.setBackgroundColor (new BaseColor (140, 221, 8));	
+               table.addCell(cellSum06);  
+               
+              PdfPCell cellSum07 = new PdfPCell (new Paragraph ("", bold));
+                                             cellSum07.setColspan( 1 ); // connect column to one 
+                                             cellSum07.setHorizontalAlignment (Element.ALIGN_CENTER);
+                                             cellSum07.setPadding (10.0f);
+                                             //cellSum07.setBackgroundColor (new BaseColor (140, 221, 8));     
+              table.addCell(cellSum07);                                                       
+                
+                
+                
+                
+                
+                
+                
  
 			 //Inserting List in PDF
 				      com.itextpdf.text.List list=new com.itextpdf.text.List(true,30);

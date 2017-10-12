@@ -353,7 +353,7 @@ public class StanZywionychReportsVM {
                                       cell_6.setHorizontalAlignment (Element.ALIGN_CENTER);
                                       table.addCell(cell_6);
                                       
-                                      PdfPCell cell_7 = new PdfPCell (new Paragraph ("posilek nocny / dodatek", myFont_Posilek));
+                                      PdfPCell cell_7 = new PdfPCell (new Paragraph ("posilek nocny / zupa", myFont_Posilek));
 				      cell_7.setColspan(2); // connect column to one 
                                       cell_7.setHorizontalAlignment (Element.ALIGN_CENTER);
                                       table.addCell(cell_7);
@@ -379,7 +379,7 @@ public class StanZywionychReportsVM {
                                       table.addCell("KOL5");
                                       table.addCell("KOL6");
                                       table.addCell("PNoc");
-                                      table.addCell("Dod");
+                                      table.addCell("Zupa");
                                       table.addCell("Suma");
 
 				      table.setSpacingBefore(10.0f);       // Space Before table starts, like margin-top in CSS
@@ -389,6 +389,8 @@ public class StanZywionychReportsVM {
                                       //************************************************************************************************************
                                       
                                       //pobieram ceny
+                                      //tabela nap_mapowania_ceny
+                                      //sniadanie
                                         BigDecimal cS3 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
@@ -400,7 +402,7 @@ public class StanZywionychReportsVM {
                                         BigDecimal cS6 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcSniadanie() ;
-                                        //
+                                        //2 sniadanie
                                         BigDecimal cDS5 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie() ;
@@ -409,7 +411,7 @@ public class StanZywionychReportsVM {
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapc2Sniadanie();
                                         
-                                        //
+                                        //obiad
                                         BigDecimal cO3 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcObiad();
@@ -422,7 +424,7 @@ public class StanZywionychReportsVM {
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcObiad() ;
                                         
-                                        //
+                                        //podwieczorek
                                         BigDecimal cPO5 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 5 posiłkowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek() ;
@@ -431,7 +433,7 @@ public class StanZywionychReportsVM {
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
                                                                 .findFirst().get().getMapcPodwieczorek();
                                         
-                                        //
+                                        //kolacja
                                         BigDecimal cK3 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa" ))
                                                                 .findFirst().get().getMapcKolacja();
@@ -442,19 +444,16 @@ public class StanZywionychReportsVM {
                                         
                                         BigDecimal cK6 = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 6 posiłkowa" ))
-                                                                .findFirst().get().getMapcKolacja() ;
+                                                                .findFirst().get().getMapcKolacja() ;                                        
                                         
-                                        
-                                        //dieta 3 posiłkowa + nocny
+                                        //posilek nocny / zupa
                                         BigDecimal cPN = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
                                                                 .findFirst().get().getMapcPosilekNocny() ;
                                         
-                                        //dieta 3 posiłkowa + nocny
                                         BigDecimal cKompot = napMapowaniaCenyList.stream()
                                                                 .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
-                                                                .findFirst().get().getMapcZupaKompot() ;
-                                        
+                                                                .findFirst().get().getMapcZupaKompot() ;                                        
                                        
                                       
                                          table.addCell("Cena diety");

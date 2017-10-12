@@ -874,7 +874,7 @@ public class StanZywionychNaDzienPodsumowanieVM  {
                 
                 PdfPCell cellSum00 = new PdfPCell (new Paragraph ("SUMA:", bold));
 
-                                             cellSum00.setColspan( 2 ); // connect column to one 
+                                             cellSum00.setColspan( 9 ); // connect column to one 
                                              cellSum00.setHorizontalAlignment (Element.ALIGN_CENTER);
                                              cellSum00.setPadding (10.0f);
                                              //cellDane02.setBackgroundColor (new BaseColor (140, 221, 8));	
