@@ -448,11 +448,11 @@ public class StanZywionychReportsVM {
                                         
                                         //posilek nocny / zupa
                                         BigDecimal cPN = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 2 posiłkowa  (nocny zupa)" ))
                                                                 .findFirst().get().getMapcPosilekNocny() ;
                                         
                                         BigDecimal cKompot = napMapowaniaCenyList.stream()
-                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 3 posiłkowa + nocny" ))
+                                                                .filter((s) -> s.getMapcRodzajDieta().equals("dieta 2 posiłkowa  (nocny zupa)" ))
                                                                 .findFirst().get().getMapcZupaKompot() ;                                        
                                        
                                       
@@ -524,7 +524,7 @@ public class StanZywionychReportsVM {
                                       
                                       
                                       
-                                      //TODO Marcin                                      
+                                      //TODO Marcin LOOP                                     
                                       // ROW
                                       for ( StanZywionychMMRapRozDTO stanZywionychOkres : stanZywionych )
                                       {
@@ -796,6 +796,7 @@ public class StanZywionychReportsVM {
                                          cell15.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell15 );
                                          
+                                         //ZUPA
                                          PdfPCell cell16 = new PdfPCell( new Paragraph(dodm.toString(), myFont));
                                          cell16.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                          table.addCell( cell16 );
@@ -897,11 +898,12 @@ public class StanZywionychReportsVM {
                                                 r13.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r13 );
                                                 
-                                                //
+                                                //PNocny
                                                 PdfPCell r14 = new PdfPCell (new Paragraph ( sumPN.toString(), bold ));
                                                 r14.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r14 );
                                                 
+                                                //Zupa Suma Pionowa
                                                 PdfPCell r15 = new PdfPCell (new Paragraph ( sumD.toString(), bold ));
                                                 r15.setHorizontalAlignment(Element.ALIGN_RIGHT);
                                                 table.addCell( r15 );
@@ -1012,6 +1014,7 @@ public class StanZywionychReportsVM {
                                                 
                                          }
                                       }
+                                      //END LOOP
                                       
  
 			 //Inserting List in PDF

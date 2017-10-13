@@ -239,7 +239,7 @@ public class MenuController extends SelectorComposer<Component> {
                              table.setLockedWidth(true);
                              
                             //czcionki 
-                            BaseFont bf = BaseFont.createFont();
+                            BaseFont bf = BaseFont.createFont( BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED ); // na polskie zniaki                   
                             Font myFont = new Font(bf, 8);
                             
                             Font regular = new Font(Font.FontFamily.HELVETICA, 8);
