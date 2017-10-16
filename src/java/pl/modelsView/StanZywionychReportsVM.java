@@ -30,6 +30,11 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.ejb.EJB;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.TableModel;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.NotifyChange;
@@ -50,6 +55,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
+import pl.excel.ExcelExporter;
 import pl.models.NapMapowaniaCenyVO;
 import pl.models.SprWartDzialalnosciKuchniDTO;
 import pl.models.StanZywionychMMRapRozDTO;
@@ -65,6 +71,8 @@ import pl.session.ServiceFacade;
 public class StanZywionychReportsVM {
 
     private static String rap3 = "Zestawienie finansowe";
+    
+    final JPanel panel = new JPanel();
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
@@ -193,9 +201,21 @@ public class StanZywionychReportsVM {
         });
         
         
-        Button run = new Button();
-        run.setLabel("Uruchom");
-        run.addEventListener("onClick", new EventListener() {
+        Button runExcel = new Button();
+        runExcel.setLabel("Excel");
+        runExcel.addEventListener("onClick", new EventListener() {
+            @Override
+            public void onEvent(Event arg0) throws Exception {
+                
+                
+                
+            }
+        });
+        
+        
+        Button runPdf = new Button();
+        runPdf.setLabel("Uruchom - PDF");
+        runPdf.addEventListener("onClick", new EventListener() {
             @Override
             public void onEvent(Event arg0) throws Exception {
                 
@@ -211,16 +231,15 @@ public class StanZywionychReportsVM {
                             , cmbPosilek.getSelectedItem().getValue().toString()
                             , kierKosztowNazwa );
                 }
-                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
-                {
-                    
-                    McZestawienieKK rap02 = new McZestawienieKK();
-                    rap02.zapiszPDF( tbOkres.getValue(), tbOkresDo.getValue()
-                            , BigDecimal.valueOf(kierKosztowId)
-                            , cmbPosilek.getSelectedItem().getValue().toString()
-                            , kierKosztowNazwa);
-
-                }
+//                else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals("Wydanie posiłków wg oddziałów w miesiącu") )
+//                {
+//                    McZestawienieKK rap02 = new McZestawienieKK();
+//                    rap02.zapiszPDF( tbOkres.getValue(), tbOkresDo.getValue()
+//                            , BigDecimal.valueOf(kierKosztowId)
+//                            , cmbPosilek.getSelectedItem().getValue().toString()
+//                            , kierKosztowNazwa);
+//
+//                }
                 else if ( cmbZestawienia.getSelectedItem().getValue().toString().equals(rap3) )
                 { 
                     // raport Fin Onkologia
@@ -241,10 +260,14 @@ public class StanZywionychReportsVM {
         });
         
         
+        
+        
+        
         vb01.appendChild(hb01);
         vb01.appendChild(hb02);
         vb01.appendChild(hb03);
-        vb01.appendChild(run);
+        vb01.appendChild(runPdf);
+        vb01.appendChild(runExcel);
         vb01.appendChild(test);
         
         window.appendChild(vb01);
@@ -260,6 +283,31 @@ public class StanZywionychReportsVM {
         
         napMapowaniaCenyList = serviceFacade.getNapMapowaniaCeny();
         
+    }
+    
+    public void zapiszExcel( String okres, int kkId, String kierKosztowNazwa ) throws IOException, Exception{
+        java.util.List<StanZywionychMMRapRozDTO> stanZywionych = new ArrayList<StanZywionychMMRapRozDTO>();
+        
+        stanZywionych = serviceFacade.getDataForFinancialRaport( okres, kkId );
+        
+//        stanZywionych
+//        JTable l1=new JTable();
+//        l1.setModel(new CustMod (data));
+//        DefaultListModel d1=new DefaultListModel();        
+//        
+//        d1.addElement(stanZywionych);
+//        l1.setModel(d1);
+//        
+        TableModel model = null; // = l1.getModel();
+        
+        ExcelExporter xlsExp = new ExcelExporter();
+        String ret = xlsExp.ExportTable(model);
+        
+        if ( ret.equals("OK") )
+        {
+            JOptionPane.showMessageDialog(panel, "Zapisane", "Info",JOptionPane.INFORMATION_MESSAGE);
+        }        
+                
     }
     
         
