@@ -857,7 +857,7 @@ public class ServiceFacade {
              {
                StanZywionychMMRapRozDTO stan = null;
                     
-                 if ( ((BigDecimal) s[8]).intValue() == 1 )
+                 if ( ((BigDecimal) s[8]).intValue() == 1 )//dieta 1o posilkowa kiedys byly to zupy
                  {
                      stan = new StanZywionychMMRapRozDTO();
                      stan.setKk(   (String) s[0] );
@@ -884,9 +884,11 @@ public class ServiceFacade {
                         stan.setPn(  (BigDecimal) s[7]  );
                      else 
                         stan.setPn(  new BigDecimal(BigInteger.ZERO) );
+                     
+                    stan.setKompot(  new BigDecimal(BigInteger.ZERO) );                       
                  }
                
-                 if ( ((BigDecimal) s[8]).intValue() == 3 )
+                 if ( ((BigDecimal) s[8]).intValue() == 3 ) //dieta 3y posilkowa
                  {
                      stan = new StanZywionychMMRapRozDTO();
                      stan.setKk(   (String) s[0] );
@@ -913,9 +915,12 @@ public class ServiceFacade {
                         stan.setPn(  (BigDecimal) s[7]  );
                      else 
                         stan.setPn(  new BigDecimal(BigInteger.ZERO) );
+
+                    stan.setKompot(  new BigDecimal(BigInteger.ZERO) ); 
+                    
                  }
                  
-                 if ( ((BigDecimal) s[8]).intValue() == 5 )
+                 if ( ((BigDecimal) s[8]).intValue() == 5 )//dieta 5o posilkowa
                  {
                      stan = new StanZywionychMMRapRozDTO();
                      stan.setKk(   (String) s[0] );
@@ -943,10 +948,12 @@ public class ServiceFacade {
                      else 
                         stan.setPn(  new BigDecimal(BigInteger.ZERO) );
                      
+                    stan.setKompot(  new BigDecimal(BigInteger.ZERO) );                        
+                     
                      
                  }
                  
-                 if ( ((BigDecimal) s[8]).intValue() == 6 )
+                 if ( ((BigDecimal) s[8]).intValue() == 6 )//dieta 6o posilkowa
                  {
                      stan = new StanZywionychMMRapRozDTO();
                      stan.setKk(   (String) s[0] );
@@ -973,7 +980,57 @@ public class ServiceFacade {
                         stan.setPn(  (BigDecimal) s[7]  );
                      else 
                         stan.setPn(  new BigDecimal(BigInteger.ZERO) ); 
+                     
+                    
+                     stan.setKompot(  new BigDecimal(BigInteger.ZERO) );                        
                  }
+                 
+                 
+                 
+                 if ( ((BigDecimal) s[8]).intValue() == 2 ) //dieta 2u posilkowa
+                 {
+                     stan = new StanZywionychMMRapRozDTO();
+                     stan.setKk(   (String) s[0] );
+                     stan.setGz(   (String) s[1] );
+                     stan.setSn3(   new BigDecimal(BigInteger.ZERO) );
+                     stan.setSn5(   new BigDecimal(BigInteger.ZERO) );
+                     stan.setSn6(   new BigDecimal(BigInteger.ZERO) );
+
+                     stan.setDsn5(  new BigDecimal(BigInteger.ZERO) );
+                     stan.setDsn6(  new BigDecimal(BigInteger.ZERO) );
+                     
+                     stan.setOb3(   new BigDecimal(BigInteger.ZERO) );  
+                     stan.setOb5(   new BigDecimal(BigInteger.ZERO) );
+                     stan.setOb6(   new BigDecimal(BigInteger.ZERO) );
+
+                     stan.setPod5(  new BigDecimal(BigInteger.ZERO)  );
+                     stan.setPod6(  new BigDecimal(BigInteger.ZERO)  );
+                     
+                     stan.setKol3(  new BigDecimal(BigInteger.ZERO) );
+                     stan.setKol5(  new BigDecimal(BigInteger.ZERO) );
+                     stan.setKol6(  new BigDecimal(BigInteger.ZERO) );
+                     
+                    
+                     stan.setPn(  (BigDecimal) s[7] );                      
+                     //stan.setKompot( (BigDecimal) s[8] );
+                     
+                     if ( s[7] != null )
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO)   );
+                     else 
+                        stan.setPn(  new BigDecimal(BigInteger.ZERO) ); 
+                     
+                     System.out.print( s[0] + " " + s[1] + " " + s[8] );
+                     
+                     if ( s[8] != null ){
+                        BigDecimal kompot = (((BigDecimal) s[2]).add((BigDecimal) s[4])).add((BigDecimal) s[6]); //w diecie 2u posilkowej mamy tylko sniadanie, obiad, kolacje i to tu dodajemy
+                        stan.setKompot(  kompot  ); 
+                     }
+                     else 
+                        stan.setKompot(  new BigDecimal(BigInteger.ZERO) );                      
+                     
+                 }
+                 
+                 
                  
                stanZywionychRapRoz.add(stan);
                          
