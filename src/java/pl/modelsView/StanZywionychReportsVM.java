@@ -94,7 +94,8 @@ public class StanZywionychReportsVM {
         
         ArrayList listZest = new ArrayList();
         listZest.add("Ilość żywionych wg oddziałów z podziałem na diety");
-        listZest.add("Wydanie posiłków wg oddziałów w miesiącu");
+        //listZest.add("Wydanie posiłków wg oddziałów w miesiącu");  //celeowo wylaczone, dla Onkologii zrobi sie drugie, na wzor finansowego
+        //zestawienie przestalo dzialac, z windowsa dziala OK, z linuksa wszystkie dane wrzuca w jeden dzien, 
         
         //tymczasowo dla onkologi
         if ( kierKosztowId == 1322 || kierKosztowId == 1321 )
