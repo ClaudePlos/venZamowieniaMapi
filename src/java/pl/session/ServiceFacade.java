@@ -1019,10 +1019,36 @@ public class ServiceFacade {
                      else 
                         stan.setPn(  new BigDecimal(BigInteger.ZERO) ); 
                      
-                     System.out.print( s[0] + " " + s[1] + " " + s[8] );
+                     //System.out.print( s[0] + " " + s[1] + " " + s[8] );
                      
                      if ( s[8] != null ){
-                        BigDecimal kompot = (((BigDecimal) s[2]).add((BigDecimal) s[4])).add((BigDecimal) s[6]); //w diecie 2u posilkowej mamy tylko sniadanie, obiad, kolacje i to tu dodajemy
+                        
+                        BigDecimal sniadanie; 
+                        BigDecimal obiad;
+                        BigDecimal kolacja;
+                         
+                        if ( s[2] != null ){
+                           String sniadString = s[2].toString();
+                           sniadanie = new BigDecimal( sniadString );  
+                        }                              
+                        else 
+                            sniadanie = new BigDecimal(BigInteger.ZERO);
+                        
+                        if ( s[4] != null ){
+                           String obiadString = s[4].toString();
+                           obiad= new BigDecimal( obiadString );  
+                        }
+                        else 
+                            obiad = new BigDecimal(BigInteger.ZERO); 
+                        
+                        if ( s[6] != null ){
+                           String kolacjaString = s[6].toString();
+                           kolacja= new BigDecimal( kolacjaString );  
+                        }
+                        else 
+                            kolacja = new BigDecimal(BigInteger.ZERO);   
+                         
+                        BigDecimal kompot = sniadanie.add(obiad.add(kolacja)); //w diecie 2u posilkowej mamy tylko sniadanie, obiad, kolacje i to tu dodajemy
                         stan.setKompot(  kompot  ); 
                      }
                      else 
