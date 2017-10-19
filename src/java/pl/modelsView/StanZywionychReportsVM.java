@@ -347,8 +347,8 @@ public class StanZywionychReportsVM {
                              table.setTotalWidth(790);
                              table.setLockedWidth(true);
                              
-                             
-                            BaseFont bf = BaseFont.createFont();
+                            BaseFont bf = BaseFont.createFont( BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED ); // na polskie zniaki 
+                            //BaseFont bf = BaseFont.createFont();
                             Font myFont_Naglowek = new Font(bf, 12); //rozmiar czcionki
                             Font myFont_Posilek = new Font(bf, 10);  //rozmiar czcionki
                             Font myFont = new Font(bf, 8);           //rozmiar czcionki
