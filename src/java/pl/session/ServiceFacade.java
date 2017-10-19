@@ -251,7 +251,7 @@ public class ServiceFacade {
         try {
              //user = em.createQuery("SELECT u FROM OperatorVO u where u.kod = '" + account + "'", OperatorVO.class).getSingleResult();
              
-            String sql = "select * from GRUPY_ZYWIONYCH where id_kierunek_kosztow = " + kierunekKosztow.getIdKierunekKosztow(); 
+            String sql = "select * from GRUPY_ZYWIONYCH where AKTYWNE = 1 and id_kierunek_kosztow = " + kierunekKosztow.getIdKierunekKosztow(); 
                    
                      
             if (kierunekKosztow.getSqlGrupyZywionych().length() > 1 )
@@ -792,7 +792,7 @@ public class ServiceFacade {
         
         try {
 
-             Query query =  em.createNativeQuery("SELECT KIERUNEK_KOSZTOW, grupa_zywionych\n" +
+             Query query =  em.createNativeQuery("SELECT KIERUNEK_KOSZTOW, trim(substr( GRUPA_ZYWIONYCH, 5, INSTR(GRUPA_ZYWIONYCH, ',')-6 )) \n" + //trim czyli to cale okrojenie zrobione pod COI Onkologia
 ",SUM(SN) SN\n" +
 ",SUM(DSN) DSN\n" +
 ",SUM(OB) OB\n" +
@@ -829,6 +829,7 @@ public class ServiceFacade {
 "                    and dk.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.AKTYWNE = 1 \n" +
 "                    and dgz.AKTYWNE = 1 \n" +
+"                    and gz.AKTYWNE = 1 \n" +                
 "                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
 "					group by kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych, dieta_nazwa,  posilek||' '||typ_stan_zywionych\n" +
 "					)\n" +
