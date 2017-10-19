@@ -105,7 +105,9 @@
                                  />
                     </div>
                 </window>
-                
+            <!-- wersja -->      
+            <label style="font-weight: bold;font-size:9px">v1710</label>
+        
                 
             </hlayout>  
             
