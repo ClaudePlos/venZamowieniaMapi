@@ -86,8 +86,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
-    private Date dC;
-    
+    private Date dC; 
     private String gzC;
     
     private List<KierunekKosztowVO> kierunkiKosztow;
@@ -111,7 +110,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     
     public String width;
-    
+    private String sortType = "lp";
     private Number ilWierszy = 15;
     
     private Boolean godzDoPlan_readOnly = false;
@@ -366,13 +365,13 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
         stanyZywionychNaDzien = new ArrayList<StanZywionychNaDzienDTO>();
         
-        stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych);
+        stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych, sortType);
         
         if ( stanyZywionychNaDzien.size() == 0 )
         {
             Messagebox.show("Brak wygenrowanych stanów na dzień: " + formatter.format( naDzien ) + "w Mapim.");
             //serviceFacade.uzupelnijZeramiStanWdniu(formatter.format( naDzien ));
-            stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych);
+            stanyZywionychNaDzien  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( naDzien ),grupaZywionych, sortType);
             return;
         }
         
@@ -875,7 +874,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
     private void copyStanZywDlaDnia2()
     {
-        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC);
+        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC, "lp");
         
             for ( StanZywionychNaDzienDTO szCopy : stanyZywionychDoKopiowania )
             {
@@ -1007,7 +1006,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
     private void copyStanZywDlaDniaAll()
     {
-        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC);
+        stanyZywionychDoKopiowania  = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych(formatter.format( dC ), gzC, "lp");
         
             for ( StanZywionychNaDzienDTO szCopy : stanyZywionychDoKopiowania )
             {
@@ -1046,6 +1045,22 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
 
             uzupelnijSumeStanowNaDzien();
             BindUtils.postNotifyChange(null, null, stanyZywionychNaDzienSuma, "*");
+    }
+    
+    
+    
+    @Command
+    @NotifyChange("statusZamowienia")
+    public void doCheckedSort(@BindingParam("checked") boolean sortChange) {
+        
+        if (sortChange){
+            sortType = "dieta_nazwa";
+        }
+        else
+        {
+            sortType = "lp";
+        }
+        
     }
    
 

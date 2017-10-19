@@ -168,7 +168,7 @@ public class MenuController extends SelectorComposer<Component> {
         Date stanNaDzien = naDzien.getValue();
           
          serviceFacade.stanyZywionychNaDzien 
-                 = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych( formatter.format( stanNaDzien ), cmbGZ.getSelectedItem().getValue().toString() );
+                 = serviceFacade.pobierzStanZywionychWdniuDlaGrupyZywionych( formatter.format( stanNaDzien ), cmbGZ.getSelectedItem().getValue().toString(), "lp" );
          
          //StanZywionychNaDzienVM.getInstance().pobInne(formatter.format( stanNaDzien ),  cmbGZ.getSelectedItem().getValue().toString());
       //Comboitem zaznaczonaGrupaZywionych =  cmbGZ.getSelectedItem().getValue();

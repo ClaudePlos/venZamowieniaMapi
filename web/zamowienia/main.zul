@@ -52,8 +52,14 @@
                 <button label="Zapisz" id="zapisz"  sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')"
                     onClick="@command('zapiszStanZyw')" /> 
                 
-                <checkbox label="Aktywuj Korektę" 
+                <vlayout>
+                    <checkbox label="Aktywuj Korektę" 
                       onCheck="@command('doCheckedKor', checked=self.checked)"/>   
+                
+                    <checkbox label="Sortuj wg diety" 
+                          onCheck="@command('doCheckedSort', checked=self.checked)"/> 
+                </vlayout>
+                  
                 
            </hlayout>   
               
@@ -106,7 +112,7 @@
                     </div>
                 </window>
             <!-- wersja -->      
-            <label style="font-weight: bold;font-size:9px">v1710</label>
+            <label style="font-weight: bold;font-size:9px">v1910</label>
         
                 
             </hlayout>  

@@ -298,7 +298,7 @@ public class ServiceFacade {
     
     
     
-    public List<StanZywionychNaDzienDTO> pobierzStanZywionychWdniuDlaGrupyZywionych( String naDzien, String grupaZywionych)
+    public List<StanZywionychNaDzienDTO> pobierzStanZywionychWdniuDlaGrupyZywionych( String naDzien, String grupaZywionych, String sortType)
     {        
         List<Object[]> stanyOb = null;
         List<StanZywionychNaDzienDTO> stanZywionych = new ArrayList<StanZywionychNaDzienDTO>();
@@ -332,7 +332,7 @@ public class ServiceFacade {
                     "	   FOR posilek \n" +
                     "	   IN ('Obiad korekta I' as OK1,'Obiad planowany' as OP,'Kolacja korekta I' as KK1,'Kolacja planowany' as KP,'Śniadanie korekta I' as SK1,'Śniadanie planowany' as SP, \n" +
                     "      '2. śniadanie korekta I' as DSK1, '2. śniadanie planowany' as DSP, 'Podwieczorek korekta I' as PK1, 'Podwieczorek planowany' as PP, 'Posiłek nocny korekta I' as PNK1, 'Posiłek nocny planowany' as PNP)\n" +
-                    "	   ) order by lp" );
+                    "	   ) order by " + sortType );
         
              stanyOb =  query.getResultList();
              
