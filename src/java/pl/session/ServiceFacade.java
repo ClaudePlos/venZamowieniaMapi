@@ -829,7 +829,9 @@ public class ServiceFacade {
 "                    and dk.ID_DIETA = d.ID_DIETA \n" +
 "                    and dk.AKTYWNE = 1 \n" +
 "                    and dgz.AKTYWNE = 1 \n" +
-"                    and gz.AKTYWNE = 1 \n" +                
+"                    and gz.AKTYWNE = 1 \n" +
+"                    and GRUPA_ZYWIONYCH != 'Centrum Onkologii - Instytut' \n" +   //wywalone na sztywno z raportu dla COI Onkologia
+"                    and GRUPA_ZYWIONYCH != 'Wawelska - Centrum Onkologii' \n" +   //wywalone na sztywno z raportu dla COI Onkologia       
 "                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
 "					group by kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych, dieta_nazwa,  posilek||' '||typ_stan_zywionych\n" +
 "					)\n" +
