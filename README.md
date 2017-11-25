@@ -15,4 +15,4 @@ After install you can add lib to project too
 
 4. Glassfish4/glassfish/lib -> add ojdbc7.jar for a JDBC Connection Pools
 
-5. TODO
+5. http://....../ZK653CEApp6
