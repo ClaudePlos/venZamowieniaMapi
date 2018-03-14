@@ -212,9 +212,9 @@ public class StanZywionychReportsVM {
             }
         });
         
-        
+       
         Button runExcel = new Button();
-        runExcel.setLabel("Excel");
+//        runExcel.setLabel("Excel");                 //Marcin - ukryte by nie bylo na stronie widoczne 
         runExcel.addEventListener("onClick", new EventListener() {
             @Override
             public void onEvent(Event arg0) throws Exception {
