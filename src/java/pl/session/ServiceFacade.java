@@ -1259,6 +1259,115 @@ public class ServiceFacade {
     
     
     
+    //do raportu ilosciowego
+    public List<StanZywionychMMRapDTO> pobierzStanZywionychWokresieDlaKierunkuKosztow( String okres, int kierunekKosztow)
+    {        
+        List<Object[]> stanyOb = null;
+        List<StanZywionychMMRapDTO> stanZywionych = new ArrayList<StanZywionychMMRapDTO>();
+        
+        try {
+             Query query =  em.createNativeQuery("SELECT KIERUNEK_KOSZTOW, GRUPA_ZYWIONYCH  \n" +
+",SUM(SN) SN\n" +
+",SUM(DSN) DSN\n" +
+",SUM(OB) OB\n" +
+",SUM(POD) POD\n" +
+",SUM(KOL) KOL\n" +
+",SUM(PN) PN\n" +
+"FROM (select KIERUNEK_KOSZTOW, grupa_zywionych\n" +
+"                  , SP_il + SK1_il SN\n" +
+"				  , DSP_il + DSK1_il DSN\n" +
+"				  , OP_il + OK1_il OB\n" +
+"				  , PP_il + PK1_il POD\n" +
+"				  , KP_il + KK1_il KOL\n" +
+"				  , PNP_il + PNK1_il PN\n" +
+", case when SP_il is null then 0 else 1 end \n" +
+"+ case when DSP_il is null then 0 else 1 end \n" +
+"+ case when OP_il is null then 0 else 1 end\n" +
+"+ case when PP_il is null then 0 else 1 end\n" +
+"+ case when KP_il is null then 0 else 1 end\n" +
+"+ case when PNP_il is null then 0 else 1 end ilo_posilkowa			 \n" +
+"from \n" +
+"					(\n" +
+"                    select kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych, dieta_nazwa, posilek||' '||typ_stan_zywionych posilek, sum(szp.ilosc) ilosc\n" +
+"                    from STANY_ZYWIONYCH sz, grupy_zywionych gz, diety d, Stany_zywionych_posilki szp, s_posilki p, s_typy_stanu_zywionych stsz, diety_grupy_zywionych dgz, diety_kuchnie dk, S_KIERUNKI_KOSZTOW kk\n" +
+"                    where sz.id_grupa_zywionych = gz.id_grupa_zywionych\n" +
+"                    and sz.id_dieta = d.id_dieta\n" +
+"                    and szp.id_stan_zywionych = sz.ID_STAN_ZYWIONYCH\n" +
+"                    and p.id_posilek = szp.id_posilek\n" +
+"                    and stsz.id_typ_stan_zywionych = szp.id_typ_stan_zywionych\n" +
+"                    and to_char(sz.d_obr,'YYYY-MM') = '" + okres + "'\n" +
+"					and gz.id_kierunek_kosztow = kk.ID_KIERUNEK_KOSZTOW\n" +
+"					and gz.id_kierunek_kosztow = " + kierunekKosztow + "\n" +
+"                    and dgz.ID_GRUPA_ZYWIONYCH = gz.ID_GRUPA_ZYWIONYCH \n" +
+"                    and dgz.ID_DIETA = d.ID_DIETA \n" +
+"                    and dk.ID_DIETA = d.ID_DIETA \n" +
+"                    and dk.AKTYWNE = 1 \n" +
+"                    and dgz.AKTYWNE = 1 \n" +
+"                    and gz.AKTYWNE = 1       \n" +
+"                    and dk.ID_KUCHNIA = gz.ID_KUCHNIA \n" +
+"					group by kk.KIERUNEK_KOSZTOW, gz.grupa_zywionych, dieta_nazwa,  posilek||' '||typ_stan_zywionych\n" +
+"					)\n" +
+"                    PIVOT( \n" +
+"                            SUM(ilosc) il \n" +
+"                    	   FOR posilek \n" +
+"                    	   IN ('Obiad korekta I' as OK1\n" +
+"						   ,'Obiad planowany' as OP\n" +
+"						   ,'Kolacja korekta I' as KK1\n" +
+"						   ,'Kolacja planowany' as KP\n" +
+"						   ,'Śniadanie korekta I' as SK1\n" +
+"						   ,'Śniadanie planowany' as SP\n" +
+"						   ,'2. śniadanie korekta I' as DSK1\n" +
+"						   ,'2. śniadanie planowany' as DSP\n" +
+"						   , 'Podwieczorek korekta I' as PK1\n" +
+"						   , 'Podwieczorek planowany' as PP\n" +
+"						   , 'Posiłek nocny korekta I' as PNK1\n" +
+"						   , 'Posiłek nocny planowany' as PNP)\n" +
+"                    	   )) GROUP BY KIERUNEK_KOSZTOW, grupa_zywionych order by KIERUNEK_KOSZTOW, grupa_zywionych");
+
+        
+             stanyOb =  query.getResultList();
+             
+             int i = 1;
+             
+             for ( Object[] s : stanyOb)
+             {
+               StanZywionychMMRapDTO stan =     new StanZywionychMMRapDTO();
+               
+               //stan = new stanZywionych();
+               if ( s[0] != null )
+                stan.setKk(   (String) s[0] );               
+               if ( s[1] != null )
+                 stan.setGz(   (String) s[1] );                 
+               if ( s[2] != null )
+               stan.setSn(   (BigDecimal) s[2]  );
+               if ( s[3] != null )
+               stan.setDsn(  (BigDecimal) s[3]  );
+               if ( s[4] != null )
+               stan.setOb(   (BigDecimal) s[4]  );
+               if ( s[5] != null )
+               stan.setPod(  (BigDecimal) s[5]  );
+               if ( s[6] != null )
+               stan.setKol(  (BigDecimal) s[6]  );
+               if ( s[7] != null )
+               stan.setPn(   (BigDecimal) s[7]  );
+               stanZywionych.add(stan);
+               
+             }
+             
+             
+                                 
+                            
+                            
+                                                                                  
+        } catch ( Exception e) {
+            e.printStackTrace();
+            Messagebox.show(e.toString());
+        }
+        
+        return stanZywionych;
+    
+    }
+    
 
 }
     

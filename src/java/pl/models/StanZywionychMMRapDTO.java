@@ -24,18 +24,7 @@ public class StanZywionychMMRapDTO {
     private BigDecimal pn;
     private BigDecimal il_posilkowa;
 
-    public StanZywionychMMRapDTO(String kk, String gz, BigDecimal sn, BigDecimal dsn, BigDecimal ob, BigDecimal pod, BigDecimal kol, BigDecimal pn, BigDecimal il_posilkowa) {
-        this.kk = kk;
-        this.gz = gz;
-        this.sn = sn;
-        this.dsn = dsn;
-        this.ob = ob;
-        this.pod = pod;
-        this.kol = kol;
-        this.pn = pn;
-        this.il_posilkowa = il_posilkowa;
-    }
-    
+ 
     
 
     public String getKk() {
