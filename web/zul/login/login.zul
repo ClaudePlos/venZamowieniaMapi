@@ -3,7 +3,7 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="layout/template-anonymous.zul"?>
 <zk>
 	<hbox self="@define(content)" vflex="1" hflex="1" align="center"
-		pack="center" spacing="20px">
+		pack="center" spacing="5px">
 		<vlayout>
 			<window id="loginWin"
 				apply="pl.authentication.LoginController"

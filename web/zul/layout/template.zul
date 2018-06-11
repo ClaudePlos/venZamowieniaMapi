@@ -7,9 +7,9 @@
 		<west width="260px" border="none" collapsible="true" splittable="true" minsize="300">
 			<include src="zul/login/layout/sidebar.zul"/>
 		</west>
-		<center id="mainContent" autoscroll="true" border="none" self="@insert(content)">
-			<!-- the main content will be insert to here -->
-		</center>
+<!--		<center id="mainContent" autoscroll="true" border="none" self="@insert(content)">
+			 the main content will be insert to here 
+		</center>-->
 		<south height="50px" border="none">
 			<include src="zul/login/layout/footer.zul"/>
 		</south>
