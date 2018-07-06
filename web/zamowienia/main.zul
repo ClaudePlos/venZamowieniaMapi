@@ -145,6 +145,14 @@
          <label id="lab02" value="@bind(vm.statusZamowienia)" sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')" /> 
          <label id="labGodzOpis"  /> 
          <label id="godzDoPlan" />
+         
+         <label id="godzDoPlanS" />
+         <label id="godzDoPlanIIS" />
+         <label id="godzDoPlanO" />
+         <label id="godzDoPlanP" />
+         <label id="godzDoPlanK" />
+         <label id="godzDoPlanPN" />
+         
          <label id="godzDoS" />
          <label id="godzDoIIS" />
          <label id="godzDoO" />
@@ -298,6 +306,8 @@
                        </attribute>
                     </intbox>
                     </listcell>
+                    
+                    
                     
                     <listcell>
                     <textbox value="@bind(sz.szUwagi)" inplace="true" tooltiptext="@bind(sz.szUwagi)"

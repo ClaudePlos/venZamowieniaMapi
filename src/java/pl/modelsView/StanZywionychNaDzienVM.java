@@ -114,6 +114,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     private Number ilWierszy = 15;
     
     private Boolean godzDoPlan_readOnly = false;
+    
+    private Boolean godzDoPlanS_readOnly = false;
+    private Boolean godzDoPlanIIS_readOnly = false;
+    private Boolean godzDoPlanO_readOnly = false;
+    private Boolean godzDoPlanP_readOnly = false;
+    private Boolean godzDoPlanK_readOnly = false;
+    private Boolean godzDoPlanPN_readOnly = false;
+    
     private Boolean godzDoS_readOnly = false;
     private Boolean godzDoIIS_readOnly = false;
     private Boolean godzDoO_readOnly = false;
@@ -132,6 +140,24 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Wire
     Label godzDoPlan;
+    
+    @Wire
+    Label godzDoPlanS;
+    
+    @Wire
+    Label godzDoPlanIIS;
+    
+    @Wire 
+    Label godzDoPlanO;
+    
+    @Wire 
+    Label godzDoPlanP;
+    
+    @Wire 
+    Label godzDoPlanK;
+    
+    @Wire 
+    Label godzDoPlanPN;
       
     @Wire
     Label godzDoS;
@@ -300,19 +326,49 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         this.godzDoPlan_readOnly = godzDoPlan_readOnly;
     }
 
-    
-    
-    
+    public Boolean getGodzDoPlanS_readOnly() {
+        return godzDoPlanS_readOnly;
+    }
+
+    public void setGodzDoPlanS_readOnly(Boolean godzDoPlanS_readOnly) {
+        this.godzDoPlanS_readOnly = godzDoPlanS_readOnly;
+    }
+
+    public Boolean getGodzDoPlanO_readOnly() {
+        return godzDoPlanO_readOnly;
+    }
+
+    public void setGodzDoPlanO_readOnly(Boolean godzDoPlanO_readOnly) {
+        this.godzDoPlanO_readOnly = godzDoPlanO_readOnly;
+    }
+
+    public Boolean getGodzDoPlanP_readOnly() {
+        return godzDoPlanP_readOnly;
+    }
+
+    public void setGodzDoPlanP_readOnly(Boolean godzDoPlanP_readOnly) {
+        this.godzDoPlanP_readOnly = godzDoPlanP_readOnly;
+    }
+
+    public Boolean getGodzDoPlanK_readOnly() {
+        return godzDoPlanK_readOnly;
+    }
+
+    public void setGodzDoPlanK_readOnly(Boolean godzDoPlanK_readOnly) {
+        this.godzDoPlanK_readOnly = godzDoPlanK_readOnly;
+    }
+
+    public Boolean getGodzDoPlanPN_readOnly() {
+        return godzDoPlanPN_readOnly;
+    }
+
+    public void setGodzDoPlanPN_readOnly(Boolean godzDoPlanPN_readOnly) {
+        this.godzDoPlanPN_readOnly = godzDoPlanPN_readOnly;
+    }
 
     
-
     
     
-    
-    
-    
-  
-
     public List<StanZywionychNaDzienSumaDTO> getStanyZywionychNaDzienSuma() {
         return stanyZywionychNaDzienSuma;
     }
@@ -422,213 +478,230 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
         if ( uwagi!= null )
         {
-        
-            if ( dt1.format(naDzien).equals(dt1.format(d1)) ) // daty równe dziś i oznaczona na stronie, sprawdzamy do któreh godz można wprowadzać zamówienia
-            {
+            
+            JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
+            JsonObject object = jsonReader.readObject();
+            jsonReader.close();
 
-            System.out.println( "Uwagi:" + uwagi );
+            JsonArray dane1 = (JsonArray) object.getJsonArray("dane");
 
-
-                    labGodzOpis.setValue(" Godz. do wprowadzania KOREKTA(S/IIS/O/P/K/PN): ");
-
-                    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
-
-
-                    JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
-                    JsonObject object = jsonReader.readObject();
-                    jsonReader.close();
-
-                    JsonArray dane1 = (JsonArray) object.getJsonArray("dane");
-
-                    JsonObject itemDane = dane1.getJsonObject(0);
-
-
-                    JsonString jsonGodzZamDoS = itemDane.getJsonString("S");
-                    JsonString jsonGodzZamDoIIS = itemDane.getJsonString("IIS");
-                    JsonString jsonGodzZamDoO = itemDane.getJsonString("O");
-                    JsonString jsonGodzZamDoP = itemDane.getJsonString("P");
-                    JsonString jsonGodzZamDoK = itemDane.getJsonString("K");
-                    JsonString jsonGodzZamDoPN = itemDane.getJsonString("PN");
-
-                    godzDoPlan.setValue("");
-                    godzDoS.setValue( jsonGodzZamDoS.toString() );
-                    godzDoIIS.setValue( jsonGodzZamDoIIS.toString() );
-                    godzDoO.setValue( jsonGodzZamDoO.toString() );
-                    godzDoP.setValue( jsonGodzZamDoP.toString() );
-                    godzDoK.setValue( jsonGodzZamDoK.toString() );
-                    godzDoPN.setValue( jsonGodzZamDoPN.toString() );
-
-
-                    String d2s = dt.format(d1);
-                    String d2IIs = dt.format(d1);
-                    String d2o = dt.format(d1);
-                    String d2p = dt.format(d1);
-                    String d2k = dt.format(d1);
-                    String d2pn = dt.format(d1);
-
-
-                    d2s = d2s.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
-                    d2IIs = d2IIs.substring(0, 11) + jsonGodzZamDoIIS.toString().replace("\"","");
-                    d2o = d2o.substring(0, 11) + jsonGodzZamDoO.toString().replace("\"","");
-                    d2p = d2p.substring(0, 11) + jsonGodzZamDoP.toString().replace("\"","");
-                    d2k = d2k.substring(0, 11) + jsonGodzZamDoK.toString().replace("\"","");
-                    d2pn = d2pn.substring(0, 11) + jsonGodzZamDoPN.toString().replace("\"","");
-
-
-                    Date ds2 = new Date();
-                    Date dIIs2 = new Date();
-                    Date do2 = new Date();
-                    Date dp2 = new Date();
-                    Date dk2 = new Date();
-                    Date dpn2 = new Date();
-
-                    try {
-                        ds2 = dt.parse(d2s);
-                        dIIs2 = dt.parse(d2IIs);
-                        do2 = dt.parse(d2o);
-                        dp2 = dt.parse(d2p);
-                        dk2 = dt.parse(d2k);
-                        dpn2 = dt.parse(d2pn);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-
-                    godzDoPlan_readOnly = true; // nie mozna planowac na dzis, tylko na jutro
-                    if ( d1.after(ds2) && !jsonGodzZamDoS.toString().equals("\"0:00\"")  )
-                    {
-                        godzDoS.setStyle("color:red;");
-                        godzDoS_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoS.setStyle("color:black;");
-                        godzDoS_readOnly = false;
-                    }
-
-                    if ( d1.after(dIIs2) && !jsonGodzZamDoIIS.toString().equals("\"0:00\"")  )
-                    {
-                        godzDoIIS.setStyle("color:red;");
-                        godzDoIIS_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoIIS.setStyle("color:black;");
-                        godzDoIIS_readOnly = false;
-                    }
-
-                    if ( d1.after(do2)  )
-                    {
-                        godzDoO.setStyle("color:red;");
-                        godzDoO_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoO.setStyle("color:black;");
-                        godzDoO_readOnly = false;
-                    }
-
-                    if ( d1.after(dp2)  )
-                    {
-                        godzDoP.setStyle("color:red;");
-                        godzDoP_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoP.setStyle("color:black;");
-                        godzDoP_readOnly = false;
-                    }
-
-                    if ( d1.after(dk2)  )
-                    {
-                        godzDoK.setStyle("color:red;");
-                        godzDoK_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoK.setStyle("color:black;");
-                        godzDoK_readOnly = false;
-                    }
-
-                    if ( d1.after(dpn2)  )
-                    {
-                        godzDoPN.setStyle("color:red;");
-                        godzDoPN_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoPN.setStyle("color:black;");
-                        godzDoPN_readOnly = false;
-                    }
-
-
-            } // end sprawdzania godzinowego
-            else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
-            {
-                labGodzOpis.setValue("");
-                godzDoPlan_readOnly = true;
-                godzDoS_readOnly = true;
-                godzDoIIS_readOnly = true;
-                godzDoO_readOnly = true;
-                godzDoP_readOnly = true;
-                godzDoK_readOnly = true;
-                godzDoPN_readOnly = true;
-                godzDoPlan.setValue("");
-                godzDoS.setValue("");
-                godzDoIIS.setValue("");
-                godzDoO.setValue("");
-                godzDoP.setValue("");
-                godzDoK.setValue("");
-                godzDoPN.setValue("");
+            JsonObject itemDane = dane1.getJsonObject(0);
+            
+            String PODSTAWOWE = "PODSTAWOWE";
+            String rodzaj =  PODSTAWOWE; // ROZWIĄZANIE 
+            
+            if (itemDane.getJsonString("Rodz") != null){
+               rodzaj = itemDane.getJsonString("Rodz").toString();    
             }
-            else if ( dt1.format(naDzien).equals(dt1.format(d1_tommorow)) ) // jezeli jutro to sprawdzam plan do ktorej moga
+            
+            if ( rodzaj.equals(PODSTAWOWE) )
             {
                 
-                    labGodzOpis.setValue(" Godz. do wprowadzania PLAN: ");
+                if ( dt1.format(naDzien).equals(dt1.format(d1)) ) // daty równe dziś i oznaczona na stronie, sprawdzamy do któreh godz można wprowadzać zamówienia
+                {
 
-                    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+                System.out.println( "Uwagi:" + uwagi );
 
 
-                    JsonReader jsonReader = Json.createReader(new StringReader( uwagi ));     //JSON - zamwianie godzin
-                    JsonObject object = jsonReader.readObject();
-                    jsonReader.close();
+                        labGodzOpis.setValue(" Godz. do wprowadzania KOREKTA(S/IIS/O/P/K/PN): ");
 
-                    JsonArray dane1 = (JsonArray) object.getJsonArray("dane");
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 
-                    JsonObject itemDane = dane1.getJsonObject(0);
+                        JsonString jsonGodzZamDoS = itemDane.getJsonString("S");
+                        JsonString jsonGodzZamDoIIS = itemDane.getJsonString("IIS");
+                        JsonString jsonGodzZamDoO = itemDane.getJsonString("O");
+                        JsonString jsonGodzZamDoP = itemDane.getJsonString("P");
+                        JsonString jsonGodzZamDoK = itemDane.getJsonString("K");
+                        JsonString jsonGodzZamDoPN = itemDane.getJsonString("PN");
 
-                    JsonString jsonGodzZamDoPlan = itemDane.getJsonString("Plan");
+                        godzDoPlan.setValue("");
+                        godzDoS.setValue( jsonGodzZamDoS.toString() );
+                        godzDoIIS.setValue( jsonGodzZamDoIIS.toString() );
+                        godzDoO.setValue( jsonGodzZamDoO.toString() );
+                        godzDoP.setValue( jsonGodzZamDoP.toString() );
+                        godzDoK.setValue( jsonGodzZamDoK.toString() );
+                        godzDoPN.setValue( jsonGodzZamDoPN.toString() );
 
-                    godzDoPlan.setValue( jsonGodzZamDoPlan.toString() );
+
+                        String d2s = dt.format(d1);
+                        String d2IIs = dt.format(d1);
+                        String d2o = dt.format(d1);
+                        String d2p = dt.format(d1);
+                        String d2k = dt.format(d1);
+                        String d2pn = dt.format(d1);
+
+
+                        d2s = d2s.substring(0, 11) + jsonGodzZamDoS.toString().replace("\"","");
+                        d2IIs = d2IIs.substring(0, 11) + jsonGodzZamDoIIS.toString().replace("\"","");
+                        d2o = d2o.substring(0, 11) + jsonGodzZamDoO.toString().replace("\"","");
+                        d2p = d2p.substring(0, 11) + jsonGodzZamDoP.toString().replace("\"","");
+                        d2k = d2k.substring(0, 11) + jsonGodzZamDoK.toString().replace("\"","");
+                        d2pn = d2pn.substring(0, 11) + jsonGodzZamDoPN.toString().replace("\"","");
+
+
+                        Date ds2 = new Date();
+                        Date dIIs2 = new Date();
+                        Date do2 = new Date();
+                        Date dp2 = new Date();
+                        Date dk2 = new Date();
+                        Date dpn2 = new Date();
+
+                        try {
+                            ds2 = dt.parse(d2s);
+                            dIIs2 = dt.parse(d2IIs);
+                            do2 = dt.parse(d2o);
+                            dp2 = dt.parse(d2p);
+                            dk2 = dt.parse(d2k);
+                            dpn2 = dt.parse(d2pn);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+
+                        godzDoPlan_readOnly = true; // nie mozna planowac na dzis, tylko na jutro
+                        if ( d1.after(ds2) && !jsonGodzZamDoS.toString().equals("\"0:00\"")  ) {
+                            godzDoS.setStyle("color:red;");
+                            godzDoS_readOnly = true;
+                        } else {
+                            godzDoS.setStyle("color:black;");
+                            godzDoS_readOnly = false;
+                        }
+
+                        if ( d1.after(dIIs2) && !jsonGodzZamDoIIS.toString().equals("\"0:00\"")  ) {
+                            godzDoIIS.setStyle("color:red;");
+                            godzDoIIS_readOnly = true;
+                        } else {
+                            godzDoIIS.setStyle("color:black;");
+                            godzDoIIS_readOnly = false;
+                        }
+
+                        if ( d1.after(do2)  ) {
+                            godzDoO.setStyle("color:red;");
+                            godzDoO_readOnly = true;
+                        } else {
+                            godzDoO.setStyle("color:black;");
+                            godzDoO_readOnly = false;
+                        }
+
+                        if ( d1.after(dp2)  ) {
+                            godzDoP.setStyle("color:red;");
+                            godzDoP_readOnly = true;
+                        } else {
+                            godzDoP.setStyle("color:black;");
+                            godzDoP_readOnly = false;
+                        }
+
+                        if ( d1.after(dk2)  ) {
+                            godzDoK.setStyle("color:red;");
+                            godzDoK_readOnly = true;
+                        } else {
+                            godzDoK.setStyle("color:black;");
+                            godzDoK_readOnly = false;
+                        }
+
+                        if ( d1.after(dpn2)  ) {
+                            godzDoPN.setStyle("color:red;");
+                            godzDoPN_readOnly = true;
+                        } else {
+                            godzDoPN.setStyle("color:black;");
+                            godzDoPN_readOnly = false;
+                        }
+
+
+                } // end sprawdzania godzinowego
+                else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
+                {
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = true;
+
+                    godzDoPlanS_readOnly = true;
+                    godzDoPlanIIS_readOnly = true;
+                    godzDoPlanO_readOnly = true;
+                    godzDoPlanP_readOnly = true;
+                    godzDoPlanK_readOnly = true;
+                    godzDoPlanPN_readOnly = true;
+
+                    godzDoS_readOnly = true;
+                    godzDoIIS_readOnly = true;
+                    godzDoO_readOnly = true;
+                    godzDoP_readOnly = true;
+                    godzDoK_readOnly = true;
+                    godzDoPN_readOnly = true;
+
+                    godzDoPlan.setValue("");
+
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+
+                    //korekty
                     godzDoS.setValue("");
                     godzDoIIS.setValue("");
                     godzDoO.setValue("");
                     godzDoP.setValue("");
                     godzDoK.setValue("");
                     godzDoPN.setValue("");
+                }
+                else if ( dt1.format(naDzien).equals(dt1.format(d1_tommorow)) ) // jezeli jutro to sprawdzam plan do ktorej moga
+                {
+                        labGodzOpis.setValue(" Godz. do wprowadzania PLAN: ");
 
-                    String d2plan = dt.format(d1);
+                        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
 
-                    d2plan = d2plan.substring(0, 11) + jsonGodzZamDoPlan.toString().replace("\"","");
 
-                    Date dplan2= new Date();
+                        JsonString jsonGodzZamDoPlan = itemDane.getJsonString("Plan");
 
-                    try {
-                            dplan2 = dt.parse(d2plan);
+                        godzDoPlan.setValue( jsonGodzZamDoPlan.toString() );
+                        godzDoS.setValue("");
+                        godzDoIIS.setValue("");
+                        godzDoO.setValue("");
+                        godzDoP.setValue("");
+                        godzDoK.setValue("");
+                        godzDoPN.setValue("");
+
+                        String d2plan = dt.format(d1);
+                    
+                        d2plan = d2plan.substring(0, 11) + jsonGodzZamDoPlan.toString().replace("\"","");
+
+                        
+                        Date dplan2 = new Date();
+                    
+                        try {
+                                dplan2 = dt.parse(d2plan);
                         } catch (ParseException ex) {
                             Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                    if ( d1.after(dplan2) && !jsonGodzZamDoPlan.toString().equals("\"0:00\"")  )
-                    {
-                        godzDoPlan.setStyle("color:red;");
-                        godzDoPlan_readOnly = true;
-                    }
-                    else 
-                    {
-                        godzDoPlan.setStyle("color:black;");
-                        godzDoPlan_readOnly = false;
-                    }
+                        if ( d1.after(dplan2) && !jsonGodzZamDoPlan.toString().equals("\"0:00\"")  ) {
+                            godzDoPlan.setStyle("color:red;");
+                            godzDoPlan_readOnly = true;
+                        } else {
+                            godzDoPlan.setStyle("color:black;");
+                            godzDoPlan_readOnly = false;
+                        }
+
+                        godzDoS_readOnly = false;
+                        godzDoIIS_readOnly = false;
+                        godzDoO_readOnly = false;
+                        godzDoP_readOnly = false;
+                        godzDoK_readOnly = false;
+                        godzDoPN_readOnly = false;
+
+
+                }
+                else if ( d1_tommorow.before( naDzien ) ) //jezeli spr. daty później niz dzis i jutro to wprowadzają wszystkie posilki zamówienia 
+                {
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = false;
+                    godzDoPlanS_readOnly = false;
+                    godzDoPlanIIS_readOnly = false;
+                    godzDoPlanO_readOnly = false;
+                    godzDoPlanP_readOnly = false;
+                    godzDoPlanK_readOnly = false;
+                    godzDoPlanPN_readOnly = false;
 
                     godzDoS_readOnly = false;
                     godzDoIIS_readOnly = false;
@@ -637,46 +710,159 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                     godzDoK_readOnly = false;
                     godzDoPN_readOnly = false;
 
+                    godzDoPlan.setValue("");
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+                    //kor
+                    godzDoS.setValue("");
+                    godzDoIIS.setValue("");
+                    godzDoO.setValue("");
+                    godzDoP.setValue("");
+                    godzDoK.setValue("");
+                    godzDoPN.setValue("");
+                }
+                else
+                {
+                        labGodzOpis.setValue("");
+                        godzDoPlan_readOnly = false;
+                        godzDoPlanS_readOnly = false;
+                        godzDoPlanIIS_readOnly = false;
+                        godzDoPlanO_readOnly = false;
+                        godzDoPlanP_readOnly = false;
+                        godzDoPlanK_readOnly = false;
+                        godzDoPlanPN_readOnly = false;
+
+                        godzDoS_readOnly = false;
+                        godzDoIIS_readOnly = false;
+                        godzDoO_readOnly = false;
+                        godzDoP_readOnly = false;
+                        godzDoK_readOnly = false;
+                        godzDoPN_readOnly = false;
+
+                        godzDoPlan.setValue("");
+                        godzDoPlanS.setValue("");
+                        godzDoPlanIIS.setValue("");
+                        godzDoPlanO.setValue("");
+                        godzDoPlanP.setValue("");
+                        godzDoPlanK.setValue("");
+                        godzDoPlanPN.setValue("");
+
+                        godzDoS.setValue("");
+                        godzDoIIS.setValue("");
+                        godzDoO.setValue("");
+                        godzDoP.setValue("");
+                        godzDoK.setValue("");
+                        godzDoPN.setValue("");
+                }
+            } else {
+                //Rodzaj na DZIS****************************************************************************************
+                System.out.print("DZIS");
+                
+                
+                SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+                
+                
+                JsonString jsonGodzZamDoPlanS = itemDane.getJsonString("PlanS");
+                JsonString jsonGodzZamDoPlanS2 = itemDane.getJsonString("PlanIIS");
+                JsonString jsonGodzZamDoPlanO = itemDane.getJsonString("PlanO");
+                JsonString jsonGodzZamDoPlanP = itemDane.getJsonString("PlanP");
+                JsonString jsonGodzZamDoPlanK = itemDane.getJsonString("PlanK");
+                JsonString jsonGodzZamDoPlanPN = itemDane.getJsonString("PlanPN");
+
+                JsonObject dev = Json.createObjectBuilder().add("hh", "23:59").build();
+
+                if ( jsonGodzZamDoPlanS == null )
+                    jsonGodzZamDoPlanS = (JsonString) dev.getJsonString("hh");
+
+                if ( jsonGodzZamDoPlanS2 == null )
+                    jsonGodzZamDoPlanS2 = (JsonString) dev.getJsonString("hh");
+
+                if ( jsonGodzZamDoPlanO == null )
+                    jsonGodzZamDoPlanO = (JsonString) dev.getJsonString("hh");
+
+                if ( jsonGodzZamDoPlanP == null )
+                    jsonGodzZamDoPlanP = (JsonString) dev.getJsonString("hh");
+
+                if ( jsonGodzZamDoPlanK == null )
+                    jsonGodzZamDoPlanK = (JsonString) dev.getJsonString("hh");
+
+                if ( jsonGodzZamDoPlanPN == null )
+                    jsonGodzZamDoPlanPN = (JsonString) dev.getJsonString("hh");
+                
+                godzDoPlanS.setValue( jsonGodzZamDoPlanS.toString() );
+                godzDoPlanIIS.setValue( jsonGodzZamDoPlanS2.toString() );
+                godzDoPlanO.setValue( jsonGodzZamDoPlanO.toString() );
+                godzDoPlanP.setValue( jsonGodzZamDoPlanP.toString() );
+                godzDoPlanK.setValue( jsonGodzZamDoPlanK.getString() );
+                godzDoPlanPN.setValue( jsonGodzZamDoPlanPN.toString() );
+                
+                
+                String d2planS = dt.format(d1);
+                String d2planIIs = dt.format(d1);
+                String d2planO = dt.format(d1);
+                String d2planP = dt.format(d1);
+                String d2planK = dt.format(d1);
+                String d2planPn = dt.format(d1);
+                
+                
+                d2planS =   d2planS.substring(0, 11) + jsonGodzZamDoPlanS.toString().replace("\"","");
+                d2planIIs = d2planIIs.substring(0, 11) + jsonGodzZamDoPlanS2.toString().replace("\"","");
+                d2planO =   d2planO.substring(0, 11) + jsonGodzZamDoPlanO.toString().replace("\"","");
+                d2planP =   d2planP.substring(0, 11) + jsonGodzZamDoPlanP.toString().replace("\"","");
+                d2planK =   d2planK.substring(0, 11) + jsonGodzZamDoPlanK.toString().replace("\"","");
+                d2planPn =  d2planPn.substring(0, 11) + jsonGodzZamDoPlanPN.toString().replace("\"","");
+                
+                Date dplanS = new Date();
+                Date dplanIIs = new Date();
+                Date dplanO = new Date();
+                Date dplanP = new Date();
+                Date dplanK = new Date();
+                Date dplanPn = new Date();
+                
+                try {
+                    dplanS  = dt.parse(d2planS);
+                    dplanIIs  = dt.parse(d2planIIs);
+                    dplanO  = dt.parse(d2planO);
+                    dplanP  = dt.parse(d2planP);
+                    dplanK  = dt.parse(d2planK);
+                    dplanPn  = dt.parse(d2planPn);
+                } catch (ParseException ex) {
+                    Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                if ( d1.after(dplanS) && !jsonGodzZamDoPlanS.toString().equals("\"0:00\"")  ) {
+                    godzDoPlanS.setStyle("color:red;");
+                    godzDoPlanS_readOnly = true;
+                } else {
+                    godzDoPlanS.setStyle("color:black;");
+                    godzDoPlanS_readOnly = false;
+                }
+
+                if ( d1.after(dplanIIs) && !jsonGodzZamDoPlanS2.toString().equals("\"0:00\"")  ) {
+                    godzDoPlanIIS.setStyle("color:red;");
+                    godzDoPlanIIS_readOnly = true;
+                } else {
+                    godzDoPlanIIS.setStyle("color:black;");
+                    godzDoPlanIIS_readOnly = false;
+                }
+
+                if ( d1.after(dplanO) && !jsonGodzZamDoPlanO.toString().equals("\"0:00\"")  ) {
+                    godzDoPlanO.setStyle("color:red;");
+                    godzDoPlanO_readOnly = true;
+                } else {
+                    godzDoPlanO.setStyle("color:black;");
+                    godzDoPlanO_readOnly = false;
+                }
                 
             }
-            else if ( d1_tommorow.before( naDzien ) ) //jezeli spr. daty później niz dzis i jutro to wprowadzają wszystkie posilki zamówienia 
-            {
-                labGodzOpis.setValue("");
-                godzDoPlan_readOnly = false;
-                godzDoS_readOnly = false;
-                godzDoIIS_readOnly = false;
-                godzDoO_readOnly = false;
-                godzDoP_readOnly = false;
-                godzDoK_readOnly = false;
-                godzDoPN_readOnly = false;
-                godzDoPlan.setValue("");
-                godzDoS.setValue("");
-                godzDoIIS.setValue("");
-                godzDoO.setValue("");
-                godzDoP.setValue("");
-                godzDoK.setValue("");
-                godzDoPN.setValue("");
-            }
+        }
             
-        }
-        else
-        {
-                labGodzOpis.setValue("");
-                godzDoPlan_readOnly = false;
-                godzDoS_readOnly = false;
-                godzDoIIS_readOnly = false;
-                godzDoO_readOnly = false;
-                godzDoP_readOnly = false;
-                godzDoK_readOnly = false;
-                godzDoPN_readOnly = false;
-                godzDoPlan.setValue("");
-                godzDoS.setValue("");
-                godzDoIIS.setValue("");
-                godzDoO.setValue("");
-                godzDoP.setValue("");
-                godzDoK.setValue("");
-                godzDoPN.setValue("");
-        }
+        
+            
         
         
 
