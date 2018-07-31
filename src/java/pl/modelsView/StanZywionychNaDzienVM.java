@@ -271,6 +271,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         this.ilWierszy = ilWierszy;
     }
 
+    public Boolean getGodzDoPlanIIS_readOnly() {
+        return godzDoPlanIIS_readOnly;
+    }
+
+    public void setGodzDoPlanIIS_readOnly(Boolean godzDoPlanIIS_readOnly) {
+        this.godzDoPlanIIS_readOnly = godzDoPlanIIS_readOnly;
+    }
+    
     public Boolean getGodzDoS_readOnly() {
         return godzDoS_readOnly;
     }
