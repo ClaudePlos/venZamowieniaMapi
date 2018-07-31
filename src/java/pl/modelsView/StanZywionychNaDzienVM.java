@@ -54,6 +54,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Messagebox.ClickEvent;
 import pl.models.GrupaZywionychVO;
 import pl.models.KierunekKosztowVO;
+import pl.models.KontrolaRodzajGodzDTO;
 import pl.models.OperatorVO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
@@ -406,7 +407,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Command
     @NotifyChange("stanyZywionychNaDzien")
-    public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych, @BindingParam("uwagi") String uwagi) {
+    public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych, @BindingParam("uwagi") String uwagi) throws ParseException {
          
         sprawdzBlokadeGodzinWstawiania( uwagi, naDzien );
  
@@ -455,7 +456,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Command
     @NotifyChange("grupyZywionych")
-    public void wybranoKierKosztow( @BindingParam("uwagi") String uwagi, @BindingParam("naDzien") Date naDzien ) {
+    public void wybranoKierKosztow( @BindingParam("uwagi") String uwagi, @BindingParam("naDzien") Date naDzien ) throws ParseException {
         //System.out.println( selectedKierunekKosztow.getUwagi() );
         //serviceFacade.kkRaport = selectedKierunekKosztow;
         
@@ -467,7 +468,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     
     
-    private void sprawdzBlokadeGodzinWstawiania( String uwagi, Date naDzien )
+    private void sprawdzBlokadeGodzinWstawiania( String uwagi, Date naDzien ) throws ParseException
     {
         
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -759,104 +760,451 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
                         godzDoPN.setValue("");
                 }
             } else {
-                //Rodzaj na DZIS****************************************************************************************
-                System.out.print("DZIS");
+//Rodzaj *********************************************************************************************************************************************************
+                //Lepsze rozwiązanie 
+                //Jeżeli 0:00 to nie ma spradzania 
+                // ADD 2018-07-31
+                System.out.print("INNE");
                 
                 
                 SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+                labGodzOpis.setValue(" | Czas edycji: Plan/Korekta:");
+                
+                //PLAN*************
+                JsonObject planS   = itemDane.getJsonObject("PlanS");
+                JsonObject planIIS = itemDane.getJsonObject("PlanIIS");
+                JsonObject planO   = itemDane.getJsonObject("PlanO");
+                JsonObject planP   = itemDane.getJsonObject("PlanP");
+                JsonObject planK   = itemDane.getJsonObject("PlanK");
+                JsonObject planPN  = itemDane.getJsonObject("PlanPN");
+                
+                KontrolaRodzajGodzDTO godzZamDoPlanS = new KontrolaRodzajGodzDTO( planS.getString("T"), planS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoPlanIIS = new KontrolaRodzajGodzDTO( planIIS.getString("T"), planIIS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoPlanO = new KontrolaRodzajGodzDTO( planO.getString("T"), planO.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoPlanP = new KontrolaRodzajGodzDTO( planP.getString("T"), planP.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoPlanK = new KontrolaRodzajGodzDTO( planK.getString("T"), planK.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoPlanPN = new KontrolaRodzajGodzDTO( planPN.getString("T"), planPN.getString("K") );
+ 
                 
                 
-                JsonString jsonGodzZamDoPlanS = itemDane.getJsonString("PlanS");
-                JsonString jsonGodzZamDoPlanS2 = itemDane.getJsonString("PlanIIS");
-                JsonString jsonGodzZamDoPlanO = itemDane.getJsonString("PlanO");
-                JsonString jsonGodzZamDoPlanP = itemDane.getJsonString("PlanP");
-                JsonString jsonGodzZamDoPlanK = itemDane.getJsonString("PlanK");
-                JsonString jsonGodzZamDoPlanPN = itemDane.getJsonString("PlanPN");
-
-                JsonObject dev = Json.createObjectBuilder().add("hh", "23:59").build();
-
-                if ( jsonGodzZamDoPlanS == null )
-                    jsonGodzZamDoPlanS = (JsonString) dev.getJsonString("hh");
-
-                if ( jsonGodzZamDoPlanS2 == null )
-                    jsonGodzZamDoPlanS2 = (JsonString) dev.getJsonString("hh");
-
-                if ( jsonGodzZamDoPlanO == null )
-                    jsonGodzZamDoPlanO = (JsonString) dev.getJsonString("hh");
-
-                if ( jsonGodzZamDoPlanP == null )
-                    jsonGodzZamDoPlanP = (JsonString) dev.getJsonString("hh");
-
-                if ( jsonGodzZamDoPlanK == null )
-                    jsonGodzZamDoPlanK = (JsonString) dev.getJsonString("hh");
-
-                if ( jsonGodzZamDoPlanPN == null )
-                    jsonGodzZamDoPlanPN = (JsonString) dev.getJsonString("hh");
-                
-                godzDoPlanS.setValue( jsonGodzZamDoPlanS.toString() );
-                godzDoPlanIIS.setValue( jsonGodzZamDoPlanS2.toString() );
-                godzDoPlanO.setValue( jsonGodzZamDoPlanO.toString() );
-                godzDoPlanP.setValue( jsonGodzZamDoPlanP.toString() );
-                godzDoPlanK.setValue( jsonGodzZamDoPlanK.getString() );
-                godzDoPlanPN.setValue( jsonGodzZamDoPlanPN.toString() );
-                
-                
-                String d2planS = dt.format(d1);
-                String d2planIIs = dt.format(d1);
-                String d2planO = dt.format(d1);
-                String d2planP = dt.format(d1);
-                String d2planK = dt.format(d1);
-                String d2planPn = dt.format(d1);
-                
-                
-                d2planS =   d2planS.substring(0, 11) + jsonGodzZamDoPlanS.toString().replace("\"","");
-                d2planIIs = d2planIIs.substring(0, 11) + jsonGodzZamDoPlanS2.toString().replace("\"","");
-                d2planO =   d2planO.substring(0, 11) + jsonGodzZamDoPlanO.toString().replace("\"","");
-                d2planP =   d2planP.substring(0, 11) + jsonGodzZamDoPlanP.toString().replace("\"","");
-                d2planK =   d2planK.substring(0, 11) + jsonGodzZamDoPlanK.toString().replace("\"","");
-                d2planPn =  d2planPn.substring(0, 11) + jsonGodzZamDoPlanPN.toString().replace("\"","");
-                
-                Date dplanS = new Date();
-                Date dplanIIs = new Date();
-                Date dplanO = new Date();
-                Date dplanP = new Date();
-                Date dplanK = new Date();
-                Date dplanPn = new Date();
-                
-                try {
-                    dplanS  = dt.parse(d2planS);
-                    dplanIIs  = dt.parse(d2planIIs);
-                    dplanO  = dt.parse(d2planO);
-                    dplanP  = dt.parse(d2planP);
-                    dplanK  = dt.parse(d2planK);
-                    dplanPn  = dt.parse(d2planPn);
-                } catch (ParseException ex) {
-                    Logger.getLogger(StanZywionychNaDzienVM.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                if ( d1.after(dplanS) && !jsonGodzZamDoPlanS.toString().equals("\"0:00\"")  ) {
-                    godzDoPlanS.setStyle("color:red;");
+                // D -- dzis J -- jutro
+                if ( dt1.format(naDzien).equals(dt1.format(d1)) ){ // jeżeli dziś
+                    
+                    godzDoPlanS.setValue( " S(" + godzZamDoPlanS.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanS.getCzas() );
+                    godzDoPlanIIS.setValue( " IIS(" + godzZamDoPlanIIS.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanIIS.getCzas() );
+                    godzDoPlanO.setValue( " O(" + godzZamDoPlanO.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanO.getCzas() );
+                    godzDoPlanP.setValue( " P(" + godzZamDoPlanP.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanP.getCzas() );
+                    godzDoPlanK.setValue( " K(" + godzZamDoPlanK.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanK.getCzas() );
+                    godzDoPlanPN.setValue( " PN(" + godzZamDoPlanPN.getRodzaj().replace("J", "W") + "):" + godzZamDoPlanPN.getCzas() );
+ 
+                    // jeśli przekroczenie czasu lub ma być planowany tylko jutrzejszy dzień  to czerwone inaczej czarny 
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanS.getCzas()) ) &&  godzZamDoPlanS.getRodzaj().equals("D") && !godzZamDoPlanS.toString().equals("0:00")) || godzZamDoPlanS.getRodzaj().equals("J") ) {
+                        godzDoPlanS.setStyle("color:red;");
+                        godzDoPlanS_readOnly = true;
+                    } else {
+                        godzDoPlanS.setStyle("color:black;");
+                        godzDoPlanS_readOnly = false;
+                    }
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanIIS.getCzas()) ) &&  godzZamDoPlanIIS.getRodzaj().equals("D") && !godzZamDoPlanIIS.toString().equals("0:00")) || godzZamDoPlanIIS.getRodzaj().equals("J") ) {
+                        godzDoPlanIIS.setStyle("color:red;");
+                        godzDoPlanIIS_readOnly = true;
+                    } else {
+                        godzDoPlanIIS.setStyle("color:black;");
+                        godzDoPlanIIS_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanO.getCzas()) ) &&  godzZamDoPlanO.getRodzaj().equals("D") && !godzZamDoPlanO.toString().equals("0:00")) || godzZamDoPlanO.getRodzaj().equals("J") ) {
+                        godzDoPlanO.setStyle("color:red;");
+                        godzDoPlanO_readOnly = true;
+                    } else {
+                        godzDoPlanO.setStyle("color:black;");
+                        godzDoPlanO_readOnly = false;
+                    }  
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanP.getCzas()) ) &&  godzZamDoPlanP.getRodzaj().equals("D") && !godzZamDoPlanP.toString().equals("0:00")) || godzZamDoPlanP.getRodzaj().equals("J") ) {
+                        godzDoPlanP.setStyle("color:red;");
+                        godzDoPlanP_readOnly = true;
+                    } else {
+                        godzDoPlanP.setStyle("color:black;");
+                        godzDoPlanP_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanK.getCzas()) ) &&  godzZamDoPlanK.getRodzaj().equals("D") && !godzZamDoPlanK.toString().equals("0:00")) || godzZamDoPlanK.getRodzaj().equals("J") ) {
+                        godzDoPlanK.setStyle("color:red;");
+                        godzDoPlanK_readOnly = true;
+                    } else {
+                        godzDoPlanK.setStyle("color:black;");
+                        godzDoPlanK_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanPN.getCzas()) ) &&  godzZamDoPlanPN.getRodzaj().equals("D") && !godzZamDoPlanPN.toString().equals("0:00")) || godzZamDoPlanPN.getRodzaj().equals("J") ) {
+                        godzDoPlanPN.setStyle("color:red;");
+                        godzDoPlanPN_readOnly = true;
+                    } else {
+                        godzDoPlanPN.setStyle("color:black;");
+                        godzDoPlanPN_readOnly = false;
+                    } 
+    
+                } else if ( dt1.format(naDzien).equals(dt1.format(d1_tommorow)) ) { // jezeli jutro to sprawdzam plan do ktorej moga
+                    
+                    godzDoPlanS.setValue( " S(" + godzZamDoPlanS.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanS.getCzas() );
+                    godzDoPlanIIS.setValue( " IIS(" + godzZamDoPlanIIS.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanIIS.getCzas() );
+                    godzDoPlanO.setValue( " O(" + godzZamDoPlanO.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanO.getCzas() );
+                    godzDoPlanP.setValue( " P(" + godzZamDoPlanP.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanP.getCzas() );
+                    godzDoPlanK.setValue( " K(" + godzZamDoPlanK.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanK.getCzas() );
+                    godzDoPlanPN.setValue( " PN(" + godzZamDoPlanPN.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoPlanPN.getCzas() );
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanS.getCzas()) ) &&  godzZamDoPlanS.getRodzaj().equals("J") && !godzZamDoPlanS.toString().equals("0:00")){
+                        godzDoPlanS.setStyle("color:red;");
+                        godzDoPlanS_readOnly = true;
+                    } else if ( godzZamDoPlanS.getRodzaj().equals("D") ){
+                        godzDoPlanS.setValue("");
+                        godzDoPlanS_readOnly = false;
+                    } else {
+                        godzDoPlanS.setStyle("color:black;");
+                        godzDoPlanS_readOnly = false;
+                    }
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanIIS.getCzas()) ) &&  godzZamDoPlanIIS.getRodzaj().equals("J") && !godzZamDoPlanIIS.toString().equals("0:00")){
+                        godzDoPlanIIS.setStyle("color:red;");
+                        godzDoPlanIIS_readOnly = true;
+                    } else if ( godzZamDoPlanIIS.getRodzaj().equals("D") ){
+                        godzDoPlanIIS.setValue("");
+                        godzDoPlanIIS_readOnly = false;
+                    } else {
+                        godzDoPlanIIS.setStyle("color:black;");
+                        godzDoPlanIIS_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanO.getCzas()) ) &&  godzZamDoPlanO.getRodzaj().equals("J") && !godzZamDoPlanO.toString().equals("0:00")){
+                        godzDoPlanO.setStyle("color:red;");
+                        godzDoPlanO_readOnly = true;
+                    } else if ( godzZamDoPlanO.getRodzaj().equals("D") ){
+                        godzDoPlanO.setValue("");
+                        godzDoPlanO_readOnly = false;
+                    } else {
+                        godzDoPlanO.setStyle("color:black;");
+                        godzDoPlanO_readOnly = false;
+                    }  
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanP.getCzas()) ) &&  godzZamDoPlanP.getRodzaj().equals("J") && !godzZamDoPlanP.toString().equals("0:00")){
+                        godzDoPlanP.setStyle("color:red;");
+                        godzDoPlanP_readOnly = true;
+                    } else if ( godzZamDoPlanP.getRodzaj().equals("D") ){
+                        godzDoPlanP.setValue("");
+                        godzDoPlanP_readOnly = false;
+                    } else {
+                        godzDoPlanP.setStyle("color:black;");
+                        godzDoPlanP_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanK.getCzas()) ) &&  godzZamDoPlanK.getRodzaj().equals("J") && !godzZamDoPlanK.toString().equals("0:00")){
+                        godzDoPlanK.setStyle("color:red;");
+                        godzDoPlanK_readOnly = true;
+                    } else if ( godzZamDoPlanK.getRodzaj().equals("D") ){
+                        godzDoPlanK.setValue("");
+                        godzDoPlanK_readOnly = false;
+                    } else {
+                        godzDoPlanK.setStyle("color:black;");
+                        godzDoPlanK_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoPlanPN.getCzas()) ) &&  godzZamDoPlanPN.getRodzaj().equals("J") && !godzZamDoPlanPN.toString().equals("0:00")){
+                        godzDoPlanPN.setStyle("color:red;");
+                        godzDoPlanPN_readOnly = true;
+                    } else if ( godzZamDoPlanPN.getRodzaj().equals("D") ){
+                        godzDoPlanPN.setValue("");
+                        godzDoPlanPN_readOnly = false;
+                    } else {
+                        godzDoPlanPN.setStyle("color:black;");
+                        godzDoPlanPN_readOnly = false;
+                    } 
+                    
+                } else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
+                {   //EDYCJA
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = true;
                     godzDoPlanS_readOnly = true;
-                } else {
-                    godzDoPlanS.setStyle("color:black;");
-                    godzDoPlanS_readOnly = false;
-                }
-
-                if ( d1.after(dplanIIs) && !jsonGodzZamDoPlanS2.toString().equals("\"0:00\"")  ) {
-                    godzDoPlanIIS.setStyle("color:red;");
                     godzDoPlanIIS_readOnly = true;
-                } else {
-                    godzDoPlanIIS.setStyle("color:black;");
-                    godzDoPlanIIS_readOnly = false;
-                }
-
-                if ( d1.after(dplanO) && !jsonGodzZamDoPlanO.toString().equals("\"0:00\"")  ) {
-                    godzDoPlanO.setStyle("color:red;");
                     godzDoPlanO_readOnly = true;
-                } else {
-                    godzDoPlanO.setStyle("color:black;");
+                    godzDoPlanP_readOnly = true;
+                    godzDoPlanK_readOnly = true;
+                    godzDoPlanPN_readOnly = true;
+                    //korekty
+                    godzDoS_readOnly = true;
+                    godzDoIIS_readOnly = true;
+                    godzDoO_readOnly = true;
+                    godzDoP_readOnly = true;
+                    godzDoK_readOnly = true;
+                    godzDoPN_readOnly = true;
+                    //WARTOSCI
+                    godzDoPlan.setValue("");
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+                    //korekty
+                    godzDoS.setValue("");
+                    godzDoIIS.setValue("");
+                    godzDoO.setValue("");
+                    godzDoP.setValue("");
+                    godzDoK.setValue("");
+                    godzDoPN.setValue("");
+                } else if ( d1_tommorow.before( naDzien ) ) //jezeli spr. daty później niz dzis i jutro to wprowadzają wszystkie posilki zamówienia 
+                {   //EDYCJA
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = false;
+                    godzDoPlanS_readOnly = false;
+                    godzDoPlanIIS_readOnly = false;
                     godzDoPlanO_readOnly = false;
+                    godzDoPlanP_readOnly = false;
+                    godzDoPlanK_readOnly = false;
+                    godzDoPlanPN_readOnly = false;
+                    //korekta
+                    godzDoS_readOnly = false;
+                    godzDoIIS_readOnly = false;
+                    godzDoO_readOnly = false;
+                    godzDoP_readOnly = false;
+                    godzDoK_readOnly = false;
+                    godzDoPN_readOnly = false;
+                    //WARTOSCI
+                    godzDoPlan.setValue("");
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+                    //kor
+                    godzDoS.setValue("");
+                    godzDoIIS.setValue("");
+                    godzDoO.setValue("");
+                    godzDoP.setValue("");
+                    godzDoK.setValue("");
+                    godzDoPN.setValue("");
                 }
+                
+                
+               
+                
+                //KOREKTA*************
+                JsonObject korS   = itemDane.getJsonObject("S");
+                JsonObject korIIS = itemDane.getJsonObject("IIS");
+                JsonObject korO   = itemDane.getJsonObject("O");
+                JsonObject korP   = itemDane.getJsonObject("P");
+                JsonObject korK   = itemDane.getJsonObject("K");
+                JsonObject korPN  = itemDane.getJsonObject("PN");
+                
+                KontrolaRodzajGodzDTO godzZamDoKorS = new KontrolaRodzajGodzDTO( korS.getString("T"), korS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoKorIIS = new KontrolaRodzajGodzDTO( korIIS.getString("T"), korS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoKorO = new KontrolaRodzajGodzDTO( korO.getString("T"), korS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoKorP = new KontrolaRodzajGodzDTO( korP.getString("T"), korS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoKorK = new KontrolaRodzajGodzDTO( korK.getString("T"), korS.getString("K") );
+                KontrolaRodzajGodzDTO godzZamDoKorPN = new KontrolaRodzajGodzDTO( korPN.getString("T"), korS.getString("K") );
+ 
+                // D -- dzis J -- jutro
+                if ( dt1.format(naDzien).equals(dt1.format(d1)) ){ // jeżeli dziś
+                    
+                    godzDoS.setValue( " // S(" + godzZamDoKorS.getRodzaj().replace("J", "W") + "):" + godzZamDoKorS.getCzas() );
+                    godzDoIIS.setValue( " IIS(" + godzZamDoKorIIS.getRodzaj().replace("J", "W") + "):" + godzZamDoKorIIS.getCzas() );
+                    godzDoO.setValue( " O(" + godzZamDoKorO.getRodzaj().replace("J", "W") + "):" + godzZamDoKorO.getCzas() );
+                    godzDoP.setValue( " P(" + godzZamDoKorP.getRodzaj().replace("J", "W") + "):" + godzZamDoKorP.getCzas() );
+                    godzDoK.setValue( " K(" + godzZamDoKorK.getRodzaj().replace("J", "W") + "):" + godzZamDoKorK.getCzas() );
+                    godzDoPN.setValue( " PN(" + godzZamDoKorPN.getRodzaj().replace("J", "W") + "):" + godzZamDoKorPN.getCzas() );
+ 
+                    // jeśli przekroczenie czasu lub ma być planowany tylko jutrzejszy dzień  to czerwone inaczej czarny 
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorS.getCzas()) ) &&  godzZamDoKorS.getRodzaj().equals("D") && !godzZamDoKorS.toString().equals("0:00")) || godzZamDoKorS.getRodzaj().equals("J") ) {
+                        godzDoS.setStyle("color:red;");
+                        godzDoS_readOnly = true;
+                    } else {
+                        godzDoS.setStyle("color:black;");
+                        godzDoS_readOnly = false;
+                    }
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorIIS.getCzas()) ) &&  godzZamDoKorIIS.getRodzaj().equals("D") && !godzZamDoKorIIS.toString().equals("0:00")) || godzZamDoKorIIS.getRodzaj().equals("J") ) {
+                        godzDoIIS.setStyle("color:red;");
+                        godzDoIIS_readOnly = true;
+                    } else {
+                        godzDoIIS.setStyle("color:black;");
+                        godzDoIIS_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorO.getCzas()) ) &&  godzZamDoKorO.getRodzaj().equals("D") && !godzZamDoKorO.toString().equals("0:00")) || godzZamDoKorO.getRodzaj().equals("J") ) {
+                        godzDoO.setStyle("color:red;");
+                        godzDoO_readOnly = true;
+                    } else {
+                        godzDoO.setStyle("color:black;");
+                        godzDoO_readOnly = false;
+                    }  
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorP.getCzas()) ) &&  godzZamDoKorP.getRodzaj().equals("D") && !godzZamDoKorP.toString().equals("0:00")) || godzZamDoKorP.getRodzaj().equals("J") ) {
+                        godzDoP.setStyle("color:red;");
+                        godzDoP_readOnly = true;
+                    } else {
+                        godzDoP.setStyle("color:black;");
+                        godzDoP_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorK.getCzas()) ) &&  godzZamDoKorK.getRodzaj().equals("D") && !godzZamDoKorK.toString().equals("0:00")) || godzZamDoKorK.getRodzaj().equals("J") ) {
+                        godzDoK.setStyle("color:red;");
+                        godzDoK_readOnly = true;
+                    } else {
+                        godzDoK.setStyle("color:black;");
+                        godzDoK_readOnly = false;
+                    } 
+                    
+                    if ( (d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorPN.getCzas()) ) &&  godzZamDoKorPN.getRodzaj().equals("D") && !godzZamDoKorPN.toString().equals("0:00")) || godzZamDoKorPN.getRodzaj().equals("J") ) {
+                        godzDoPN.setStyle("color:red;");
+                        godzDoPN_readOnly = true;
+                    } else {
+                        godzDoPN.setStyle("color:black;");
+                        godzDoPN_readOnly = false;
+                    } 
+    
+                } else if ( dt1.format(naDzien).equals(dt1.format(d1_tommorow)) ) { // jezeli jutro to sprawdzam plan do ktorej moga
+                    
+                    godzDoS.setValue( " // S(" + godzZamDoKorS.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorS.getCzas() );
+                    godzDoIIS.setValue( " IIS(" + godzZamDoKorIIS.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorIIS.getCzas() );
+                    godzDoO.setValue( " O(" + godzZamDoKorO.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorO.getCzas() );
+                    godzDoP.setValue( " P(" + godzZamDoKorP.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorP.getCzas() );
+                    godzDoK.setValue( " K(" + godzZamDoKorK.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorK.getCzas() );
+                    godzDoPN.setValue( " PN(" + godzZamDoKorPN.getRodzaj().replace("D", "J").replace("J", "D") + "):" + godzZamDoKorPN.getCzas() );
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorS.getCzas()) ) &&  godzZamDoKorS.getRodzaj().equals("J") && !godzZamDoKorS.toString().equals("0:00")){
+                        godzDoS.setStyle("color:red;");
+                        godzDoS_readOnly = true;
+                    } else if ( godzZamDoKorS.getRodzaj().equals("D") ){
+                        godzDoS.setValue("");
+                        godzDoS_readOnly = false;
+                    } else {
+                        godzDoS.setStyle("color:blue;");
+                        godzDoS_readOnly = false;
+                    }
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorIIS.getCzas()) ) &&  godzZamDoKorIIS.getRodzaj().equals("J") && !godzZamDoKorIIS.toString().equals("0:00")){
+                        godzDoIIS.setStyle("color:red;");
+                        godzDoIIS_readOnly = true;
+                    } else if ( godzZamDoKorIIS.getRodzaj().equals("D") ){
+                        godzDoIIS.setValue("");
+                        godzDoIIS_readOnly = false;
+                    } else {
+                        godzDoIIS.setStyle("color:blue;");
+                        godzDoIIS_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorO.getCzas()) ) &&  godzZamDoKorO.getRodzaj().equals("J") && !godzZamDoKorO.toString().equals("0:00")){
+                        godzDoO.setStyle("color:red;");
+                        godzDoO_readOnly = true;
+                    } else if ( godzZamDoKorO.getRodzaj().equals("D") ){
+                        godzDoO.setValue("");
+                        godzDoO_readOnly = false;
+                    } else {
+                        godzDoO.setStyle("color:blue;");
+                        godzDoO_readOnly = false;
+                    }  
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorP.getCzas()) ) &&  godzZamDoKorP.getRodzaj().equals("J") && !godzZamDoKorP.toString().equals("0:00")){
+                        godzDoP.setStyle("color:red;");
+                        godzDoP_readOnly = true;
+                    } else if ( godzZamDoKorP.getRodzaj().equals("D") ){
+                        godzDoP.setValue("");
+                        godzDoP_readOnly = false;
+                    } else {
+                        godzDoP.setStyle("color:blue;");
+                        godzDoP_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorK.getCzas()) ) &&  godzZamDoKorK.getRodzaj().equals("J") && !godzZamDoKorK.toString().equals("0:00")){
+                        godzDoK.setStyle("color:red;");
+                        godzDoK_readOnly = true;
+                    } else if ( godzZamDoKorK.getRodzaj().equals("D") ){
+                        godzDoK.setValue("");
+                        godzDoK_readOnly = false;
+                    } else {
+                        godzDoK.setStyle("color:blue;");
+                        godzDoK_readOnly = false;
+                    } 
+                    
+                    if ( d1.after( dt.parse( dt.format(d1).substring(0, 11) + godzZamDoKorPN.getCzas()) ) &&  godzZamDoKorPN.getRodzaj().equals("J") && !godzZamDoKorPN.toString().equals("0:00")){
+                        godzDoPN.setStyle("color:red;");
+                        godzDoPN_readOnly = true;
+                    } else if ( godzZamDoKorPN.getRodzaj().equals("D") ){
+                        godzDoPN.setValue("");
+                        godzDoPN_readOnly = false;
+                    } else {
+                        godzDoPN.setStyle("color:blue;");
+                        godzDoPN_readOnly = false;
+                    } 
+                    
+                } else if ( d1.after( naDzien ) ) // jeżeli sprawdzają daty wcześniejsze niż dziś to blokujemy wprowadzanie
+                {   //EDYCJA
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = true;
+                    godzDoPlanS_readOnly = true;
+                    godzDoPlanIIS_readOnly = true;
+                    godzDoPlanO_readOnly = true;
+                    godzDoPlanP_readOnly = true;
+                    godzDoPlanK_readOnly = true;
+                    godzDoPlanPN_readOnly = true;
+                    //korekty
+                    godzDoS_readOnly = true;
+                    godzDoIIS_readOnly = true;
+                    godzDoO_readOnly = true;
+                    godzDoP_readOnly = true;
+                    godzDoK_readOnly = true;
+                    godzDoPN_readOnly = true;
+                    //WARTOSCI
+                    godzDoPlan.setValue("");
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+                    //korekty
+                    godzDoS.setValue("");
+                    godzDoIIS.setValue("");
+                    godzDoO.setValue("");
+                    godzDoP.setValue("");
+                    godzDoK.setValue("");
+                    godzDoPN.setValue("");
+                } else if ( d1_tommorow.before( naDzien ) ) //jezeli spr. daty później niz dzis i jutro to wprowadzają wszystkie posilki zamówienia 
+                {   //EDYCJA
+                    labGodzOpis.setValue("");
+                    godzDoPlan_readOnly = false;
+                    godzDoPlanS_readOnly = false;
+                    godzDoPlanIIS_readOnly = false;
+                    godzDoPlanO_readOnly = false;
+                    godzDoPlanP_readOnly = false;
+                    godzDoPlanK_readOnly = false;
+                    godzDoPlanPN_readOnly = false;
+                    //korekta
+                    godzDoS_readOnly = false;
+                    godzDoIIS_readOnly = false;
+                    godzDoO_readOnly = false;
+                    godzDoP_readOnly = false;
+                    godzDoK_readOnly = false;
+                    godzDoPN_readOnly = false;
+                    //WARTOSCI
+                    godzDoPlan.setValue("");
+                    godzDoPlanS.setValue("");
+                    godzDoPlanIIS.setValue("");
+                    godzDoPlanO.setValue("");
+                    godzDoPlanP.setValue("");
+                    godzDoPlanK.setValue("");
+                    godzDoPlanPN.setValue("");
+                    //kor
+                    godzDoS.setValue("");
+                    godzDoIIS.setValue("");
+                    godzDoO.setValue("");
+                    godzDoP.setValue("");
+                    godzDoK.setValue("");
+                    godzDoPN.setValue("");
+                }
+                
                 
             }
         }
