@@ -31,7 +31,7 @@
 </style> 
     
     <hbox hflex="1" vflex="1" align="center">
-        <a href="http://www.naprzod.pl/"><image src="../zul/imgs/cooking_logo.png" width="90px" /></a>
+        <a href="http://www.naprzod.pl/" target="_blank"><image src="../zul/imgs/cooking_logo.png" width="90px" /></a>
         
         <div>
             

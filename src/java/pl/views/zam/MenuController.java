@@ -589,7 +589,9 @@ public class MenuController extends SelectorComposer<Component> {
     @Listen("onClick=button#restJadlospisForDietInDay")
     public void restJadlospisForDietInDay(Event event) throws FileNotFoundException, DocumentException, IOException {
          //final Session sess = Sessions.getCurrent();
-         System.out.println( gzEve.getGzRaprot() + " " + dtf.format( gzEve.getNaDzienRaport() ).toString() + " " + Sessions.getCurrent().getAttribute("dietId"));
+         System.out.println( gzEve.getGzRaprot() + " " + dtf.format( gzEve.getNaDzienRaport() ).toString() 
+                 + " " + Sessions.getCurrent().getAttribute("dietId")
+                 + " " + Sessions.getCurrent().getAttribute("gzId"));
     }
     
     private BigDecimal changeNullOnZero( BigDecimal val )

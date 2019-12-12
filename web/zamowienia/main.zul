@@ -13,7 +13,7 @@
            <vlayout>       
             <label value='Na dzien: '/> <!-- constraint="no empty"  locale="pl_PL" format="medium"  height="120px"-->
             <datebox  id="naDzien" constraint="no empty"  locale="pl_PL" format="medium" onCreate="self.value = new Date()"
-            onChange="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label,uwagi=cmbKK.selectedItem.value)"/>
+            onChange="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label,uwagi=cmbKK.selectedItem.value,gzId=cmbGZ.selectedItem.value)"/>
            </vlayout> 
            
            <vlayout width="55px"></vlayout>
@@ -34,7 +34,7 @@
               <vlayout>          
                <label value="Grupy żywionych" id="gzWybrane"/>         
                 <combobox id="cmbGZ" model="@load(vm.grupyZywionych)" value="Wybierz GZ"
-                          onSelect="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label,uwagi=cmbKK.selectedItem.value)">
+                          onSelect="@command('pobInne',naDzien=naDzien.value,grupaZywionych=cmbGZ.selectedItem.label,uwagi=cmbKK.selectedItem.value,gzId=cmbGZ.selectedItem.value)">
                     <template name="model" var="p1">
                         <comboitem label="@load(p1.grupaZywionych)"
                             value="@load(p1.idGrupaZywionych)" />

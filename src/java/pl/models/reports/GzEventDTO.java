@@ -17,7 +17,7 @@ public class GzEventDTO {
     
     private String gzRaprot;
     private Date naDzienRaport;
-    private String idDieta;
+   
     
     
     private List<StanZywionychNaDzienDTO> stanyZywionychNaDzien;
@@ -46,18 +46,5 @@ public class GzEventDTO {
         this.stanyZywionychNaDzien = stanyZywionychNaDzien;
     }
 
-    public String getIdDieta() {
-        return idDieta;
-    }
-
-    public void setIdDieta(String idDieta) {
-        this.idDieta = idDieta;
-    }
-
-   
-    
-    
-    
-    
     
 }

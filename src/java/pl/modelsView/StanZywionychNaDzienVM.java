@@ -419,11 +419,11 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     @Command
     @NotifyChange("stanyZywionychNaDzien")
-    public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych, @BindingParam("uwagi") String uwagi) throws ParseException {
+    public void pobInne(@BindingParam("naDzien") Date naDzien, @BindingParam("grupaZywionych") String grupaZywionych, @BindingParam("uwagi") String uwagi, @BindingParam("gzId") String gzId) throws ParseException {
          
         sprawdzBlokadeGodzinWstawiania( uwagi, naDzien );
  
-        System.out.print(" Pobieram stany dla: " + grupaZywionych + " na dzien: " + naDzien);
+        //System.out.print(" Pobieram stany dla: " + grupaZywionych + " na dzien: " + naDzien);
         
         if ( grupaZywionych == null )
         {
@@ -457,7 +457,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         
         sess.setAttribute("grupaZywionych", grupaZywionych);
         sess.setAttribute("naDzien", naDzien);
-        
+        sess.setAttribute("gzId", gzId);
         
         eventGZnaDzien = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
         eventGZnaDzien.publish(new Event("onButtonClick", null, g ));
