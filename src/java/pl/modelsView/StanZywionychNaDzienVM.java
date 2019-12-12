@@ -34,6 +34,8 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.EventQueue;
@@ -69,6 +71,8 @@ import pl.views.zam.MenuController;
  */
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
+    
+    Session sess = Sessions.getCurrent();
     
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
@@ -451,14 +455,14 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         g.setNaDzienRaport(naDzien);
         g.setStanyZywionychNaDzien(stanyZywionychNaDzien);
         
+        sess.setAttribute("grupaZywionych", grupaZywionych);
+        sess.setAttribute("naDzien", naDzien);
+        
+        
         eventGZnaDzien = EventQueues.lookup("eventGrupaZywionych", EventQueues.DESKTOP, true);
         eventGZnaDzien.publish(new Event("onButtonClick", null, g ));
         
-        
-        //serviceFacade.stanyZywionychNaDzien = stanyZywionychNaDzien;
-        
-        
-        
+
     }
     
     
@@ -1248,6 +1252,7 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         Messagebox.show( value );
     }
     
+    
     @Command
     @NotifyChange("stanyZywionychNaDzienSuma")
     public void uzupelnijSumeStanowNaDzien()
@@ -1604,6 +1609,6 @@ public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
         }
         
     }
-   
+    
 
     }

@@ -17,5 +17,12 @@
                     label="" onClick="">
             </button>
         </row>
+        <row>
+            <button id="restJadlospisForDietInDay" width="25px" 
+                    image="img/print16x16.png"
+                    tooltiptext="Jadlospis z dnia dla danej diety"
+                    label="" onClick="">
+            </button>
+        </row>
     </rows>
 </grid>

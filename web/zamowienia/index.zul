@@ -1,6 +1,6 @@
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <zk>
-   <zscript><![CDATA[
+<!--   <zscript><![CDATA[
        
             import pl.modelsView.StanZywionychNaDzienVM;
        
@@ -8,6 +8,11 @@
                StanZywionychNaDzienVM serviceSZ = StanZywionychNaDzienVM.getInstance();  
                lbWidth.setValue( evt.getDesktopWidth().toString() + "x" );
                serviceSZ.zmienX(evt.getDesktopWidth().toString());
+
+       /*
+        <tabbox onClientInfo="doOrientationChange(event)"/> 
+       */
+  
        
                 /*if ("portrait".equals(evt.getOrientation())) {
                     main.setWidth("100%");
@@ -20,9 +25,9 @@
                     sv.setVisible(true);
                     Clients.resize(content);
                 }*/
-            }
-]]> </zscript> 
-<tabbox onClientInfo="doOrientationChange(event)"/>  
+           // }
+]]> </zscript> -->
+
 
  
     <borderlayout hflex="1" vflex="1">
@@ -40,5 +45,6 @@
         <south height="10px" border="none">
             <label id="lbWidth" />
         </south>
+         
     </borderlayout>
 </zk>

@@ -291,7 +291,7 @@ public class IlzywWgOddPodDiety {
         document.add(Chunk.NEWLINE);   //Something like in HTML :-)
  
                     
-        document.add(new Paragraph("Vendi Servis Sp. z o.o. " + okres.toString(), myFont_Posilek )); 
+        document.add(new Paragraph("Catering " + okres.toString(), myFont_Posilek )); 
         document.add(new Paragraph( kkNazwa + " Na dzień: " + okres.toString() + " " + posilek, myFont_Posilek ));
 
           //  document.add(new Paragraph("Document Generated On - "+new Date().toString()));	

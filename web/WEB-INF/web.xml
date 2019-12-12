@@ -40,9 +40,9 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
         <description>ZK listener for session cleanup</description>
         <listener-class>org.zkoss.zk.ui.http.HttpSessionListener</listener-class>
     </listener>
-    <listener>
+<!--    <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    </listener>-->
     
     <servlet>
         <description>ZK loader for ZUML pages</description>
@@ -81,7 +81,8 @@ Copyright (C) 2004 Potix Corporation. All Rights Reserved.
     
     <servlet>
         <servlet-name>dispatcher</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>

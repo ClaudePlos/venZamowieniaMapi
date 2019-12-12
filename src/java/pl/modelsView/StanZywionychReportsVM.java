@@ -65,6 +65,7 @@ import pl.models.StanZywionychNaDzienDTO;
 import pl.reports.IlzywWgOddPodDiety;
 import pl.reports.McZestawienieKK;
 import pl.session.ServiceFacade;
+import pl.authentication.AuthenticationInit;
 
 /**
  *

@@ -35,6 +35,8 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -53,6 +55,7 @@ import org.zkoss.zk.ui.event.EventQueue;
 import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Filedownload;
+import org.zkoss.zul.Label;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.reports.GzEventDTO;
 import pl.modelsView.StanZywionychNaDzienVM;
@@ -62,6 +65,8 @@ import pl.modelsView.StanZywionychNaDzienVM;
  * @author k.skowronski
  */
 public class MenuController extends SelectorComposer<Component> {
+    
+    Session sess = Sessions.getCurrent();
     
     AuthenticationService authService = new AuthenticationServiceChapter8Impl();
     
@@ -80,6 +85,9 @@ public class MenuController extends SelectorComposer<Component> {
     
     // dal raportow
     public GzEventDTO gzEve;
+    
+    private SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
 
     
     @Wire
@@ -92,7 +100,10 @@ public class MenuController extends SelectorComposer<Component> {
     private Vlayout result; //wired to a component called result
     
     @Wire
-    private Datebox naDzien;     
+    private Datebox naDzien;   
+    
+    @Wire
+    private Label selectedDiet; 
     
     @Wire
     private Combobox cmbGZ;   
@@ -208,8 +219,7 @@ public class MenuController extends SelectorComposer<Component> {
     @Listen("onClick=button#drukujDS")
     public void drukujDS(Event event) throws FileNotFoundException, DocumentException, IOException {
           // Messagebox.show("sdfsdf");
-          SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
-          SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
+          
 
           // 02. Generation raport 
           
@@ -572,6 +582,14 @@ public class MenuController extends SelectorComposer<Component> {
  
         
           
+    }
+    
+    
+    
+    @Listen("onClick=button#restJadlospisForDietInDay")
+    public void restJadlospisForDietInDay(Event event) throws FileNotFoundException, DocumentException, IOException {
+         //final Session sess = Sessions.getCurrent();
+         System.out.println( gzEve.getGzRaprot() + " " + dtf.format( gzEve.getNaDzienRaport() ).toString() + " " + Sessions.getCurrent().getAttribute("dietId"));
     }
     
     private BigDecimal changeNullOnZero( BigDecimal val )

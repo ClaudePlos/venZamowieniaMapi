@@ -9,8 +9,8 @@
 <!-- 
 Default theme provider
 Users may replace the default with their own custom theme provider in WEB-INF/zk.xml.
--->
-<theme-provider-class>org.zkoss.zkex.theme.StandardThemeProvider</theme-provider-class>
+
+<theme-provider-class>org.zkoss.zkex.theme.StandardThemeProvider</theme-provider-class>-->
 </desktop-config>
 
 <system-config>

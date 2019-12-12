@@ -31,7 +31,7 @@
 </style> 
     
     <hbox hflex="1" vflex="1" align="center">
-        <a href="http://www.vendiservis.pl/"><image src="../zul/imgs/vendi_logo2.png" width="90px" /></a>
+        <a href="http://www.naprzod.pl/"><image src="../zul/imgs/cooking_logo.png" width="90px" /></a>
         
         <div>
             
@@ -39,6 +39,9 @@
             
             <label value="STAN ŻYWIONYCH NA DZIEŃ " sclass="banner-head" style="font-weight: bold;font-size:20px" />
             <label id="l1" value=""></label><separator bar="true" />
+            <!-- wersja -->
+            <label style="font-weight: bold;font-size:9px">v19.12</label>
+          
             <label id="l2" value=""></label>
             <!-- <vlayout id="result"/>  -->
              <zscript>
@@ -83,9 +86,10 @@
                 </template>
             </grid>
         -->
-        
-        <hbox hflex="1" vflex="1" pack="end" align="end">
-          <!--  Witaj <label value="win.serviceFacade.user.kod"/> -->
+        <hbox hflex="1" vflex="1" pack="end" align="end">  
+            <!--  Witaj <label value="win.serviceFacade.user.kod"/> -->      
         </hbox>
     </hbox>
+    
 </window>
+

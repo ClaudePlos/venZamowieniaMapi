@@ -20,7 +20,6 @@ import org.zkoss.zul.Spinner;
 import org.zkoss.zul.Textbox;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.modelsView.StanZywionychNaDzienVM;
-
 /**
  *
  * @author k.skowronski

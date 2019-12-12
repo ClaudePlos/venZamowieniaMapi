@@ -1,4 +1,5 @@
-      <zk>  
+      <zk> 
+          
        <style> .red { color: red; font-size: 20px; } </style> 
        <window apply="org.zkoss.bind.BindComposer" id="meals" renderdefer="100"
         viewModel="@id('vm') @init('pl.modelsView.StanZywionychNaDzienVM')"
@@ -111,9 +112,8 @@
                                  />
                     </div>
                 </window>
-            <!-- wersja -->      
-            <label style="font-weight: bold;font-size:9px">v1920</label>
-        
+            
+            <label id="selectedDiet"/>
                 
             </hlayout>  
             
@@ -249,7 +249,7 @@
 		<listitem>
                     
                     <listcell label="@load(sz.lp)"/>
-                    <listcell label="@load(sz.dietaNazwa)" />
+                    <listcell label="@load(sz.dietaNazwa)" value="@load(sz.idDieta)" onClick="test(self)"/>
                     
                     <!-- Dane Stanow Zywionych ********************************** PLAN  -->
                     
@@ -387,6 +387,11 @@
             // juz nie dziala, ale chodzilo jako w intbox  i dla korekt onClickRowGridKor
             import java.io.IOException;
             import pl.modelsView.StanZywionychNaDzienVM;
+            import java.math.BigDecimal;
+            import org.zkoss.zk.ui.Session;
+            import org.zkoss.zk.ui.Sessions;
+    
+            Session sess = Sessions.getCurrent();
            
             void onClickRowGrid(Intbox ds) { 
             
@@ -421,6 +426,16 @@
 					listitem.setStyle("background-color: green;");
 				}
             }
+    
+            void test(Listcell lc) {
+              //System.out.println("test" + );
+              
+              BigDecimal dietId = lc.getValue();
+              String dietName = lc.getLabel();
+              selectedDiet.value = "Zaznaczona dieta: " + dietName + "|" + dietId.toString();
+              sess.setAttribute("dietId", dietId.toString());
+            }
+    
     
     
 
