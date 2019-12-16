@@ -19,12 +19,16 @@ import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -89,6 +93,7 @@ public class MenuController extends SelectorComposer<Component> {
     private SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
     private SimpleDateFormat dtf1 = new SimpleDateFormat("yyyy_MM_dd");
 
+    URL url;
     
     @Wire
     private Window win;
@@ -592,6 +597,10 @@ public class MenuController extends SelectorComposer<Component> {
          System.out.println( gzEve.getGzRaprot() + " " + dtf.format( gzEve.getNaDzienRaport() ).toString() 
                  + " " + Sessions.getCurrent().getAttribute("dietId")
                  + " " + Sessions.getCurrent().getAttribute("gzId"));
+         
+         String url = "http://localhost:8080/venZamowieniaMapi/additionalInfo/jadlospisForDietInDay/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
+                 + "&dietId=" + Sessions.getCurrent().getAttribute("dietId") + "&forDay=" + dtf.format( gzEve.getNaDzienRaport() ).toString();
+         Executions.getCurrent().sendRedirect(url, "_blank");
     }
     
     private BigDecimal changeNullOnZero( BigDecimal val )

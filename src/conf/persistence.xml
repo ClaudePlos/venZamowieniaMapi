@@ -3,6 +3,10 @@
   <persistence-unit name="venZamowieniaMapiPU2" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>oracle_local_mapi</jta-data-source>
+    <class>pl.models.GrupaZywionychVO</class>
+    <class>pl.models.JadlospisViewVO</class>
+    <class>pl.models.KierunekKosztowVO</class>
+    <class>pl.models.OperatorVO</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.show_sql" value="false"/>
