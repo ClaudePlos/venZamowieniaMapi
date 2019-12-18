@@ -13,11 +13,14 @@
     -->
    
 <vbox hflex="1" vflex="1" align="center">
-    <image src="../imgs/dol.jpg"/> 
+<!--    <image src="../imgs/dol.jpg"/> 
     <label value="Projekt współfinansowany ze środków Europejskiego Funduszu Rozwoju Regionalnego w ramach Programu Operacyjnego Innowacyjna Gospodarka"/>   
     <label value="Tytuł projektu: Stworzenie elektronicznej platformy B2B do obsługi procesów dostaw i zamówień w ramach działalności cateringowej prowadzonej przez spółkę Vendi Servis"/> 
-    <label value="Numer Umowy o dofinasowanie: UDA-POIG.08.02.00--14-331/13-00"/>     
-        #zamowieniavendi ZK ${desktop.webApp.version}
-    <a href="http://www.vendiservis.pl/">http://www.vendiservis.pl/</a>
+    <label value="Numer Umowy o dofinasowanie: UDA-POIG.08.02/>     -->
+    <a href="http://naprzod.pl/">
+			<image src="../imgs/cooking_logo.png" width="90px" />
+		</a>
+        #zamowienia
+    <a href="http://naprzod.pl/">webside</a>
 </vbox>
 </div>
