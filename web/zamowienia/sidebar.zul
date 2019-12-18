@@ -7,6 +7,7 @@
             <button id="logout" width="25px" 
                     image="img/logout16x16.png"
                     tooltiptext="Wyloguj"
+                    style="text-shadow: none; border: none; background:none"
                     label="" onClick="">
             </button>
         </row>
@@ -14,13 +15,23 @@
             <button id="drukujDS" width="25px" 
                     image="img/print16x16.png"
                     tooltiptext="Stan Zywionych w PDF"
+                    style="text-shadow: none; border: none; background:none"
+                    label="" onClick="">
+            </button>
+        </row>
+        <row>
+            <button id="restWartOdzywczaForDietInDay" width="25px" 
+                    image="img/chart_bar_icon16.png"
+                    tooltiptext="Wartość odżywcza"
+                    style="text-shadow: none; border: none; background:none"
                     label="" onClick="">
             </button>
         </row>
         <row>
             <button id="restJadlospisForDietInDay" width="25px" 
-                    image="img/tank-16.png"
-                    tooltiptext="Jadlospis z dnia dla danej diety"
+                    image="img/doc_lines_icon16.png"
+                    tooltiptext="Jadłospis"
+                    style="text-shadow: none; border: none; background:none"
                     label="" onClick="">
             </button>
         </row>

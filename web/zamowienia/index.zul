@@ -35,7 +35,7 @@
             <include src="banner.zul"/>
         </north>
         
-        <west width="39px" border="none" collapsible="true" splittable="false" minsize="300">
+        <west width="37px" border="none" collapsible="true" splittable="false" minsize="300">
             <include src="sidebar.zul"/>
         </west>
         

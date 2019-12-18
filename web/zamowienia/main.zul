@@ -51,7 +51,7 @@
                 -->
                 
                 <button label="Zapisz" id="zapisz"  sclass="@bind(vm.statusZamowienia eq 'STATUS KOREKTA - zapisuje tylko korektę' ?'red':'')"
-                    onClick="@command('zapiszStanZyw')" /> 
+                    mold="trendy" onClick="@command('zapiszStanZyw')" /> 
                 
                 <vlayout>
                     <checkbox label="Aktywuj Korektę" 

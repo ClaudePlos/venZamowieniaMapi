@@ -1,14 +1,12 @@
 package pl.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -17,8 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "v_jadlospisy")
-@XmlRootElement
-public class JadlospisViewVO {
+public class JadlospisViewVO implements Serializable {
     
     
     @Id

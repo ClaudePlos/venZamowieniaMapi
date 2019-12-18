@@ -591,6 +591,19 @@ public class MenuController extends SelectorComposer<Component> {
     
     
     
+    @Listen("onClick=button#restWartOdzywczaForDietInDay")
+    public void restWartOdzywczaForDietInDay(Event event) throws FileNotFoundException, DocumentException, IOException {
+         //final Session sess = Sessions.getCurrent();
+         System.out.println( gzEve.getGzRaprot() + " " + dtf.format( gzEve.getNaDzienRaport() ).toString() 
+                 + " " + Sessions.getCurrent().getAttribute("dietId")
+                 + " " + Sessions.getCurrent().getAttribute("gzId"));
+         
+         String url = "http://localhost:8080/venZamowieniaMapi/additionalInfo/wartoscOdzywczaInfo/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
+                 + "&dietId=" + Sessions.getCurrent().getAttribute("dietId") + "&forDay=" + dtf.format( gzEve.getNaDzienRaport() ).toString();
+         Executions.getCurrent().sendRedirect(url, "_blank");
+    }
+    
+    
     @Listen("onClick=button#restJadlospisForDietInDay")
     public void restJadlospisForDietInDay(Event event) throws FileNotFoundException, DocumentException, IOException {
          //final Session sess = Sessions.getCurrent();
