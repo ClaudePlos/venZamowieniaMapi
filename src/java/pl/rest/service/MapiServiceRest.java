@@ -74,8 +74,9 @@ public class MapiServiceRest {
             
             List<JadlospisViewVO> jList = mapiApi.getInfWartoscOdzywczaForDiet(dietId, forDay);
             
-            for (JadlospisViewVO j : jList) {
-                List<JadlospisSkladnikiViewVO> jsList = mapiApi.getInfAboutJadlospisForDiet( j.getIdJadlospis() );
+            
+             for (int i = 0; i < jList.size(); i++) {    
+                List<JadlospisSkladnikiViewVO> jsList = mapiApi.getInfAboutJadlospisForDiet( jList.get(i).getIdJadlospis() );
                 
                 for ( JadlospisSkladnikiViewVO js : jsList ){;
                 jsL.add(js);

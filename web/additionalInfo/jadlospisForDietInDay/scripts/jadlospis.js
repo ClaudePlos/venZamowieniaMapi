@@ -33,7 +33,7 @@ function createCORSRequest(method, url) {
 }
 
 function getInfAboutJadlospisForDiet(parameters, callback){
-	var url = 'http://localhost:8080/venZamowieniaMapi/webresources/mapiServiceRest/getInfAboutJadlospisForDiet'; //TODO
+	var url = mainUrl + '/venZamowieniaMapi/webresources/mapiServiceRest/getInfAboutJadlospisForDiet'; //TODO
 
         var xhr = createCORSRequest('POST', url);
               xhr.setRequestHeader("Content-Type", "application/json");
