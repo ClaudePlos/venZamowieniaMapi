@@ -77,7 +77,7 @@ public class MenuController extends SelectorComposer<Component> {
     @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
 
-    
+    String mainUrl = "http://localhost:8080"; //TEST 
 
     List<GrupaZywionychVO> grupyZywionych;
     
@@ -598,7 +598,7 @@ public class MenuController extends SelectorComposer<Component> {
                  + " " + Sessions.getCurrent().getAttribute("dietId")
                  + " " + Sessions.getCurrent().getAttribute("gzId"));
          
-         String url = "http://localhost:8080/venZamowieniaMapi/additionalInfo/wartoscOdzywczaInfo/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
+         String url = mainUrl + "/venZamowieniaMapi/additionalInfo/wartoscOdzywczaInfo/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
                  + "&dietId=" + Sessions.getCurrent().getAttribute("dietId") + "&forDay=" + dtf.format( gzEve.getNaDzienRaport() ).toString();
          Executions.getCurrent().sendRedirect(url, "_blank");
     }
@@ -611,7 +611,7 @@ public class MenuController extends SelectorComposer<Component> {
                  + " " + Sessions.getCurrent().getAttribute("dietId")
                  + " " + Sessions.getCurrent().getAttribute("gzId"));
          
-         String url = "http://localhost:8080/venZamowieniaMapi/additionalInfo/jadlospisForDietInDay/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
+         String url = mainUrl + "/venZamowieniaMapi/additionalInfo/jadlospisForDietInDay/index.html?gzId=" + Sessions.getCurrent().getAttribute("gzId")
                  + "&dietId=" + Sessions.getCurrent().getAttribute("dietId") + "&forDay=" + dtf.format( gzEve.getNaDzienRaport() ).toString();
          Executions.getCurrent().sendRedirect(url, "_blank");
     }
