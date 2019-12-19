@@ -81,202 +81,101 @@ function generateDisabilityForWorkersOnSk(parameters){
 		//HEAD
 	 var trHead = document.createElement('TR');
 	 tableThead.appendChild(trHead);
+         
+         //00 lp
+	 var tdHead01 = document.createElement('TD');
+			 tdHead01.width = '175';
+			 tdHead01.setAttribute("style", "font-weight:bold");
+			 tdHead01.appendChild(document.createTextNode("LP"));
+			 trHead.appendChild(tdHead01);
+         
 	 //01 cell
 	 var tdHead01 = document.createElement('TD');
 			 tdHead01.width = '175';
 			 tdHead01.setAttribute("style", "font-weight:bold");
-			 tdHead01.appendChild(document.createTextNode("Dieta Kod"));
+			 tdHead01.appendChild(document.createTextNode("Nazwa Skladnik"));
 			 trHead.appendChild(tdHead01);
 	 //02 cell
 	 var tdHead02 = document.createElement('TD');
 			 tdHead02.width = '175';
 			 tdHead02.setAttribute("style", "font-weight:bold");
-			 tdHead02.appendChild(document.createTextNode("Dieta Nazwa"));
+			 tdHead02.appendChild(document.createTextNode("Posilek Kod"));
 			 trHead.appendChild(tdHead02);
 	 //03 cell
 	 var tdHead = document.createElement('TD');
 			 tdHead.width = '175';
 			 tdHead.setAttribute("style", "font-weight:bold");
-			 tdHead.appendChild(document.createTextNode("Data"));
+			 tdHead.appendChild(document.createTextNode("Rodzaj"));
 			 trHead.appendChild(tdHead);
 
 	 //04 cell
 	 var tdHead = document.createElement('TD');
 			 tdHead.width = '175';
 			 tdHead.setAttribute("style", "font-weight:bold");
-			 tdHead.appendChild(document.createTextNode("Energia kcal"));
+			 tdHead.appendChild(document.createTextNode("Ilość"));
 			 trHead.appendChild(tdHead);
 
 	 var tdHead = document.createElement('TD');
 			 tdHead.width = '175';
 			 tdHead.setAttribute("style", "font-weight:bold");
-			 tdHead.appendChild(document.createTextNode("Białko ogółem"));
+			 tdHead.appendChild(document.createTextNode("Gramatura"));
 			 trHead.appendChild(tdHead);
 
 	 var tdHead = document.createElement('TD');
  			tdHead.width = '175';
  			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Tłuszcz"));
+ 			tdHead.appendChild(document.createTextNode("jm Gramatura Dania"));
 			 trHead.appendChild(tdHead);
 			 
 	var tdHead = document.createElement('TD');
  			tdHead.width = '175';
  			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Węglowodany ogółem"));
+ 			tdHead.appendChild(document.createTextNode("jm Kod"));
 			 trHead.appendChild(tdHead);
 			 
-	var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Błonnik pokarmowy"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Sód"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Cholesterol"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Żelazo"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Fenyloalanina"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Witamina A (ekwiw.retinolu)"));
- 			trHead.appendChild(tdHead); 
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Witamina C"));
- 			trHead.appendChild(tdHead); 
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Tiamina"));
- 			trHead.appendChild(tdHead); 
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Sacharoza"));
- 			trHead.appendChild(tdHead); 
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Potas"));
- 			trHead.appendChild(tdHead);      
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Fosfor"));
- 			trHead.appendChild(tdHead);
-                        
-        var tdHead = document.createElement('TD');
- 			tdHead.width = '175';
- 			tdHead.setAttribute("style", "font-weight:bold");
- 			tdHead.appendChild(document.createTextNode("Wapń"));
- 			trHead.appendChild(tdHead);                 
-                        
+	
         for (var i in listJadlospis) {
+            
+            listJadlospis.sort(function(a, b){
+		    if(a.lp < b.lp) { return -1; }
+		    if(a.lp > b.lp) { return 1; }
+		    return 0;
+		})
             
             var tableBody = document.createElement('TBODY');
             table.appendChild(tableBody);
             var tr = document.createElement('TR');
  			 
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].dietaKod));
+            td.appendChild(document.createTextNode(listJadlospis[i].lp));
             tr.appendChild(td);
 
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].dietaNazwa));
+            td.appendChild(document.createTextNode(listJadlospis[i].nazwaSkladnik));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].dObr));
+            td.appendChild(document.createTextNode(listJadlospis[i].posilekKod));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w1 + " kcal"));
+            td.appendChild(document.createTextNode(listJadlospis[i].rodzaj));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w2+ " g"));
+            td.appendChild(document.createTextNode(listJadlospis[i].ilosc));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w3 + " g"));
+            td.appendChild(document.createTextNode(listJadlospis[i].gramatura));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w4 + " g"));
+            td.appendChild(document.createTextNode(listJadlospis[i].jmGramaturaDania));
             tr.appendChild(td);
             
             var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w5 + " g"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w6 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w7 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w8 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w9 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w10 + " ug"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w11 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w12 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w13 + " g"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w14 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w15 + " mg"));
-            tr.appendChild(td);
-            
-            var td = document.createElement('TD');
-            td.appendChild(document.createTextNode(listJadlospis[i].w16 + " mg"));
+            td.appendChild(document.createTextNode(listJadlospis[i].jmKod));
             tr.appendChild(td);
 
             tableBody.appendChild(tr);
