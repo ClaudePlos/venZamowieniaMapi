@@ -29,7 +29,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(pl.rest.service.GrupaZywionychVORESTFacade.class);
         resources.add(pl.rest.service.MapiServiceRest.class);
     }
     

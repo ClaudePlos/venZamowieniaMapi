@@ -77,7 +77,7 @@ public class StanZywionychReportsVM {
     
     final JPanel panel = new JPanel();
     
-    @EJB 
+
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
     java.util.List<NapMapowaniaCenyVO> napMapowaniaCenyList = new ArrayList<NapMapowaniaCenyVO>();

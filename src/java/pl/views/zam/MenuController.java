@@ -75,7 +75,7 @@ public class MenuController extends SelectorComposer<Component> {
     AuthenticationService authService = new AuthenticationServiceChapter8Impl();
     
     @EJB 
-    ServiceFacade serviceFacade = ServiceFacade.getInstance();
+    ServiceFacade serviceFacade; // = ServiceFacade.getInstance();
 
     String mainUrl = "http://localhost:8080"; //TEST 
 

@@ -51,7 +51,7 @@ public class MapiServiceRest {
             return response;
 
         } catch (Exception e) {
-            System.out.print("getInfAboutJadlospisForDiet:" + e);
+            System.out.print("getInfAboutWartoscOdzywczaForDiet:" + e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
 
@@ -78,7 +78,7 @@ public class MapiServiceRest {
              for (int i = 0; i < jList.size(); i++) {    
                 List<JadlospisSkladnikiViewVO> jsList = mapiApi.getInfAboutJadlospisForDiet( jList.get(i).getIdJadlospis() );
                 
-                for ( JadlospisSkladnikiViewVO js : jsList ){;
+                for ( JadlospisSkladnikiViewVO js : jsList ){
                 jsL.add(js);
                 }
             }

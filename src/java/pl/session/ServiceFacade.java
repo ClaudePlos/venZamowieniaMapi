@@ -40,20 +40,24 @@ import pl.models.StanZywionychMMRapRozDTO;
 import pl.models.StanZywionychNaDzienDTO;
 import pl.models.StanZywionychNaDzienSumaDTO;
 import java.util.Date;
+import javax.ejb.LocalBean;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.persistence.PersistenceContext;
 import pl.models.reports.KtoWprowadzilDaneDTO;
+import pl.server.NapBeanBase;
 
 
 /**
  *
  * @author k.skowronski
  */
-@Stateless
-public class ServiceFacade {
+public class ServiceFacade extends NapBeanBase {
     
     
-    private static final EntityManagerFactory emfInstance =
-		        Persistence.createEntityManagerFactory("venZamowieniaMapiPU2");
-    private EntityManager em;
+//    private static final EntityManagerFactory emfInstance =
+//		        Persistence.createEntityManagerFactory("venZamowieniaMapiPU2");
+//    private EntityManager em;
 
     public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien;
     
@@ -67,11 +71,11 @@ public class ServiceFacade {
     
  
 
-    
-    public ServiceFacade() {
-        em = emfInstance.createEntityManager();
-    }
-    
+//    
+//    public ServiceFacade() {
+//        em = emfInstance.createEntityManager();
+//    }
+//    
     private static volatile ServiceFacade instance = null;
     
     public static ServiceFacade getInstance() {
@@ -81,6 +85,7 @@ public class ServiceFacade {
         return instance;
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public List<OperatorVO> listaOperatorow()
     {
         
@@ -432,8 +437,7 @@ public class ServiceFacade {
             
             
              try {
-                // TODO w wolnej chwili moĹĽna napisaÄ‡ ile procent danych jest juĹĽ wgrane :) 
-                //System.out.print("Zapisuje dane, wgrałem juĹĽ " + i * 100 / ileWierszy); 
+
                  
                 tx.begin();
                 

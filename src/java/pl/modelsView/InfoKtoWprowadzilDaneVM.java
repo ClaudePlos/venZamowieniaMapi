@@ -28,8 +28,7 @@ import pl.session.ServiceFacade;
  */
 public class InfoKtoWprowadzilDaneVM {
     
-    
-    @EJB 
+
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

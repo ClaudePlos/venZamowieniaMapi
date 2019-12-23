@@ -60,7 +60,6 @@ import pl.session.ServiceFacade;
 public class StanZywionychNaDzienPodsumowanieVM  {
    
      
-    @EJB 
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
     public List<StanZywionychNaDzienDTO> stanyZywionychNaDzien2;

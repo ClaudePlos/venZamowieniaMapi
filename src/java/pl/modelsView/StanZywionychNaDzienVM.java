@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -73,8 +74,7 @@ import pl.views.zam.MenuController;
 public class StanZywionychNaDzienVM extends SelectorComposer<Component> {
     
     Session sess = Sessions.getCurrent();
-    
-    @EJB 
+
     ServiceFacade serviceFacade = ServiceFacade.getInstance();
     
     private EventQueue eventGZnaDzien;
